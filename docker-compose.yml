@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  app:
+    build: .
+    container_name: "online-quiz-client"
+    ports:
+    - "80:82"
+    volumes:
+    - ./dist:/usr/app
+    environment:
+    - NODE_ENV=dev-docker
+
