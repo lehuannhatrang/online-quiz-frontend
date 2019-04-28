@@ -1,0 +1,83 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+#header-container {
+  height: 133px;
+  background-color: #8cb4d2;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  z-index: 6;
+  margin: 0 auto;
+  color: white;
+}
+
+#header-container a {
+  z-index: -1;
+}
+
+#header-container .header-wrapper {
+  width: 85%;
+  margin: 0 auto;
+  position: relative;
+}
+
+#header-room-name {
+  text-align: center;
+  width: 70%;
+  display: inline-block;
+  position: absolute;
+  top: 40px;
+  left: 15%;
+  font-weight: 300;
+  font-size: 25px;
+}
+
+.logo-icon {
+  font-size: 60px;
+  padding-top: 15px;
+}
+
+#header-username {
+  display: inline-block;
+  position: absolute;
+  top: 30px;
+  right: 10px;
+}
+#header-username i{
+  margin-left: 10px;
+}
+#header-nav {
+  position: absolute;
+  margin-top: 20px;
+}
+
+#header-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+#header-nav ul li {
+  cursor: pointer;
+  display: inline-block;
+  letter-spacing: .5px;
+  margin-right: 2px;
+  padding: 8px 8px 8px;
+  text-align: center;
+  text-transform: uppercase;
+  min-width: 100px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+#header-nav ul li.selected{
+  border-bottom: 2px solid;
+}
