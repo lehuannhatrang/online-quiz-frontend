@@ -4,6 +4,7 @@ import Login from "../login";
 import DashBoard from "../dashboard";
 import NotFound from "../errors/NotFound";
 import If from "../../components/control/If";
+import Teacher from "../teacher"
 
 class Router extends Component {
     constructor(props) {
@@ -18,6 +19,8 @@ class Router extends Component {
                 <Switch>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/" component={DashBoard}/>
+                    <Route exact path="/teacher" component={Teacher}/>
+
                     <Route path="" component={NotFound} />
                 </Switch>
             </div>
