@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import './dashboard.css';
+import {connect} from "react-redux";
+import {createStructuredSelector} from 'reselect';
+import {selectCurrentUser} from "../app/selectors";
+import {fetchUser} from "../app/actions";
 
 class DashBoard extends Component {
     constructor(props) {
@@ -20,12 +24,39 @@ class DashBoard extends Component {
                   <li><a href="#">Helps</a></li>
                   <li><a href="#">About</a></li>
                   <li><a href="#">Price</a></li>
-                  <li><a href="#" className="login-btn">
-                    <button className="btn sml">LOGIN</button>
-                  </a></li>
-                  <li><a href="#" className="login-btn">
-                    <button className="btn sml">REGISTER</button>
-                  </a></li>
+                  
+                  {!localStorage.getItem('userToken') && (
+                      <li>
+                        <a href="/login" className="login-btn">
+                          <button className="btn sml">LOGIN</button>
+                        </a>
+                      </li>
+                  )}
+
+                  {localStorage.getItem('userToken') && (
+                      <li>
+                        <a href="#" className="login-btn">
+                          <button className="btn sml">{`Hello ${this.props.user.userInfo?this.props.user.userInfo.displayName: "there"}`}</button>
+                        </a>
+                      </li>
+                  )}
+
+                  {!localStorage.getItem('userToken') && (
+                      <li>
+                        <a href="/signup" className="login-btn">
+                          <button className="btn sml">REGISTER</button>
+                        </a>
+                      </li>
+                  )}
+                  
+                  {localStorage.getItem('userToken') && (
+                      <li>
+                        <a href="/" className="login-btn">
+                          <button onClick={() => localStorage.clear()} className="btn sml">LOGOUT</button>
+                        </a>
+                      </li>
+                  )}
+                  
                 </ul>
               </nav>
             </div>
@@ -49,4 +80,14 @@ class DashBoard extends Component {
 
 }
 
-export default DashBoard;
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchUser: () => dispatch(fetchUser()),
+  }
+}
+
+const mapStateToProps = createStructuredSelector({
+  user: selectCurrentUser(),  
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashBoard);
