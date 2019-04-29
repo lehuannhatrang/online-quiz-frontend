@@ -1,7 +1,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 #header-container {
@@ -31,13 +31,14 @@ body {
   position: absolute;
   top: 40px;
   left: 15%;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 25px;
 }
 
 .logo-icon {
   font-size: 60px;
   padding-top: 15px;
+  padding-left: 10px;
 }
 
 #header-username {
@@ -45,10 +46,14 @@ body {
   position: absolute;
   top: 30px;
   right: 10px;
+  font-size: 17px;
 }
+
 #header-username i{
   margin-left: 10px;
 }
+
+
 #header-nav {
   position: absolute;
   margin-top: 20px;
@@ -68,7 +73,7 @@ body {
   display: inline-block;
   letter-spacing: .5px;
   margin-right: 2px;
-  padding: 8px 8px 8px;
+  padding: 8px 8px 10px;
   text-align: center;
   text-transform: uppercase;
   min-width: 100px;
@@ -80,4 +85,12 @@ body {
 
 #header-nav ul li.selected{
   border-bottom: 2px solid;
+}
+
+a{
+  text-decoration: none;
+  color: #fff;
+}
+a:hover{
+  text-decoration: none;
 }
