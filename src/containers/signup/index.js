@@ -1,40 +1,26 @@
 import React, {Component} from 'react';
-import {Redirect} from "react-router-dom";
 import {login} from "../app/actions";
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import {selectUserToken} from "../app/selectors";
-import Config from "../../../configs";
-import LoginForm from "./Form";
+import SignUpnForm from "./Form";
+import HttpUtil from "../../utils/http.util"
 
-class Login extends Component {
+class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {
-                username:'',
-                password:''
-            }
         }
 
     }
 
-    componentWillMount() {
-        const redirect = this.props.location.state ? this.props.location.state.redirect ? this.props.location.state.redirect : '/' : '/';
-        // if (!localStorage.getItem('userToken') && !localStorage.getItem('user')) {
-        //     window.location = `${Config.BACKEND_API_URL}/auth/login/local?redirect=${Config.FRONT_END_HOST}${redirect}&checkUser=true`
-        // }
-    }
-
-    onSubmitForm(fields) {
-        this.props.login(fields.get('username'), fields.get('password'));
+    async onSubmitForm(fields) {
+        await delete fields.retypePassword;
+        const data = await fields.toJS();
+        return HttpUtil.postJson("/signup", data);
     }
 
     render() {
-        const redirect = this.props.location.state ? this.props.location.state.redirect ? this.props.location.state.redirect : '/' : '/';
-        if (localStorage.getItem('userToken')) {
-            return <Redirect to={redirect}/>
-        }
         return (
             <div className="center-screen">
                 <div className="container">
@@ -43,7 +29,7 @@ class Login extends Component {
                             <div className="card-group">
                                 <div className="card p-4">
                                     <div className="card-body">
-                                        <LoginForm onSubmit={(fields) => this.onSubmitForm(fields) } />
+                                        <SignUpnForm onSubmit={(fields) => this.onSubmitForm(fields) } />
                                     </div>
                                 </div>
                             </div>
@@ -66,4 +52,4 @@ const mapStateToProps = createStructuredSelector({
     token: selectUserToken(),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
