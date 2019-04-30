@@ -67,7 +67,7 @@ class SignUpForm extends Component {
                             <div className="input-group-prepend">
                                 <span className="input-group-text"><i className="icon-lock"></i></span>
                             </div>
-                            <Field name="retype-password" type="password" className="form-control" placeholder="Retype password" component="input" 
+                            <Field name="retypePassword" type="password" className="form-control" placeholder="Retype password" component="input" 
                             onChange={(e) => this.setState({retypePassword : e.target.value}) }/>
 
                             {this.state.password === this.state.retypePassword &&(
