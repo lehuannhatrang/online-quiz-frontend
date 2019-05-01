@@ -1,0 +1,40 @@
+.header {
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-right: 15px;
+}
+
+.header button:hover {
+    background-color: #ddd !important;
+    color: black;
+}
+
+.header button {
+    border: none;
+    color: black;
+    font-weight: bold;
+    margin-left: 10px;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.header button:first-child {
+    margin-left: 15px;
+}
+
+.user-profile {
+    background-color: transparent;
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+.user-profile a:link, .user-profile a:visited {
+    color: black !important;
+    font-weight: 400;
+}
+
+.user-profile:hover {
+    background-color: #ddd;
+    border: 1px solid transparent;
+    border-radius: 20px;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './containers/app';
-
+import 'antd/dist/antd.css';
 import {Provider} from 'react-redux';
 import {ConnectedRouter} from 'connected-react-router/immutable';
 import configureStore from './web.config/config.store';

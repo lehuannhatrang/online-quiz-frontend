@@ -5,16 +5,19 @@
 .footer {
     background-color: transparent;
     font-weight: 400;
+    color: #888;
+    padding: 24px 0px !important;
+    padding-left: 20px !important;
 }
 
 a:link, a:visited {
-    color: green;
+    color: #1890ff;
     text-decoration: none;
     font-weight: bold;
 }
 
 a:hover, a:active {
-    color: #080008;
+    color: blue;
 }
 
 .footer .text-pulse {
