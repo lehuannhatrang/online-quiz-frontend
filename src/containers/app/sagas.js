@@ -3,14 +3,18 @@ import {
     AUTHENTICATE, 
     FETCH_USER, 
     FETCH_USERS, 
-    FETCH_USERS_ACTIONS
+    FETCH_USERS_ACTIONS,
+    FETCH_QUIZZES,
+    FETCH_QUESTIONS,
 } from "./constants";
 import {
     error, 
     fetchUserActionsSuccess, 
     fetchUsersSuccess,
     fetchUserSuccess,
-    loginSuccess
+    loginSuccess,
+    fetchQuizzesSuccess,
+    fetchQuestionsSuccess,
 } from "./actions";
 
 import HttpUtils from '../../utils/http.util';
@@ -102,9 +106,53 @@ function* fetchUserActionsWatcher() {
     yield takeLatest(FETCH_USERS_ACTIONS, fetchUserActions)
 }
 
-function* doFetchUserActions() {
+function* doFetchQuizzes() {
     yield fork(fetchUserActionsWatcher)
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchQuizzes() {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization('/quiz/list');
+        if (data) {
+            yield put(fetchQuizzesSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchQuizzesWatcher() {
+    yield takeLatest(FETCH_QUIZZES, fetchQuizzes)
+}
+
+function* doFetchUserActions() {
+    yield fork(fetchQuizzesWatcher)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchQuestions(target) {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization(`/quiz/questions/${target.id}`);
+        if (data) {
+            yield put(fetchQuestionsSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchQuestionsWatcher() {
+    yield takeLatest(FETCH_QUESTIONS, fetchQuestions)
+}
+
+function* doFetchQuestions() {
+    yield fork(fetchQuestionsWatcher)
+}
+
 
 export default function* root() {
     
@@ -114,6 +162,8 @@ export default function* root() {
             doFetchUser(),
             doFetchUserActions(),
             doFetchUsers(),
+            doFetchQuizzes(),
+            doFetchQuestions(),
         ])
     } catch (e) {
         console.log(e)

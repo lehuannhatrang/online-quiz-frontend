@@ -4,7 +4,9 @@ class QuizTable extends Component {
   constructor(props) {
     super(props);
   }
+  
   render(){
+    const quizzes = this.props.data.filter(data => data.name.indexOf(this.props.searchingText) > -1);
     return(
       <div>
         <table className="quizzes-table">
@@ -16,17 +18,17 @@ class QuizTable extends Component {
               <th className="edit-column quizz-column-heading">EDIT</th>
             </tr>
 
-            { this.props.data.map(quiz => {return(
+            { quizzes.map(quiz => {return(
               <tr key={quiz.id}>
                 <td className="name-column quizz-column">{quiz.name}</td>
                 <td className="date-column quizz-column">{quiz.date}</td>
                 <td className="delete-column quizz-column">
-                  <a href="#">
+                  <a href="#" onClick={() => this.props.deleteQuiz(quiz.id)}>
                     <i className="ion-close-round"></i>
                   </a>
                 </td>
                 <td className="edit-column quizz-column">
-                  <a href={`/teacher/quiz/${quiz.id}`}>
+                  <a href={`/teacher/quizz/edit/${quiz.id}`}>
                     <i className="ion-edit"></i>
                   </a>
                 </td>
@@ -34,7 +36,7 @@ class QuizTable extends Component {
             )}
             )}
 
-            {(!this.props.data || this.props.data.length === 0) && (
+            {(!quizzes || quizzes.length === 0) && (
               <tr>
                 <td className="name-column quizz-column">No data found</td>
                 <td className="date-column quizz-column"></td>
@@ -47,22 +49,6 @@ class QuizTable extends Component {
         </table>
       </div>
     )
-
-
-    return <tr>
-    <td className="name-column quizz-column">{this.props.quizName}</td>
-    <td className="date-column quizz-column">{this.props.quizDate}</td>
-    <td className="delete-column quizz-column">
-      <a href="#">
-        <i className="ion-close-round"></i>
-      </a>
-    </td>
-    <td className="edit-column quizz-column">
-      <a href="#">
-        <i className="ion-edit"></i>
-      </a>
-    </td>
-    </tr>
   }
 }
 export default QuizTable;
