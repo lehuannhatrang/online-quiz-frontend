@@ -9,7 +9,7 @@ import NewQuiz from "../teacher/newquiz";
 import EditQuiz from "../teacher/editQuiz";
 import Room from "../teacher/room";
 import SignUp from "../signup";
-
+import Admin from "../admin";
 
 class Router extends Component {
     constructor(props) {
@@ -37,6 +37,7 @@ class Router extends Component {
                     <Route exact path="/teacher/room" component={Room}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/signup" component={SignUp}/>
+                    <Route path="/admin" component={Admin} />
                     <Route path="" component={NotFound} />
                 </Switch>
             </div>
