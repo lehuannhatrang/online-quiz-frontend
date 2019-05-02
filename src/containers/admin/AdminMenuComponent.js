@@ -4,12 +4,20 @@ import { Layout, Menu, Icon, Drawer } from 'antd';
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
-function RenderLogo( {small} ) {
+function RenderLogo( {small, theme} ) {
+    let x = {};
+    if (theme === 'light') {
+        x.color = 'black';
+    }
+    else {
+        x.color = 'white';
+    }
+
     return small ?
-        (<h5 className="text-center mb-0" style={{color: 'white', padding: '16.5px'}}><span style={{color: '#1890ff'}}>O</span>Q</h5>)
+        (<h5 className="text-center mb-0" style={{color: 'white', padding: '16.5px'}}><span style={{color: '#1890ff'}}>O</span><span style={x}>Q</span></h5>)
         : (<h5 className="text-center mb-0" style={{color: 'white', padding: '16.5px'}}>
             <Icon type="trophy" theme="twoTone"/>{' '}
-            <span style={{color: '#1890ff'}}>Online</span>Quiz
+            <span style={{color: '#1890ff'}}>Online</span><span style={x}>Quiz</span>
             </h5>);
 }
 class AdminMenu extends Component {
@@ -23,15 +31,16 @@ class AdminMenu extends Component {
                 collapsible
                 collapsed={this.props.collapsed}
                 trigger={null}
+                theme={this.props.theme}
             >
                 <div className="logo">
-                    <RenderLogo small={this.props.collapsed}/>
+                    <RenderLogo small={this.props.collapsed} theme={this.props.theme}/>
                     
                 </div>
                 <div className="text-center avatar-container">
                     
                 </div>
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+                <Menu theme={this.props.theme} mode={this.props.mode} defaultSelectedKeys={['1']}>
                     <Menu.Item key="1">
                         <Icon type="pie-chart" />
                         <span>Option 1</span>
