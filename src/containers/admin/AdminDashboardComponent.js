@@ -65,11 +65,12 @@ const myFormatter = (value) => {
 
 const ThirdGroupStatistic = (props) => {
     return (
-        <Col span={4} className="group-1-col">
+        <Col span={4} className="group-1-col group-3-col">
             <Fade top>
                 <Card className="text-center">
                     <Avatar style={{...avatarStyle, color: props.color}} size={64} icon={props.icon} />
-                    <Statistic formatter={myFormatter} value={props.quantity} suffix={props.suffix} valueStyle={{fontSize: '15px', color: 'lightgrey'}}/>
+                    <Statistic formatter={myFormatter} value={props.quantity} suffix={<small>{props.suffix}</small>} 
+                    valueStyle={{fontSize: '15px'}}/>
                 </Card>
             </Fade>
         </Col>
@@ -130,7 +131,7 @@ const AdminDashboard = (props) => {
         {
             id: 0,
             icon: 'facebook',
-            quantity: 33777,
+            quantity: 343777,
             suffix: 'members',
             color: '#6A5ACD',
         },
@@ -253,7 +254,7 @@ const AdminDashboard = (props) => {
     };
     
     const schoolData = {
-        labels: ['Primary', 'Secondary', 'High'],
+        labels: ['Primary School', 'Secondary School', 'High School'],
         datasets: [
             {
                 label: 'No. School Types',
