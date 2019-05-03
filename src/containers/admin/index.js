@@ -84,7 +84,10 @@ class Admin extends Component {
                     />
                     <Switch>
                         <Route exact path="/admin" component={AdminDashboard} />
-                        <Route exact path="/admin/dashboard" component={AdminDashboard} />
+                        <Route exact path="/admin/dashboard" 
+                            component={() => <AdminDashboard 
+                                numStudentData={[65, 159, 80, 101, 106, 135, 80]}
+                                numTeacherData={[15, 49, 30, 31, 56, 34, 12]} />} />
                         <Route exact path="/admin/users-management" component={AdminUsersManager} />
                         <Route exact path="/admin/notifications/students" component={AdminUsersManager} />
                         <Route exact path="/admin/notifications/teachers" component={AdminUsersManager} />
