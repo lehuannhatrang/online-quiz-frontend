@@ -83,7 +83,7 @@ class Admin extends Component {
                         onSelectLightTheme={this.onSelectLightTheme} onToggleAvatarShape={this.onToggleAvatarShape}
                     />
                     <Switch>
-                        <Route exact path="/admin" component={AdminDashboard} />
+                        {/* <Route exact path="/admin" component={AdminDashboard} /> */}
                         <Route exact path="/admin/dashboard" 
                             component={() => <AdminDashboard 
                                 numStudentData={[65, 159, 80, 101, 106, 135, 80]}
@@ -95,6 +95,7 @@ class Admin extends Component {
                         <Route exact path="/admin/notifications/students" component={AdminUsersManager} />
                         <Route exact path="/admin/notifications/teachers" component={AdminUsersManager} />
                         <Route exact path="/admin/settings" component={AdminUsersManager} />
+                        <Redirect to="/admin/dashboard" />
                     </Switch>
                     <AdminFooter />
                 </Layout>  

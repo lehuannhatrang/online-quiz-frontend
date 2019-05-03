@@ -39,18 +39,42 @@ const SecondGroupStatistic = (props) => {
     )
 };
 
-// const ThirdGroupStatistic = (props) => {
-//     return (
-//         <Col span={4} className="group-1-col">
-//             <Fade top>
-//                 <Card className="text-center">
-//                     <Avatar style={{...avatarStyle, color: props.color}} size={64} icon={props.icon} />
-//                     <Statistic value={props.quantity} suffix={props.suffix}/>
-//                 </Card>
-//             </Fade>
-//         </Col>
-//     )
-// };
+const myFormatter = (value) => {
+    if (value < 1000) {
+        return value;
+    }
+    else if (value < 1000000) {
+        const e = value % 1000, d = (value - e) / 1000;
+        if (e === 0) {
+            return d + "K";
+        }
+        else {
+            return "+" + d + "K";
+        }
+    }
+    else {
+        const e = value % 100000, d = (value - e) / 1000000;
+        if (e === 0) {
+            return d + "M";
+        }
+        else {
+            return "+" + d + "M";
+        }
+    }
+};
+
+const ThirdGroupStatistic = (props) => {
+    return (
+        <Col span={4} className="group-1-col">
+            <Fade top>
+                <Card className="text-center">
+                    <Avatar style={{...avatarStyle, color: props.color}} size={64} icon={props.icon} />
+                    <Statistic formatter={myFormatter} value={props.quantity} suffix={props.suffix} valueStyle={{fontSize: '15px', color: 'lightgrey'}}/>
+                </Card>
+            </Fade>
+        </Col>
+    )
+};
 
 const AdminDashboard = (props) => {
     const firstGroupStatisticContents = [
@@ -102,50 +126,50 @@ const AdminDashboard = (props) => {
         },
     ];
 
-    // const thirdGroupStatisticContents = [
-    //     {
-    //         id: 0,
-    //         icon: 'facebook',
-    //         quantity: 33777,
-    //         suffix: 'members',
-    //         color: '#6A5ACD',
-    //     },
-    //     {
-    //         id: 1,
-    //         icon: 'youtube',
-    //         quantity: 1245098,
-    //         suffix: 'subcribers',
-    //         color: 'red',
-    //     },
-    //     {
-    //         id: 2,
-    //         icon: 'twitter',
-    //         quantity: 904777,
-    //         suffix: 'followers',
-    //         color: '#1890ff',
-    //     },
-    //     {
-    //         id: 3,
-    //         icon: 'instagram',
-    //         quantity: 5033088,
-    //         suffix: 'followers',
-    //         color: 'pink',
-    //     },
-    //     {
-    //         id: 4,
-    //         icon: 'linkedin',
-    //         quantity: 999777,
-    //         suffix: 'subcribers',
-    //         color: '#4682B4',
-    //     },
-    //     {
-    //         id: 5,
-    //         icon: 'github',
-    //         quantity: 29563,
-    //         suffix: 'stars',
-    //         color: 'black',
-    //     },
-    // ];
+    const thirdGroupStatisticContents = [
+        {
+            id: 0,
+            icon: 'facebook',
+            quantity: 33777,
+            suffix: 'members',
+            color: '#6A5ACD',
+        },
+        {
+            id: 1,
+            icon: 'youtube',
+            quantity: 1245098,
+            suffix: 'subcribers',
+            color: 'red',
+        },
+        {
+            id: 2,
+            icon: 'twitter',
+            quantity: 904777,
+            suffix: 'followers',
+            color: '#1890ff',
+        },
+        {
+            id: 3,
+            icon: 'instagram',
+            quantity: 5033088,
+            suffix: 'followers',
+            color: 'pink',
+        },
+        {
+            id: 4,
+            icon: 'linkedin',
+            quantity: 999777,
+            suffix: 'subcribers',
+            color: '#4682B4',
+        },
+        {
+            id: 5,
+            icon: 'github',
+            quantity: 29563,
+            suffix: 'stars',
+            color: 'black',
+        },
+    ];
 
     const studentData = {
         labels: getRecentlyMonths(6),
@@ -295,15 +319,15 @@ const AdminDashboard = (props) => {
                     </Card>
                 </Col>
             </Row>
-            {/* <Row type="flex" justify="space-around" align="middle" style={{marginTop: '35px'}}>
+            <Row type="flex" justify="space-around" align="middle" style={{marginTop: '35px'}}>
                 <Col span={23}>
-                    <Row gutter={16}>
+                    <Row gutter={24}>
                         {thirdGroupStatisticContents.map((item) => {return (
                             <ThirdGroupStatistic key={item.id} quantity={item.quantity} icon={item.icon} color={item.color} suffix={item.suffix}/>
                         );})}
                     </Row>
                 </Col>
-            </Row> */}
+            </Row>
         </Content>
     );
 };
