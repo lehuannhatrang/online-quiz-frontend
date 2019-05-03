@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Icon, Card, Statistic, Row, Col, Avatar } from 'antd';
-import { Line } from 'react-chartjs-2';
-import getRecentlySixMonths from './shared/recentSixMonths';
+import { Line, Bar, Doughnut } from 'react-chartjs-2';
+import getRecentlyMonths from './shared/recentMonths';
 import Fade from 'react-reveal/Fade';
 
 const { Content } = Layout;
@@ -20,6 +20,19 @@ const FirstGroupStatistic = (props) => {
                     <Avatar style={avatarStyle} size={64} icon={props.icon} />
                     <Statistic valueStyle={{color: '#1890ff'}} title={props.title} value={props.quantity} 
                     suffix={props.suffix} className="group-1-statistic"/>
+                </Card>
+            </Fade>
+        </Col>
+    )
+};
+
+const SecondGroupStatistic = (props) => {
+    return (
+        <Col span={7} className="group-1-col">
+            <Fade bottom>
+                <Card className="text-center">
+                    <Avatar style={{...avatarStyle, color: 'tomato'}} size={64} icon={props.icon} />
+                    <Statistic valueStyle={{color: 'orange'}} title={props.title} value={props.quantity} />
                 </Card>
             </Fade>
         </Col>
@@ -78,7 +91,7 @@ const AdminDashboard = (props) => {
     ];
 
     const studentData = {
-        labels: getRecentlySixMonths(),
+        labels: getRecentlyMonths(6),
         datasets: [
             {
                 label: 'Number of Students',
@@ -105,7 +118,7 @@ const AdminDashboard = (props) => {
     };
 
     const teacherData = {
-        labels: getRecentlySixMonths(),
+        labels: getRecentlyMonths(6),
         datasets: [
             {
                 label: 'Number of Teachers',
@@ -131,6 +144,55 @@ const AdminDashboard = (props) => {
         ],
     };
 
+    const roomData = {
+        labels: getRecentlyMonths(9),
+        datasets: [
+            {
+                label: 'Number of Rooms',
+                fill: false,
+                lineTension: 0.03,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "rgba(75,192,192,1)",
+                borderCapStyle: "butt",
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: "miter",
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#1890ff",
+                pointBorderWidth: 4,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: props.numRoomData,
+            }
+        ]
+    };
+    
+    const schoolData = {
+        labels: ['Primary', 'Secondary', 'High'],
+        datasets: [
+            {
+                label: 'No. School Types',
+                data: props.numSchoolData,
+                backgroundColor: ['yellow', '#DC143C', '#1890ff'],
+            },
+        ],
+    };
+
+    const subjectData = {
+        labels: ['Math', 'Literature', 'Physics', 'Chemistry', 'History', 'English', 'Geography', 'IT'],
+        datasets: [
+            {
+                label: 'No. Subject Quizs',
+                data: props.subjectData,
+                backgroundColor: ['#DC143C', '#1890ff', '#FF4500', '#7CFC00', '#00FFFF', '#8A2BE2', '#FF7F50', '#9ACD32'],
+            },
+        ],
+    };
+
     return (
         <Content className="dashboard" style={{paddingTop: '50px'}}>
             <Row type="flex" justify="space-around" align="middle">
@@ -152,8 +214,29 @@ const AdminDashboard = (props) => {
             </Row>
             <Row type="flex" justify="space-around" align="middle" style={{marginTop: '35px'}}>
                 {secondGroupStatisticContents.map((item) => {return (
-                    <SecondGroupStatistic key={item.id} />
+                    <SecondGroupStatistic key={item.id} quantity={item.quantity} icon={item.icon} title={item.title}/>
                 );})}
+            </Row>
+            <Row type="flex" justify="space-around" align="middle" style={{marginTop: '35px'}}>
+                <Col span={23}>
+                    <Card title={'No. created rooms (recent 9 months)'}>
+                        <Bar data={roomData} />
+                    </Card>
+                </Col>
+            </Row>
+            <Row type="flex" justify="space-around" align="middle" style={{marginTop: '35px'}}>
+                <Col span={23}>
+                <Card>
+                    <Col span={12}>
+                        <Doughnut data={schoolData} />
+                        <div className="text-center" style={{padding: '10px', marginTop: '20px'}}>{'No. of students arranged by school types'}</div>
+                    </Col>
+                    <Col span={12}>
+                        <Doughnut data={subjectData} />
+                        <div className="text-center" style={{padding: '10px', marginTop: '20px'}}>{'No. of quizes arranged by subjects'}</div>
+                    </Col>
+                </Card>
+                </Col>
             </Row>
         </Content>
     );

@@ -3,14 +3,14 @@ function getTextOfMonth(month) {
     return textMonth[month];
 }
 
-function getRecentlySixMonths() {
+function getRecentlyMonths(num) {
     const now = new Date();
     let curMonth = now.getMonth();                //0-11
     let curYear = now.getFullYear();
 
     let recents = [];
 
-    for (let i = 0; i <= 6; ++i) {
+    for (let i = 0; i <= num; ++i) {
         if (curMonth < 0) {
             curYear--;
             curMonth += 12;
@@ -23,4 +23,4 @@ function getRecentlySixMonths() {
     return recents;
 }
 
-export default getRecentlySixMonths;
+export default getRecentlyMonths;
