@@ -39,18 +39,18 @@ const SecondGroupStatistic = (props) => {
     )
 };
 
-const ThirdGroupStatistic = (props) => {
-    return (
-        <Col span={4} className="group-1-col">
-            <Fade top>
-                <Card className="text-center">
-                    <Avatar style={{...avatarStyle, color: props.color}} size={64} icon={props.icon} />
-                    <Statistic value={props.quantity} suffix={props.suffix}/>
-                </Card>
-            </Fade>
-        </Col>
-    )
-};
+// const ThirdGroupStatistic = (props) => {
+//     return (
+//         <Col span={4} className="group-1-col">
+//             <Fade top>
+//                 <Card className="text-center">
+//                     <Avatar style={{...avatarStyle, color: props.color}} size={64} icon={props.icon} />
+//                     <Statistic value={props.quantity} suffix={props.suffix}/>
+//                 </Card>
+//             </Fade>
+//         </Col>
+//     )
+// };
 
 const AdminDashboard = (props) => {
     const firstGroupStatisticContents = [
@@ -102,50 +102,50 @@ const AdminDashboard = (props) => {
         },
     ];
 
-    const thirdGroupStatisticContents = [
-        {
-            id: 0,
-            icon: 'facebook',
-            quantity: 33777,
-            suffix: 'members',
-            color: '#6A5ACD',
-        },
-        {
-            id: 1,
-            icon: 'youtube',
-            quantity: 1245098,
-            suffix: 'subcribers',
-            color: 'red',
-        },
-        {
-            id: 2,
-            icon: 'twitter',
-            quantity: 904777,
-            suffix: 'followers',
-            color: '#1890ff',
-        },
-        {
-            id: 3,
-            icon: 'instagram',
-            quantity: 5033088,
-            suffix: 'followers',
-            color: 'pink',
-        },
-        {
-            id: 4,
-            icon: 'linkedin',
-            quantity: 999777,
-            suffix: 'subcribers',
-            color: '#4682B4',
-        },
-        {
-            id: 5,
-            icon: 'github',
-            quantity: 29563,
-            suffix: 'stars',
-            color: 'black',
-        },
-    ];
+    // const thirdGroupStatisticContents = [
+    //     {
+    //         id: 0,
+    //         icon: 'facebook',
+    //         quantity: 33777,
+    //         suffix: 'members',
+    //         color: '#6A5ACD',
+    //     },
+    //     {
+    //         id: 1,
+    //         icon: 'youtube',
+    //         quantity: 1245098,
+    //         suffix: 'subcribers',
+    //         color: 'red',
+    //     },
+    //     {
+    //         id: 2,
+    //         icon: 'twitter',
+    //         quantity: 904777,
+    //         suffix: 'followers',
+    //         color: '#1890ff',
+    //     },
+    //     {
+    //         id: 3,
+    //         icon: 'instagram',
+    //         quantity: 5033088,
+    //         suffix: 'followers',
+    //         color: 'pink',
+    //     },
+    //     {
+    //         id: 4,
+    //         icon: 'linkedin',
+    //         quantity: 999777,
+    //         suffix: 'subcribers',
+    //         color: '#4682B4',
+    //     },
+    //     {
+    //         id: 5,
+    //         icon: 'github',
+    //         quantity: 29563,
+    //         suffix: 'stars',
+    //         color: 'black',
+    //     },
+    // ];
 
     const studentData = {
         labels: getRecentlyMonths(6),
@@ -295,7 +295,7 @@ const AdminDashboard = (props) => {
                     </Card>
                 </Col>
             </Row>
-            <Row type="flex" justify="space-around" align="middle" style={{marginTop: '35px'}}>
+            {/* <Row type="flex" justify="space-around" align="middle" style={{marginTop: '35px'}}>
                 <Col span={23}>
                     <Row gutter={16}>
                         {thirdGroupStatisticContents.map((item) => {return (
@@ -303,7 +303,7 @@ const AdminDashboard = (props) => {
                         );})}
                     </Row>
                 </Col>
-            </Row>
+            </Row> */}
         </Content>
     );
 };

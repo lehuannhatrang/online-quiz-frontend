@@ -73,7 +73,7 @@ class Admin extends Component {
     render() {
 
         return (
-            <Layout style={{height: '100vh'}}>
+            <Layout>
                 <AdminMenu collapsed={this.state.siderCollapsed}
                     mode={this.state.siderMode} theme={this.state.siderTheme} avatarShape={this.state.avatarShape}/>
                 <Layout className="right-layout">
