@@ -1,3 +1,18 @@
 * {
     font-family: 'Muli', 'sans-serif';
 }
+
+.group-1-col {
+    box-shadow: 0 1px 1px #e4e7ed;
+    cursor: pointer;
+}
+
+.group-1-col:hover {
+    box-shadow: 0 0 36px #d8dde5;
+}
+
+.group-1-statistic {
+    width: 60%;
+    float: right;
+    text-align: right;
+}

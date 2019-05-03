@@ -68,7 +68,7 @@ class AdminHeader extends Component {
                     <Dropdown placement="bottomLeft" overlayStyle={{...overlayStyle, width: '280px'}} 
                         overlay={<SettingsMenu onSWB={this.onSelectWhiteBackground} onSTB={this.onSelectTransparentBackground}
                             onSVM={this.props.onSelectVerticalMode} onSIM={this.props.onSelectInlineMode}
-                            onSDT={this.props.onSelectDarkTheme} onSLT={this.props.onSelectLightTheme}
+                            onSDT={this.props.onSelectDarkTheme} onSLT={this.props.onSelectLightTheme} onTAS={this.props.onToggleAvatarShape}
                         />} 
                         trigger={['click']}>
                         <Button shape="circle" icon="tool"/>
