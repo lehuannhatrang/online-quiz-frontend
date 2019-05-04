@@ -8,7 +8,8 @@ import Quizz from "../teacher/quizz"
 import NewQuiz from "../teacher/newquiz"
 import Room from "../teacher/room"
 import SignUp from "../signup";
-
+import Student from "../student"
+import StudentTest from "../student/studentTest"
 
 class Router extends Component {
     constructor(props) {
@@ -33,6 +34,8 @@ class Router extends Component {
                     <Route exact path="/teacher/quizz" component={Quizz}/>
                     <Route exact path="/teacher/quizz/new" component={NewQuiz}/>
                     <Route exact path="/teacher/room" component={Room}/>
+                    <Route exact path="/student" component={Student}/>
+                    <Route exact path="/student/test" component={StudentTest}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/signup" component={SignUp}/>
                     <Route path="" component={NotFound} />
