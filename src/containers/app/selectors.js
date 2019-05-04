@@ -35,6 +35,9 @@ const selectQuizzes = () =>
 const selectQuestions = () =>
     createSelector(selectGlobal, global => global.get('questions'));
 
+const selectQuiz = () =>
+createSelector(selectGlobal, global => global.get('quiz'));
+
 
 export {
     selectGlobal,
@@ -49,4 +52,5 @@ export {
     selectUserActions,
     selectQuizzes,
     selectQuestions,
+    selectQuiz,
 }

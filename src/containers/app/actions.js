@@ -11,6 +11,8 @@ import {
     FETCH_QUIZZES_SUCCESS,
     FETCH_QUESTIONS,
     FETCH_QUESTIONS_SUCCESS,
+    FETCH_QUIZ,
+    FETCH_QUIZ_SUCCESS,
     REQUEST_FAILED
 } from "./constants";
 
@@ -94,6 +96,20 @@ export function fetchQuestionsSuccess(questions){
     return {
         type: FETCH_QUESTIONS_SUCCESS,
         questions
+    }
+}
+
+export function fetchQuiz(id){
+    return {
+        type: FETCH_QUIZ,
+        id
+    }
+}
+
+export function fetchQuizSuccess(quiz){
+    return {
+        type: FETCH_QUIZ_SUCCESS,
+        quiz
     }
 }
 
