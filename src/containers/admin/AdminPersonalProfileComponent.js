@@ -85,7 +85,7 @@ class AdminPersonalProfile extends Component {
                     </Col>
                     <Col span={23} className="text-right" style={{marginTop: '50px'}}>
                         <Link to="admin/edit-profile">
-                            {'Edit Profile'}{' '}<Icon type="double-right" style={{color: '#1890ff', marginLeft: '7px', fontSize: '17px'}}/>
+                            {'Edit Profile'}
                         </Link>
                     </Col>
                 </Row>

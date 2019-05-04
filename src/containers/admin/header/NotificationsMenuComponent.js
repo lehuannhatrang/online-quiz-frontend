@@ -42,7 +42,7 @@ export const NotificationsMenu = ({notifications}) => {
                 </Menu.Item>
                 <Menu.Divider />
                 <Menu.Item key="-1" style={{margin: 0, textAlign: 'center'}}>
-                    <Link to="/signup"><Icon type="flag" theme="filled"/>{' '}View all</Link>
+                    <Link to="/admin/notifications/students"><Icon type="flag" theme="filled"/>{' '}View all</Link>
                 </Menu.Item>
             </Menu>
         )
@@ -71,7 +71,7 @@ export const NotificationsMenu = ({notifications}) => {
                     {notifyItems}
                     <Menu.Divider />
                     <Menu.Item key="-1" style={{margin: 0, textAlign: 'center'}}>
-                        <Link to="/signup"><Icon type="flag" theme="filled"/>{' '}View all</Link>
+                        <Link to="/admin/notifications/students"><Icon type="flag" theme="filled"/>{' '}View all</Link>
                     </Menu.Item>
                 </Menu>
             </Scrollbars>
