@@ -1,25 +1,24 @@
 import React, {Component} from 'react';
 import './teacher.css';
-import Header from "../../components/control/header"
-import Question from "../../components/control/question"
+import Header from "../../components/control/header";
+import Question from "../../components/control/question";
+import {selectQuestions} from '../app/selectors';
+import {fetchQuestions} from '../app/actions';
+import {connect} from "react-redux";
+import {createStructuredSelector} from 'reselect';
+import HttpUtil from "../../utils/http.util";
 
 class NewQuiz extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+          questions: [],
+        }
     }
-    quizInfoHardCode = [
-      {
-        id: "123",
-        name: "sample quiz 1",
-        date: "1/1/2019"
-      },
-      {
-        id: "456",
-        name: "sample quiz 2",
-        date: "2/1/2019"
-      },
-    ]
 
+    createQuizPath = '/teacher/quizz/new';
+    
+    
     render() {
         return(
           <div>
@@ -64,5 +63,14 @@ class NewQuiz extends Component {
 
 }
 
-export default NewQuiz;
-// alert("Hello world");
+function mapDispatchToProps(dispatch) {
+  return {
+      fetchQuestions: (id) => dispatch(fetchQuestions(id)), 
+  }
+}
+
+const mapStateToProps = createStructuredSelector({
+  quizzes: selectQuestions(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewQuiz);
