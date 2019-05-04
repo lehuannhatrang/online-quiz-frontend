@@ -15,7 +15,7 @@ const AdminFooter = () => {
                             <Link to="/dashboard">OnlineQuiz</Link>{' © 2019. All right reserved.' }
                         </Col>
                         <Col span={12} className="text-right">
-                            {'Make with '}<i class="fa fa-heart text-pulse"></i>{' by '}<Link to ="#">luantnguyen</Link>
+                            {'Make with '}<i className="fa fa-heart text-pulse"></i>{' by '}<Link to ="#">luantnguyen</Link>
                         </Col>
                     </Row>
                 </Col>

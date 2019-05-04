@@ -7,6 +7,7 @@ import AdminFooter from './footer/AdminFooterComponent';
 import AdminUsersManager from './AdminUsersManagerComponent';
 import AdminDashboard from './AdminDashboardComponent';
 import AdminPersonalProfile from './AdminPersonalProfileComponent';
+import { AdminStudentNotifications, AdminTeacherNotifications } from './AdminNotificationsComponent';
 import { NOTIFICATIONS } from './data';
 import { Scrollbars} from 'react-custom-scrollbars';
 import './admin-style.css';
@@ -92,12 +93,10 @@ class Admin extends Component {
                                     numStudentData={[65, 159, 80, 101, 106, 135, 80]}
                                     numTeacherData={[15, 49, 30, 31, 56, 34, 12]} 
                                     numRoomData={[69, 110, 122, 144, 145, 200, 210, 198, 215, 220]}
-                                    numSchoolData={[164, 214, 193]}
-                                    subjectData={[21000, 2000, 6788, 6000, 1500, 4000, 500, 5000]}/>} />
+                                    numSchoolData={[164, 214, 193]}/>} />
                             <Route exact path="/admin/users-management" component={AdminUsersManager} />
-                            <Route exact path="/admin/notifications/students" component={AdminUsersManager} />
-                            <Route exact path="/admin/notifications/teachers" component={AdminUsersManager} />
-                            <Route exact path="/admin/settings" component={AdminUsersManager} />
+                            <Route exact path="/admin/notifications/students" component={AdminStudentNotifications} />
+                            <Route exact path="/admin/notifications/teachers" component={AdminTeacherNotifications} />
                             <Route exact path="/admin/profile" component={AdminPersonalProfile} />
                             <Redirect to="/admin/dashboard" />
                         </Switch>

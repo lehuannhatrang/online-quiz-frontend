@@ -17,26 +17,39 @@
     text-align: right;
 }
 
-.background-profile {
-    filter: gray; /* IE6-9 */
-    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
-    filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+/* .background-profile {
+    filter: gray; 
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
 }
 
 .background-profile:hover {
     -webkit-filter: grayscale(0);
     filter: none;
-}
+} */
 
 .name-profile {
     margin-top: 25px;
 }
 
-.name-profile h4, .name-profile h5 {
+.name-profile h4, .name-profile h5, .name-profile h6 {
     color: white;
 }
 
 .avatar-profile {
     border: 5px solid #ddd;
     cursor: pointer;
+}
+
+.user-management th, .notification th {
+    background: #eee !important;
+}
+
+.user-management .ant-table-content, .notification .ant-table-content {
+    border-radius: 0 !important;
+    background-color: white !important;
+}
+
+.my-modal .ant-modal-body{
+    padding: 15px !important;
 }

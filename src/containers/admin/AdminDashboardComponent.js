@@ -259,18 +259,7 @@ const AdminDashboard = (props) => {
             {
                 label: 'No. School Types',
                 data: props.numSchoolData,
-                backgroundColor: ['yellow', '#DC143C', '#1890ff'],
-            },
-        ],
-    };
-
-    const subjectData = {
-        labels: ['Math', 'Literature', 'Physics', 'Chemistry', 'History', 'English', 'Geography', 'IT'],
-        datasets: [
-            {
-                label: 'No. Subject Quizs',
-                data: props.subjectData,
-                backgroundColor: ['#DC143C', '#1890ff', '#FF4500', '#7CFC00', '#00FFFF', '#8A2BE2', '#FF7F50', '#9ACD32'],
+                backgroundColor: ['orange', '#DC143C', '#1890ff'],
             },
         ],
     };
@@ -308,19 +297,32 @@ const AdminDashboard = (props) => {
             </Row>
             <Row type="flex" justify="space-around" align="middle" style={{marginTop: '35px'}}>
                 <Col span={23}>
-                    <Card>
-                        <Col span={12}>
+                    <Col span={17}>
+                        <Card>
                             <Doughnut data={schoolData} />
                             <div className="text-center" style={{padding: '10px', marginTop: '20px'}}>{'No. of students arranged by school types'}</div>
-                        </Col>
-                        <Col span={12}>
-                            <Doughnut data={subjectData} />
-                            <div className="text-center" style={{padding: '10px', marginTop: '20px'}}>{'No. of quizes arranged by subjects'}</div>
-                        </Col>
-                    </Card>
+                        </Card>
+                    </Col>
+                    <Col span={5} offset={1}>
+                        <Fade left>
+                            <Card>
+                                <Statistic title="Primary School" suffix="students" value={props.numSchoolData[0]} valueStyle={{ color: 'orange' }} />
+                            </Card>
+                        </Fade>
+                        <Fade left>
+                            <Card style={{marginTop: '20px'}}>
+                                <Statistic title="Secondary School" suffix="students" value={props.numSchoolData[1]} valueStyle={{ color: '#DC143C' }} />
+                            </Card>
+                        </Fade>
+                        <Fade left>
+                            <Card style={{marginTop: '20px'}}>
+                                <Statistic title="High School" suffix="students" value={props.numSchoolData[2]} valueStyle={{ color: '#1890ff' }} />
+                            </Card>
+                        </Fade>
+                    </Col>
                 </Col>
             </Row>
-            <Row type="flex" justify="space-around" align="middle" style={{marginTop: '35px'}}>
+            {/* <Row type="flex" justify="space-around" align="middle" style={{marginTop: '35px'}}>
                 <Col span={23}>
                     <Row gutter={24}>
                         {thirdGroupStatisticContents.map((item) => {return (
@@ -328,7 +330,7 @@ const AdminDashboard = (props) => {
                         );})}
                     </Row>
                 </Col>
-            </Row>
+            </Row> */}
         </Content>
     );
 };

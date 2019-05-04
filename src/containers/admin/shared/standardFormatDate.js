@@ -1,4 +1,6 @@
 function getStandardFormatDate(date) {
+    if (!date)
+        return '';
     var monthNames = [
         "January", "February", "March",
         "April", "May", "June", "July",
