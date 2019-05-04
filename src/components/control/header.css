@@ -5,6 +5,7 @@ body {
 }
 
 #header-container {
+  background-image: url(https://static.store123doc.com/static_v2/web_v2/layout/bg_tab.png);
   height: 133px;
   background-color: #8cb4d2;
   border-bottom: 1px solid #ccc;
