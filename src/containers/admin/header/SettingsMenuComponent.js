@@ -39,16 +39,12 @@ export const SettingsMenu = (props) => {
                     </Button.Group>
                 </div>
             </Card>
-            <Card key="4" style={{border: 'none', padding: '10px 15px'}} bodyStyle={{padding: '0'}} type="inner">
+            <Card key="4" style={{border: 'none', padding: '10px 15px', marginBottom: '15px'}} bodyStyle={{padding: '0'}} type="inner">
                 <div className="text-uppercase">{'Avatar Shape'}</div>
                 <div className="settings-btn-container">
                     <Button block onClick={props.onTAS}>Toggle Shape</Button>
                 </div>
             </Card>
-            <Menu.Divider />
-            <Menu.Item key="-1" style={{margin: 0, textAlign: 'center'}}>
-                <Link to="/admin/settings"><Icon type="deployment-unit" />{' '}All Settings</Link>
-            </Menu.Item>
         </Menu>
     );
 }

@@ -6,6 +6,7 @@ import AdminHeader from './header/AdminHeaderComponent';
 import AdminFooter from './footer/AdminFooterComponent';
 import AdminUsersManager from './AdminUsersManagerComponent';
 import AdminDashboard from './AdminDashboardComponent';
+import AdminPersonalProfile from './AdminPersonalProfileComponent';
 import { NOTIFICATIONS } from './data';
 import { Scrollbars} from 'react-custom-scrollbars';
 import './admin-style.css';
@@ -97,6 +98,7 @@ class Admin extends Component {
                             <Route exact path="/admin/notifications/students" component={AdminUsersManager} />
                             <Route exact path="/admin/notifications/teachers" component={AdminUsersManager} />
                             <Route exact path="/admin/settings" component={AdminUsersManager} />
+                            <Route exact path="/admin/profile" component={AdminPersonalProfile} />
                             <Redirect to="/admin/dashboard" />
                         </Switch>
                         <AdminFooter />

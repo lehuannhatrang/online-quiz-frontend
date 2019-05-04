@@ -1,5 +1,4 @@
-import React from 'react';
-import Admin from '.';
+import React, { Component } from 'react';
 
 const AdminUserManager = () => {
     return (

@@ -8,13 +8,13 @@ const { Footer } = Layout;
 const AdminFooter = () => {
     return (
         <Footer className="footer mb-0">
-            <Row>
+            <Row type="flex" justify="space-around" align="middle">
                 <Col span={23}>
                     <Row>
                         <Col span={12} className="text-left">
                             <Link to="/dashboard">OnlineQuiz</Link>{' © 2019. All right reserved.' }
                         </Col>
-                        <Col span={12} className="col-6 text-right">
+                        <Col span={12} className="text-right">
                             {'Make with '}<i class="fa fa-heart text-pulse"></i>{' by '}<Link to ="#">luantnguyen</Link>
                         </Col>
                     </Row>

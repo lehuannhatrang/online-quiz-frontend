@@ -117,9 +117,9 @@ class AdminMenu extends Component {
                         <Menu.Item key="4"><NavLink to="/admin/notifications/teachers">Teachers</NavLink></Menu.Item>
                     </SubMenu>
                     <Menu.Item key="5">
-                        <NavLink to="/admin/settings">
-                            <Icon type="tool" theme="filled"/>
-                            <span>Settings</span>
+                        <NavLink to="/admin/profile">
+                            <Icon type="profile"/>
+                            <span>Admin Profile</span>
                         </NavLink>
                     </Menu.Item>
                 </Menu>

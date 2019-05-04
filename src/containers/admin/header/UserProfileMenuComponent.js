@@ -16,7 +16,7 @@ export const UserProfileMenu = ({name}) => {
                 <Link to="http://www.facebook.com/"><Icon type="user" />{' '}Profile</Link>
             </Menu.Item>
             <Menu.Item key="2" style={{margin: 0}}>
-                <Link to="http://www.facebook.com/"><Icon type="tool" />{' '}Settings</Link>
+                <Link to="http://www.facebook.com/"><Icon type="edit" />{' '}Edit</Link>
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item key="3" style={{margin: 0}}>

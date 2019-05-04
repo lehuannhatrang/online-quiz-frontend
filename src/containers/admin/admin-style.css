@@ -16,3 +16,27 @@
     float: right;
     text-align: right;
 }
+
+.background-profile {
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+
+.background-profile:hover {
+    -webkit-filter: grayscale(0);
+    filter: none;
+}
+
+.name-profile {
+    margin-top: 25px;
+}
+
+.name-profile h4, .name-profile h5 {
+    color: white;
+}
+
+.avatar-profile {
+    border: 5px solid #ddd;
+    cursor: pointer;
+}
