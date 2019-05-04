@@ -345,3 +345,28 @@ td a {
 .delete-button i {
   font-size: 25px;
 }
+
+.modal-header button{
+  float: right;
+}
+.modal-header h4{
+  float: left;
+}
+
+.modal-dialog{
+  margin-top: 100px;
+}
+
+.btn-newroom{
+  background-color: #46A049;
+  color: #fff;
+}
+
+.start-time-container{
+  width: 50%;
+  float: left;
+}
+.end-time-container{
+  width: 50%;
+  float: left;
+}
