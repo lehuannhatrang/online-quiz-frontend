@@ -5,11 +5,50 @@ class Question extends Component {
     super(props);
     this.state = {
       answer: this.props.data ? this.props.data.answer : 'A',
-    }
+      question: "",
+      options: [
+        "",
+        "",
+        "",
+        "",
+      ],
+    };
   }
 
-  handleChange(){
+  async handleChange(type, value){
+    let options = await this.state.options.slice();
+    switch(await type){
+      case "question":
+        this.setState({question: value});
+        break;
+      case "option-A":
+        options[0] = value;
+        this.setState({options: options})
+        break;
+      case "option-B":
+        options[1] = value;
+        this.setState({options: options})
+        break;
+      case "option-C":
+        options[2] = value;
+        this.setState({options: options})
+        break;
+      case "option-D":
+        options[3] = value;
+        this.setState({options: options})
+        break;
+      case "answer":
+        this.setState({answer: value});
+        break;
+      default:
+        break;
+    }
 
+    this.props.onChange({
+      question: this.state.question,
+      options: this.state.options,
+      answer: this.state.answer,
+    });
   }
 
   renderItem(optionName, value="" , option) {
@@ -17,10 +56,10 @@ class Question extends Component {
       <div className="mc-answer">
         <span className="mc-option">{optionName}</span>
         <div className="option-text-entry">
-          <textarea class="form-control" defaultValue={value}/>
+          <textarea class="form-control" defaultValue={value} onChange={e => this.handleChange(`option-${option}`, e.target.value)}/>
         </div>
         <div className="right-answer clearfix">
-          <input type="checkbox" checked={this.state.answer === option?'checked':''} onClick={() => this.setState({answer: option})}/>
+          <input type="checkbox" checked={this.state.answer === option?'checked':''} onClick={() => this.handleChange("answer", option)}/>
         </div>
       </div>
     );
@@ -33,7 +72,7 @@ class Question extends Component {
       <div className="clearfix">
         <div className="question-icon"><i className="ion-help"></i></div>
         <div className="question-text-entry">
-          <textarea defaultValue={this.props.data? this.props.data.question: ''}/>
+          <textarea defaultValue={this.props.data? this.props.data.question: ''} onChange={e => this.handleChange("question",e.target.value)}/>
         </div>
       </div>
 

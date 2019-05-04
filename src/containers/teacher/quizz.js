@@ -35,7 +35,7 @@ class Quizz extends Component {
     ]
 
     deleteQuiz(id) {
-      HttpUtil.deleteJsonAuthorization(`/quiz/${id}`)
+      HttpUtil.deleteJsonAuthorization(`/quiz`, {id: id});
       this.props.fetchQuizzes();
     }
 

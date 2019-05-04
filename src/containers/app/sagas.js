@@ -6,6 +6,7 @@ import {
     FETCH_USERS_ACTIONS,
     FETCH_QUIZZES,
     FETCH_QUESTIONS,
+    FETCH_QUIZ,
 } from "./constants";
 import {
     error, 
@@ -15,6 +16,7 @@ import {
     loginSuccess,
     fetchQuizzesSuccess,
     fetchQuestionsSuccess,
+    fetchQuizSuccess,
 } from "./actions";
 
 import HttpUtils from '../../utils/http.util';
@@ -115,7 +117,7 @@ function* doFetchQuizzes() {
 
 function* fetchQuizzes() {
     try {
-        const data = yield HttpUtils.getJsonAuthorization('/quiz/list');
+        const data = yield HttpUtils.getJsonAuthorization('/quiz');
         if (data) {
             yield put(fetchQuizzesSuccess(data));
         }
@@ -153,6 +155,27 @@ function* doFetchQuestions() {
     yield fork(fetchQuestionsWatcher)
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchQuiz(target) {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization(`/quiz?id=${target.id}`);
+        if (data) {
+            yield put(fetchQuizSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchQuizWatcher() {
+    yield takeLatest(FETCH_QUIZ, fetchQuiz)
+}
+
+function* doFetchQuiz() {
+    yield fork(fetchQuizWatcher)
+}
+
 
 export default function* root() {
     
@@ -164,6 +187,7 @@ export default function* root() {
             doFetchUsers(),
             doFetchQuizzes(),
             doFetchQuestions(),
+            doFetchQuiz(),
         ])
     } catch (e) {
         console.log(e)

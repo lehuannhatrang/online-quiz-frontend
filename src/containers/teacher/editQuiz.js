@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import './teacher.css';
 import Header from "../../components/control/header";
 import Question from "../../components/control/question";
-import {selectQuestions} from '../app/selectors';
-import {fetchQuestions} from '../app/actions';
+import {selectQuiz} from '../app/selectors';
+import {fetchQuiz} from '../app/actions';
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import HttpUtil from "../../utils/http.util";
@@ -12,7 +12,8 @@ class EditQuiz extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          questions : (this.props.questions && (this.props.questions.length > 0) ) ? this.props.questions : this.questionsHardCodeData
+          questions : (this.props.quiz.questions && (this.props.quiz.questions.length > 0) ) ? this.props.quiz.questions : this.questionsHardCodeData,
+          quizName: this.props.quiz? this.props.quiz.quizName : 'Sample Quiz Name'
         }
     }
 
@@ -44,7 +45,6 @@ class EditQuiz extends Component {
     editQuizPath = '/teacher/quizz/edit/';
 
     emptyQuestion = {
-      id: "",
       question: "",
       options: [
           "",
@@ -52,11 +52,11 @@ class EditQuiz extends Component {
           "",
           "",
       ],
-      answer: "",
+      answer: "A",
     };
 
     componentDidMount() {
-        this.props.fetchQuestions(location.pathname.replace(this.editQuizPath, ''))
+        this.props.fetchQuiz(location.pathname.replace(this.editQuizPath, ''))
     }
 
     async handleAddNewQuestion() {
@@ -72,7 +72,7 @@ class EditQuiz extends Component {
         id: location.pathname.replace(this.editQuizPath, ''),
         questions: this.state.questions,
       }
-      HttpUtil.postJsonAuthorization(`/quiz/${data.id}`,data);
+      HttpUtil.putJsonAuthorization(`/quiz/${data.id}`,data);
     }
 
     async deleteQuestion(index) {
@@ -81,7 +81,12 @@ class EditQuiz extends Component {
       this.setState({
         questions
       })
+    }
 
+    handleChangeQuestion(value, index){
+      let questions = this.state.questions.slice();
+      questions[index] = value;
+      this.setState({questions});
     }
 
     render() {
@@ -118,7 +123,8 @@ class EditQuiz extends Component {
               <div id="questions">
                 { this.state.questions.map((question, index) => {
                     return(
-                        <Question data={question} number={index + 1} delete={() => this.deleteQuestion(index)}/>
+                        <Question data={question} number={index + 1} delete={() => this.deleteQuestion(index)}
+                        onChange={value => this.handleChangeQuestion(value, index)}/>
                     )
                 })}
               </div>
@@ -131,12 +137,12 @@ class EditQuiz extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-      fetchQuestions: (id) => dispatch(fetchQuestions(id)), 
+      fetchQuiz: (id) => dispatch(fetchQuiz(id)), 
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  questions: selectQuestions(),
+  quiz: selectQuiz(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditQuiz);
