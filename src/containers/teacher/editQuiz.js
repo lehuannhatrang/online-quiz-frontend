@@ -70,6 +70,7 @@ class EditQuiz extends Component {
     async handleSubmit() {
       const data = await {
         id: location.pathname.replace(this.editQuizPath, ''),
+        quizName: this.state.quizName,
         questions: this.state.questions,
       }
       HttpUtil.putJsonAuthorization(`/quiz/${data.id}`,data);
