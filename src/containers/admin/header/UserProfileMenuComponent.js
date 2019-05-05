@@ -13,7 +13,7 @@ export const UserProfileMenu = ({name}) => {
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item key="1" style={{margin: 0}}>
-                <Link to="http://www.facebook.com/"><Icon type="user" />{' '}Profile</Link>
+                <Link to="/admin/profile"><Icon type="user" />{' '}Profile</Link>
             </Menu.Item>
             <Menu.Item key="2" style={{margin: 0}}>
                 <Link to="http://www.facebook.com/"><Icon type="edit" />{' '}Edit</Link>

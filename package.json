@@ -53,7 +53,7 @@
     "invariant": "^2.2.4",
     "jquery": "^3.4.0",
     "lodash": "^4.17.11",
-    "moment": "^2.23.0",
+    "moment": "^2.24.0",
     "prop-types": "^15.6.2",
     "q": "^1.5.1",
     "query-string": "^6.2.0",

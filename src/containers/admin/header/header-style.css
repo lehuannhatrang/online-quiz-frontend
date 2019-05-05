@@ -42,3 +42,21 @@
 .settings-btn-container {
     margin-top: 9px;
 }
+
+a.title-link:link, a.title-link:visited {
+    color: inherit;
+    padding: 9px;
+    font-weight: 400;
+}
+
+a.title-link:hover {
+    text-decoration: underline;
+}
+
+.profile-drawer .ant-form-item {
+    margin-bottom: 10px;
+}
+
+.profile-drawer .ant-form-item-label {
+    padding: 0 !important;
+}
