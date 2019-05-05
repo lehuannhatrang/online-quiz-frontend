@@ -83,11 +83,6 @@ class AdminPersonalProfile extends Component {
                             <Input size="large" addonBefore={<Icon type="home" theme="filled" style={iconStyle}/>} value={this.state.address}/>
                         </Fade>
                     </Col>
-                    <Col span={23} className="text-right" style={{marginTop: '50px'}}>
-                        <Link to="admin/edit-profile">
-                            {'Edit Profile'}
-                        </Link>
-                    </Col>
                 </Row>
                 
             </React.Fragment>
