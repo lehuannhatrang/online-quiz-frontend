@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import moment from 'moment';
 import dateForMoment from '../shared/dateForMoment';
+import If from '../../../components/control/If';
 
 const { Panel } = Collapse;
 
@@ -134,12 +135,19 @@ const AvatarChangeForm = (props) => {
     };
 
     return (
-        <Form style={{padding: '0 9px', textAlign: 'center'}} layout="vertical">
+        <Form style={{padding: '0 9px', textAlign: 'center'}} layout="vertical" onSubmit={() => {message.success('Change avatar!');}}>
             <Form.Item>
                 <Upload {...avatarProps} accept="image/*">
-                    <Button>
-                        <Icon type="upload" /> Upload your avatar
-                    </Button>
+                    <If condition={props.curAvatarFile === null}>
+                        <Button>
+                            <Icon type="upload" /> Upload your avatar
+                        </Button>
+                    </If>
+                    <If condition={props.curAvatarFile !== null}>
+                        <Button type="primary" htmlType="submit">
+                            <Icon type="check" /> Let's change                    
+                        </Button>
+                    </If>
                 </Upload>
             </Form.Item>
         </Form>
@@ -252,6 +260,9 @@ class UserProfileDrawer extends Component {
             sex: 'male',
             curAvatarFile: null,
         }
+
+        this.beforeUploadHandle = this.beforeUploadHandle.bind(this);
+        this.onRemoveHandle = this.onRemoveHandle.bind(this);
     }
 
     beforeUploadHandle = (file) => {
@@ -291,7 +302,7 @@ class UserProfileDrawer extends Component {
                             <WrapperProfileForm {...this.state}/>
                         </Panel>
                         <Panel header="Change Avatar" extra={<Icon type="link" />} key="2">
-                            <AvatarChangeForm beforeUpload={this.beforeUploadHandle} onRemove={this.onRemoveHandle}/>
+                            <AvatarChangeForm curAvatarFile={this.state.curAvatarFile} beforeUpload={this.beforeUploadHandle} onRemove={this.onRemoveHandle}/>
                         </Panel>
                         <Panel header="Change Password" extra={<Icon type="build" />} key="3">
                             <WrapperChangePasswordForm />                            
