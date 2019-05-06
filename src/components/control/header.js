@@ -14,6 +14,10 @@ class Header extends Component {
       else return "nav-li";
     }
 
+    mToggle(){
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+
     render() {
         return(
           <div>
@@ -24,10 +28,16 @@ class Header extends Component {
                 </div>
                 <div id="header-room-name">{(this.props.user && this.props.user.userInfo.role === "teacher") ? "TEACHER DESK" : "STUDENT DESK"}</div>
 
-                  <button type="button" className="btn btn-light" data-toggle="dropdown" id="header-username" style={{backgroundColor:"transparent", borderWidth: 0}} >
+                  <button type="button" className="btn" id="header-username" onClick={this.mToggle}>
                     <span>{this.props.user? this.props.user.userInfo.displayName : "Profile"}</span>
                     <i className="ion-arrow-down-b"></i>
                   </button>
+
+                  <div id="myDropdown" className="user-menu-content">
+                    <a href="#home">PROFILE</a>
+                    <a href="#about">LOG OUT</a>
+                  </div>
+
 
                 <div id="header-nav">
                   <ul>

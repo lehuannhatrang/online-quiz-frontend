@@ -119,7 +119,7 @@ function* doFetchQuizzes() {
 
 function* fetchQuizzes() {
     try {
-        const data = yield HttpUtils.getJsonAuthorization('/quiz');
+        const data = yield HttpUtils.getJsonAuthorization('/quiz/public');
         if (data) {
             yield put(fetchQuizzesSuccess(data));
         }
