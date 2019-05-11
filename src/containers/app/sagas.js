@@ -182,7 +182,7 @@ function* doFetchQuiz() {
 
 function* fetchRooms() {
     try {
-        const data = yield HttpUtils.getJsonAuthorization('/room/');
+        const data = yield HttpUtils.getJsonAuthorization('/room/list');
         if (data) {
             yield put(fetchRoomsSuccess(data));
         }

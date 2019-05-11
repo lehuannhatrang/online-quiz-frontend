@@ -6,6 +6,7 @@ class RoomTable extends Component {
   }
 
   render(){
+    const rooms = this.props.data.filter(data => data.name.indexOf(this.props.searchingText) > -1)
     return(
       <div>
         <table className="quizzes-table">
@@ -18,18 +19,18 @@ class RoomTable extends Component {
               <th className="edit-column quizz-column-heading">EDIT</th>
             </tr>
 
-            { this.props.data.map(room => {return(
+            { rooms.map(room => {return(
               <tr key={room.id}>
                 <td className="room-name-column quizz-column room-name">{room.name}</td>
                 <td className="room-start-column quizz-column">{room.start}</td>
                 <td className="room-end-column quizz-column">{room.end}</td>
                 <td className="delete-column quizz-column">
-                  <a href="#">
+                  <a href="#" onClick={() => this.props.deleteRoom(room.id)}>
                     <i className="ion-close-round"></i>
                   </a>
                 </td>
                 <td className="edit-column quizz-column">
-                  <a href={`/teacher/quiz/${room.id}`}>
+                  <a href={`/teacher/room/${room.id}`}>
                     <i className="ion-edit"></i>
                   </a>
                 </td>
@@ -37,11 +38,12 @@ class RoomTable extends Component {
             )}
             )}
 
-            {(!this.props.data || this.props.data.length === 0) && (
+            {(!rooms || rooms.length === 0) && (
               <tr>
-                <td className="name-column quizz-column">No data found</td>
+                <td className="name-column quizz-column">No room found</td>
                 <td className="date-column quizz-column"></td>
                 <td className="delete-column quizz-column"></td>
+                <td className="edit-column quizz-column"></td>
                 <td className="edit-column quizz-column"></td>
               </tr>
             ) }

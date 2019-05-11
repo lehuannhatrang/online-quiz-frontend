@@ -1,13 +1,33 @@
 import React, {Component} from 'react';
 import './student.css';
-import StudentHeader from "../../components/control/studentHeader"
+import StudentHeader from "../../components/control/studentHeader";
+import {connect} from "react-redux";
+import {createStructuredSelector} from 'reselect';
+import {selectCurrentUser} from "../app/selectors";
+import {Redirect} from "react-router-dom";
 
 class Student extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+          roomId: '',
+        }
+    }
+
+    handelSubmitRoomID() {
+      if(this.state.roomId) debugger;
     }
 
     render() {
+      if(!this.props.user) return(
+        <div>
+          Loading
+        </div>
+      )
+      if(this.props.user && this.props.user.userInfo.role !== "student")
+      return(
+        <Redirect tp={{pathname: '/', state: {redirect: location.pathname}}} />
+      )
         return(
           <div>
             <StudentHeader></StudentHeader>
@@ -18,8 +38,8 @@ class Student extends Component {
                 <span className="input-search-container">
                   <div className="input-block">
                     <i className="ion-compose"></i>
-                    <input className="search-input" placeholder="Enter Room ID ..." type="text"></input>
-                    <button className="button-primary submit-button">Enter</button>
+                    <input className="search-input" placeholder="Enter Room ID ..." type="text" onChange={e => this.setState({roomId: e.target.value})} />
+                    <button className="button-primary submit-button" onClick={() => this.handelSubmitRoomID()}>Enter</button>
                   </div>
                 </span>
                 </div>
@@ -32,4 +52,14 @@ class Student extends Component {
 
 }
 
-export default Student;
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch
+  }
+}
+
+const mapStateToProps = createStructuredSelector({
+    user: selectCurrentUser(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Student);
