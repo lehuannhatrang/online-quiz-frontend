@@ -18,7 +18,19 @@ class Header extends Component {
       document.getElementById("myDropdown").classList.toggle("show");
     }
 
+    handelLogout(){
+      localStorage.clear();
+      window.location = '/login';
+    }
+
     render() {
+      if(!this.props.user) return(
+        <div>
+          Loading ...
+        </div>
+      )
+
+      if(this.props.user && this.props.user.userInfo)
         return(
           <div>
             <div id="header-container">
@@ -34,8 +46,8 @@ class Header extends Component {
                   </button>
 
                   <div id="myDropdown" className="user-menu-content">
-                    <a href="#home">PROFILE</a>
-                    <a href="#about">LOG OUT</a>
+                    <a href="#">PROFILE</a>
+                    <a href="#" onClick={() => this.handelLogout()}>LOG OUT</a>
                   </div>
 
 

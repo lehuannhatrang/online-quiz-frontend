@@ -36,13 +36,22 @@ class Router extends Component {
                     <Redirect to={{pathname: '/login', state: {redirect: this.props.location.pathname}}} />
                 </If>
 
+                {this.unAuthorizedUrl.indexOf(location.pathname) > -1 && (
+                    <Switch>
+                        <Route exact path="/" component={DashBoard}/>
+                        <Route exact path="/signup" component={SignUp}/>
+                        <Route exact path="/login" component={Login}/>
+                    </Switch>
+                )                   
+                }
+
                 {/* waiting while data is fetching! */}
                 {!this.props.user && (
                     <div>Loading .... </div>
                 )}
 
                 {/* User role undefine */}
-                {this.props.user && (!this.props.user.userInfo || !this.props.user.userInfo.role) && (
+                {this.props.user && (this.props.user.userInfo && !this.props.user.userInfo.role) && (
                     <Redirect to={{pathname: '/', state: {redirect: this.props.location.pathname}}} />
                 )}
 
@@ -55,8 +64,6 @@ class Router extends Component {
                     <Route exact path="/teacher/quizz/new" component={NewQuiz}/>
                     <Route path='/teacher/quizz/edit' component={EditQuiz}/>
                     <Route path="/teacher/room/" component={Room}/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/signup" component={SignUp}/>
                     <Route path="/student" component={WrongPermission}/>
                     <Route path="/admin" component={WrongPermission}/>
                     <Route path="" component={NotFound} />
@@ -69,8 +76,6 @@ class Router extends Component {
                     <Route exact path="/" component={DashBoard}/>
                     <Route exact path="/student" component={Student}/>
                     <Route exact path="/student/test/:roomId" component={StudentTest}/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/signup" component={SignUp}/>
                     <Route path="/teacher" component={WrongPermission}/>
                     <Route path="/admin" component={WrongPermission}/>
                     <Route path="" component={NotFound} />
@@ -81,8 +86,6 @@ class Router extends Component {
                 {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'admin' && (
                 <Switch>
                     <Route exact path="/" component={DashBoard}/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/signup" component={SignUp}/>
                     <Route path="/admin" component={Admin} />
                     <Route path="/teacher" component={WrongPermission}/>
                     <Route path="/student" component={WrongPermission}/>
