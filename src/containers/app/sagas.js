@@ -7,6 +7,7 @@ import {
     FETCH_QUIZZES,
     FETCH_QUESTIONS,
     FETCH_QUIZ,
+    FETCH_ROOMS,
 } from "./constants";
 import {
     error, 
@@ -17,6 +18,7 @@ import {
     fetchQuizzesSuccess,
     fetchQuestionsSuccess,
     fetchQuizSuccess,
+    fetchRoomsSuccess,
 } from "./actions";
 
 import HttpUtils from '../../utils/http.util';
@@ -176,6 +178,27 @@ function* doFetchQuiz() {
     yield fork(fetchQuizWatcher)
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchRooms() {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization('/room/list');
+        if (data) {
+            yield put(fetchRoomsSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchRoomsWatcher() {
+    yield takeLatest(FETCH_ROOMS, fetchRooms)
+}
+
+function* doFetchRooms() {
+    yield fork(fetchRoomsWatcher)
+}
+
 
 export default function* root() {
     
@@ -188,6 +211,7 @@ export default function* root() {
             doFetchQuizzes(),
             doFetchQuestions(),
             doFetchQuiz(),
+            doFetchRooms(),
         ])
     } catch (e) {
         console.log(e)

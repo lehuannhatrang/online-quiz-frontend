@@ -13,6 +13,8 @@ import {
     FETCH_QUESTIONS_SUCCESS,
     FETCH_QUIZ,
     FETCH_QUIZ_SUCCESS,
+    FETCH_ROOMS,
+    FETCH_ROOMS_SUCCESS,
     REQUEST_FAILED
 } from "./constants";
 
@@ -110,6 +112,19 @@ export function fetchQuizSuccess(quiz){
     return {
         type: FETCH_QUIZ_SUCCESS,
         quiz
+    }
+}
+
+export function fetchRooms(){
+    return {
+        type: FETCH_ROOMS
+    }
+}
+
+export function fetchRoomsSuccess(rooms){
+    return {
+        type: FETCH_ROOMS_SUCCESS,
+        rooms
     }
 }
 

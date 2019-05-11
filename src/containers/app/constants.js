@@ -19,6 +19,9 @@ export const FETCH_QUESTIONS_SUCCESS = 'online-quiz/App/FETCH_QUESTIONS_SUCCESS'
 export const FETCH_QUIZ = 'online-quiz/App/FETCH_QUIZ';
 export const FETCH_QUIZ_SUCCESS = 'online-quiz/App/FETCH_QUIZ_SUCCESS';
 
+export const FETCH_ROOMS = 'online-quiz/App/FETCH_ROOMS';
+export const FETCH_ROOMS_SUCCESS = 'online-quiz/App/FETCH_ROOMS_SUCCESS';
+
 //-----------------------------------------------------------------------------------------
 
 export const REQUEST_FAILED = 'online-quiz/App/REQUEST_FAILED';
