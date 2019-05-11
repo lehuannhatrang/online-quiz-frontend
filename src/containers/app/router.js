@@ -47,7 +47,7 @@ class Router extends Component {
                 )}
 
                 {/* User route : teacher */}
-                {this.props.user && this.props.user.userInfo.role === 'teacher' && (
+                {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'teacher' && (
                 <Switch>
                     <Route exact path="/" component={DashBoard}/>
                     <Route exact path="/teacher" component={Quizz}/>
@@ -64,7 +64,7 @@ class Router extends Component {
                 )}
 
                 {/* User route: student */}
-                {this.props.user && this.props.user.userInfo.role === 'student' && (
+                {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'student' && (
                 <Switch>
                     <Route exact path="/" component={DashBoard}/>
                     <Route exact path="/student" component={Student}/>
@@ -78,7 +78,7 @@ class Router extends Component {
                 )}
 
                 {/* User route: admin */}
-                {this.props.user && this.props.user.userInfo.role === 'admin' && (
+                {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'admin' && (
                 <Switch>
                     <Route exact path="/" component={DashBoard}/>
                     <Route exact path="/login" component={Login}/>
@@ -104,7 +104,7 @@ class Router extends Component {
                     <Route path="/admin" component={Admin} />
                     <Route path="" component={NotFound} />
                 </Switch> */}
-                
+
             </div>
         );
     }
