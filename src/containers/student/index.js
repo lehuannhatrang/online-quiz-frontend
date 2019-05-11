@@ -19,15 +19,6 @@ class Student extends Component {
     }
 
     render() {
-      if(!this.props.user) return(
-        <div>
-          Loading
-        </div>
-      )
-      if(this.props.user && this.props.user.userInfo.role !== "student")
-      return(
-        <Redirect tp={{pathname: '/', state: {redirect: location.pathname}}} />
-      )
         return(
           <div>
             <StudentHeader></StudentHeader>
