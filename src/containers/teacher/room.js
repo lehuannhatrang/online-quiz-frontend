@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import './teacher.css';
 import Header from "../../components/control/header";
 import RoomTable from "../../components/control/roomTable";
-import {selectRooms} from '../app/selectors';
-import {fetchRooms} from '../app/actions';
+import {selectRooms, selectQuizzes} from '../app/selectors';
+import {fetchRooms, fetchQuizzes} from '../app/actions';
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import HttpUtil from "../../utils/http.util";
@@ -26,6 +26,7 @@ class Room extends Component {
 
     componentDidMount() {
       this.props.fetchRooms();
+      this.props.fetchQuizzes();
     }
 
     roomInfoHardCode = [
@@ -109,9 +110,9 @@ class Room extends Component {
                             <div className="col-sm-10">
                               <select className="custom-select" id="quiz-name" onChange={e => this.setState({quizId: e.target.value})}>
                                 <option disabled selected>Select the quiz ...</option>
-                                <option value="1">First quiz</option>
-                                <option value="2">Second quiz</option>
-                                <option value="3">Third quiz</option>
+                                {this.props.quizzes.length>0 && this.props.quizzes.map(quiz => (
+                                  <option value={quiz.id}>{quiz.name? quiz.name: quiz.id}</option>
+                                ))}
                               </select>
                             </div>
                           </div>
@@ -186,11 +187,13 @@ class Room extends Component {
 function mapDispatchToProps(dispatch) {
   return {
       fetchRooms: () => dispatch(fetchRooms()), 
+      fetchQuizzes: () => dispatch(fetchQuizzes()),
   }
 }
 
 const mapStateToProps = createStructuredSelector({
   rooms: selectRooms(),
+  quizzes: selectQuizzes(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Room);

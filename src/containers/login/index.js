@@ -31,7 +31,6 @@ class Login extends Component {
 
     render() {
         if (localStorage.getItem('userToken')) {
-            debugger;
             if(!this.props.user) return(
                 <div>
                     Navigating ...

@@ -58,7 +58,7 @@ class NewQuiz extends Component {
     
     handleSubmit() {
       const data = {
-        quizName: this.state.quizName,
+        name: this.state.quizName,
         questions: this.state.questions,
       };
       HttpUtil.postJsonAuthorization('/quiz', data);
