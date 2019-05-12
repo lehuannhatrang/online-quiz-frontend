@@ -33,14 +33,14 @@ class Room extends Component {
       {
         id: "123",
         name: "sample room 1",
-        start: "1:30 AM 1/1/2019",
-        end: "2:30 PM 1/2/2019"
+        startTime: "2019-01-02T12:00:00.00Z",
+        Duration: "90"
       },
       {
         id: "456",
         name: "sample room 2",
-        start: "1:30 PM, 1/1/2019",
-        end: "2:30 PM, 1/2/2019"
+        startTime: "2019-01-02T12:00:00.00Z",
+        Duration: "60"
       }
     ]
 
@@ -58,6 +58,7 @@ class Room extends Component {
       }
       else{
         const data={
+          name: this.state.roomName,
           QuizId: this.state.quizId,
           startTime: `${this.state.date}T${this.state.startTime}:00Z`,
           Duration: duration,
