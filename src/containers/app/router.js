@@ -11,6 +11,8 @@ import Room from "../teacher/room";
 import SignUp from "../signup";
 import Student from "../student"
 import StudentTest from "../student/studentTest"
+import QuizResult from "../student/quizResult"
+import StudentResult from "../student/studentResult"
 import Admin from "../admin";
 import WrongPermission from "../errors/WrongPermission";
 import {connect} from "react-redux";
@@ -63,6 +65,8 @@ class Router extends Component {
                     <Route exact path="/teacher/quizz" component={Quizz}/>
                     <Route exact path="/teacher/quizz/new" component={NewQuiz}/>
                     <Route path='/teacher/quizz/edit' component={EditQuiz}/>
+                    <Route exact path="/student/result" component={StudentResult}/>
+
                     <Route path="/teacher/room/" component={Room}/>
                     <Route path="/student" component={WrongPermission}/>
                     <Route path="/admin" component={WrongPermission}/>
@@ -76,6 +80,8 @@ class Router extends Component {
                     <Route exact path="/" component={DashBoard}/>
                     <Route exact path="/student" component={Student}/>
                     <Route exact path="/student/test/:roomId" component={StudentTest}/>
+                    <Route exact path="/student/result" component={StudentResult}/>
+                    <Route exact path="/student/result/:quizid" component={QuizResult}/>
                     <Route path="/teacher" component={WrongPermission}/>
                     <Route path="/admin" component={WrongPermission}/>
                     <Route path="" component={NotFound} />
