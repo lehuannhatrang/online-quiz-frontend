@@ -20,7 +20,7 @@ class RoomTable extends Component {
         <table className="quizzes-table">
           <tbody>
             <tr>
-              <th className="room-name-column quizz-column-heading">NAME</th>
+              <th className="room-name-column quizz-column-heading">ROOM NAME</th>
               <th className="room-start-column quizz-column-heading">START</th>
               <th className="room-end-column quizz-column-heading">DURATION</th>
               <th className="delete-column quizz-column-heading">DELETE</th>
@@ -29,7 +29,23 @@ class RoomTable extends Component {
 
             { rooms.map(room => {return(
               <tr key={room.id}>
-                <td className="room-name-column quizz-column room-name">{room.name}</td>
+                <td className="room-name-column quizz-column room-name">
+                  <a id={`name-${room.id}`} title={`id: ${room.id}`} className="font-weight-bold" href={`/teacher/room/${room.id}`}>
+                    {room.name}
+                  </a>
+                  <div className="float-right">
+                    <a href="#" onClick={() => {
+                      let dummy = document.createElement("textarea");
+                      document.body.appendChild(dummy);
+                      dummy.value = room.id;
+                      dummy.select();
+                      document.execCommand("copy");
+                      document.body.removeChild(dummy);
+                    }}>
+                      Copy id
+                    </a>
+                  </div>
+                </td>
                 <td className="room-start-column quizz-column">{this.transformDateTime(room.startTime)}</td>
                 <td className="room-end-column quizz-column">{`${room.Duration} Minutes`}</td>
                 <td className="delete-column quizz-column">
@@ -48,7 +64,7 @@ class RoomTable extends Component {
 
             {(!rooms || rooms.length === 0) && (
               <tr>
-                <td className="name-column quizz-column">No room found</td>
+                <td className="name-column quizz-column">No room founded</td>
                 <td className="date-column quizz-column"></td>
                 <td className="delete-column quizz-column"></td>
                 <td className="edit-column quizz-column"></td>
