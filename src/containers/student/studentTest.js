@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './student.css';
 import StudentHeader from "../../components/control/studentHeader"
 import QuestionList from "../../components/control/questionList"
+import Header from "../../components/control/header"
 
 class StudentTest extends Component {
     constructor(props) {
@@ -62,7 +63,7 @@ class StudentTest extends Component {
     render() {
         return(
           <div>
-            <StudentHeader/>
+            <Header/>
             <div id="time-left-container">
               <div id="time-left"></div>
             </div>

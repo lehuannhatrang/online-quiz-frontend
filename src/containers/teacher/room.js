@@ -69,12 +69,13 @@ class Room extends Component {
     }
 
     deleteRoom(id) {
-      HttpUtil.deleteJsonAuthorization(`/room`, {id: id});
-      this.props.fetchRooms();
+      HttpUtil.deleteJsonAuthorization(`/room`, {id: id})
+        .then(res => this.props.fetchRooms())
+      
     }
 
     render() {
-      const rooms = (this.props.rooms && this.props.rooms.length > 0) ? this.props.rooms : this.roomInfoHardCode ;
+      const rooms = this.props.rooms ? this.props.rooms : this.roomInfoHardCode ;
         return(
           <div>
             <Header></Header>
