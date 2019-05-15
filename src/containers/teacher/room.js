@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import './teacher.css';
 import Header from "../../components/control/header";
 import RoomTable from "../../components/control/roomTable";
-import {selectRooms} from '../app/selectors';
-import {fetchRooms} from '../app/actions';
+import {selectRooms, selectQuizzes} from '../app/selectors';
+import {fetchRooms, fetchQuizzes} from '../app/actions';
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import HttpUtil from "../../utils/http.util";
@@ -26,20 +26,21 @@ class Room extends Component {
 
     componentDidMount() {
       this.props.fetchRooms();
+      this.props.fetchQuizzes();
     }
 
     roomInfoHardCode = [
       {
         id: "123",
         name: "sample room 1",
-        start: "1:30 AM 1/1/2019",
-        end: "2:30 PM 1/2/2019"
+        startTime: "2019-01-02T12:00:00.00Z",
+        Duration: "90"
       },
       {
         id: "456",
         name: "sample room 2",
-        start: "1:30 PM, 1/1/2019",
-        end: "2:30 PM, 1/2/2019"
+        startTime: "2019-01-02T12:00:00.00Z",
+        Duration: "60"
       }
     ]
 
@@ -57,6 +58,7 @@ class Room extends Component {
       }
       else{
         const data={
+          name: this.state.roomName,
           QuizId: this.state.quizId,
           startTime: `${this.state.date}T${this.state.startTime}:00Z`,
           Duration: duration,
@@ -67,12 +69,13 @@ class Room extends Component {
     }
 
     deleteRoom(id) {
-      HttpUtil.deleteJsonAuthorization(`/room`, {id: id});
-      this.props.fetchRooms();
+      HttpUtil.deleteJsonAuthorization(`/room`, {id: id})
+        .then(res => this.props.fetchRooms())
+      
     }
 
     render() {
-      const rooms = (this.props.rooms && this.props.rooms.length > 0) ? this.props.rooms : this.roomInfoHardCode ;
+      const rooms = this.props.rooms ? this.props.rooms : this.roomInfoHardCode ;
         return(
           <div>
             <Header></Header>
@@ -109,9 +112,9 @@ class Room extends Component {
                             <div className="col-sm-10">
                               <select className="custom-select" id="quiz-name" onChange={e => this.setState({quizId: e.target.value})}>
                                 <option disabled selected>Select the quiz ...</option>
-                                <option value="1">First quiz</option>
-                                <option value="2">Second quiz</option>
-                                <option value="3">Third quiz</option>
+                                {this.props.quizzes.length>0 && this.props.quizzes.map(quiz => (
+                                  <option value={quiz.id}>{quiz.name? quiz.name: quiz.id}</option>
+                                ))}
                               </select>
                             </div>
                           </div>
@@ -186,11 +189,13 @@ class Room extends Component {
 function mapDispatchToProps(dispatch) {
   return {
       fetchRooms: () => dispatch(fetchRooms()), 
+      fetchQuizzes: () => dispatch(fetchQuizzes()),
   }
 }
 
 const mapStateToProps = createStructuredSelector({
   rooms: selectRooms(),
+  quizzes: selectQuizzes(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Room);

@@ -25,18 +25,22 @@ class Quizz extends Component {
       {
         id: "123",
         name: "sample quiz 1",
-        date: "1/1/2019"
+        createdAt: "2019-05-01T20:00:00Z"
       },
       {
         id: "456",
         name: "sample quiz 2",
-        date: "2/1/2019"
+        createdAt: "2019-05-12T22:00:00Z"
       },
     ]
 
     deleteQuiz(id) {
-      HttpUtil.deleteJsonAuthorization(`/quiz`, {id: id});
-      this.props.fetchQuizzes();
+      const param = {
+        id: id,
+      };
+      HttpUtil.deleteJsonAuthorization(`/quiz`, param).then(res=> {
+        this.props.fetchQuizzes();
+      });
     }
 
     render() {
@@ -70,7 +74,7 @@ class Quizz extends Component {
               </div>
 
               <div className="quizzes-content-container">
-                <QuizTable searchingText={this.state.search} data= {(this.props.quizzes && this.props.quizzes.length > 0) ? this.props.quizzes : this.quizInfoHardCode} 
+                <QuizTable searchingText={this.state.search} data= {this.props.quizzes.length > 0 ? this.props.quizzes : this.quizInfoHardCode} 
                             deleteQuiz={this.deleteQuiz}/>
               </div>
             </div>

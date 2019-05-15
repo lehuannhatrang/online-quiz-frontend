@@ -17,6 +17,7 @@
   padding: 7px;
   text-align: center;
   border-radius: 2px;
+  cursor: default;
 }
 
 .question-list {
@@ -43,6 +44,7 @@
 .quiz-container .question-header {
   font-size: 20px;
   padding: 10px 20px 20px 10px;
+  cursor: default;
 }
 
 .mc-answer-option {
@@ -59,6 +61,7 @@
   line-height: 38px;
   text-align: center;
   width: 40px;
+  cursor: pointer;  
 }
 
 .mc-answer-option-text {
@@ -67,6 +70,7 @@
   min-height: 20px;
   padding: 10px 10px 10px 0;
   word-wrap: break-word;
+  cursor: default;
 }
 
 .option-selected {

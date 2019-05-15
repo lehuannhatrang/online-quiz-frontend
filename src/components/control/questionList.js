@@ -87,8 +87,10 @@ class QuestionList extends Component {
   renderQuestion(question, index){
     return(
     <div className="quiz-container">
+
     <div className="question-header">{index +" . " + question.question}</div>
     {this.renderOption(question.options, index-1)}
+
   </div>);
   }
 

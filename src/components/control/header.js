@@ -36,9 +36,15 @@ class Header extends Component {
             <div id="header-container">
               <div className="header-wrapper">
                 <div className="logo-icon">
-                  <i className="ion-social-freebsd-devil"></i>
+                  <a href={`/${this.props.user.userInfo.role}`} >
+                    <i className="ion-social-freebsd-devil"></i>
+                  </a>
                 </div>
-                <div id="header-room-name">{(this.props.user && this.props.user.userInfo.role === "teacher") ? "TEACHER DESK" : "STUDENT DESK"}</div>
+                <div id="header-room-name">
+                  <h1 className="font-weight-bold">
+                  {(this.props.user && this.props.user.userInfo.role === "teacher") ? "TEACHER DESK" : "STUDENT DESK"}
+                  </h1>
+                </div>
 
                   <button type="button" className="btn" id="header-username" onClick={this.mToggle}>
                     <span>{this.props.user? this.props.user.userInfo.displayName : "Profile"}</span>
@@ -52,12 +58,21 @@ class Header extends Component {
 
 
                 <div id="header-nav">
+                  {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'teacher' && (
                   <ul>
                     <li className={location.pathname === "/teacher" ? "nav-li selected" : this.liSelected("/teacher/quizz")}><a href="/teacher/quizz">QUIZZES</a></li>
                     <li className={this.liSelected("/teacher/room")} ><a href="/teacher/room">ROOMS</a></li>
                     <li className={this.liSelected("/teacher/report")} ><a href="/teacher/report">REPORT</a></li>
                     <li className={this.liSelected("/teacher/result")} ><a href="/teacher/result">RESULT</a></li>
                   </ul>
+                  )}
+
+                  {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'student' && (
+                    <ul>
+                      <li className={location.pathname === "/student" ? "nav-li selected" : this.liSelected("/student/test")}><a href="/student">TEST</a></li>
+                      <li className={this.liSelected("/student/result")} ><a href="/student/result">RESULT</a></li>
+                    </ul>
+                  )}
                 </div>
               </div>
             </div>

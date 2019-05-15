@@ -34,6 +34,7 @@ body {
   left: 15%;
   font-weight: 400;
   font-size: 25px;
+  cursor: default;
 }
 
 .logo-icon {
