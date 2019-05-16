@@ -40,7 +40,7 @@ class Admin extends Component {
     render() {
 
         return (
-            <Layout style={{height: '100vh'}}>
+            <Layout style={{height: '100vh'}} className="admin-layout">
                 <AdminMenu collapsed={this.state.siderCollapsed}
                     mode={'inline'} theme={this.state.siderTheme} avatarShape={'circle'}/>
                 <Layout className="right-layout" >

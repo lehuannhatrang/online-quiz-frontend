@@ -308,7 +308,7 @@ class UserProfileDrawer extends Component {
                             <WrapperChangePasswordForm />                            
                         </Panel>
                         <Panel header="Logout" extra={<Icon type="logout" />} key="4">
-                            <p className="text-center"><Link to="/login">Click here to Good Bye</Link></p>
+                            <p className="text-center"><Link style={{color: '#1890ff', textDecoration: 'none'}} to="/login">Click here to Good Bye</Link></p>
                         </Panel>
                     </Collapse>
                 </Scrollbars>
