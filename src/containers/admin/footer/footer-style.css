@@ -5,6 +5,13 @@
 .footer {
     background-color: transparent;
     font-weight: 400;
+}
+
+.footer .text-pulse {
+    color: tomato;
+}
+
+.footer {
     color: #888;
     padding: 24px 0px !important;
     /* padding-right: 20px !important; */
@@ -18,8 +25,4 @@
 
 .footer a:hover, a:active {
     color: blue;
-}
-
-.footer .text-pulse {
-    color: tomato;
 }
