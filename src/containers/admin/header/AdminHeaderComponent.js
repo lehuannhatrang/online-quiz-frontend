@@ -4,8 +4,6 @@ import { Button, Icon, Layout, Dropdown, Badge } from 'antd';
 import { Link } from 'react-router-dom';
 import { NotificationsMenu } from './NotificationsMenuComponent';
 import { SearchBar } from './SearchBarComponent';
-import { SettingsMenu } from './SettingsMenuComponent';
-import { UserProfileMenu } from './UserProfileMenuComponent';
 import UserProfileDrawer from './UserProfileDrawerComponent';
 
 const { Header } = Layout;
@@ -34,8 +32,7 @@ class AdminHeader extends Component {
         this.onCloseDrawer = this.onCloseDrawer.bind(this);
         this.onShowSearchBar = this.onShowSearchBar.bind(this);
         this.onCloseSearchBar = this.onCloseSearchBar.bind(this);
-        this.onSelectWhiteBackground = this.onSelectWhiteBackground.bind(this);
-        this.onSelectTransparentBackground = this.onSelectTransparentBackground.bind(this);
+        this.onToggleHeaderMode = this.onToggleHeaderMode.bind(this);
     }
 
     onShowSearchBar() {
@@ -50,15 +47,9 @@ class AdminHeader extends Component {
         });
     }
 
-    onSelectTransparentBackground() {
+    onToggleHeaderMode() {
         this.setState({
-            backgroundColor: 'transparent',
-        });
-    }
-
-    onSelectWhiteBackground() {
-        this.setState({
-            backgroundColor: 'white',
+            backgroundColor: (this.state.backgroundColor === 'transparent') ? 'white' : 'transparent',
         });
     }
 
@@ -84,14 +75,16 @@ class AdminHeader extends Component {
                 <div className="btn-container float-left">
                     <Button shape="circle" icon={collapsedIcon} onClick={this.props.onToggle}/>
                     <Button shape="circle" icon="search" onClick={() => {this.onShowSearchBar()}}/>
-                    <Dropdown placement="bottomLeft" overlayStyle={{...overlayStyle, width: '280px'}} 
+                    <Button shape="circle" icon="gold" onClick={() => {this.onToggleHeaderMode()}}/>
+                    <Button shape="circle" icon="bulb" onClick={() => {this.props.onToggleSiderTheme()}}/>
+                    {/* <Dropdown placement="bottomLeft" overlayStyle={{...overlayStyle, width: '280px'}} 
                         overlay={<SettingsMenu onSWB={this.onSelectWhiteBackground} onSTB={this.onSelectTransparentBackground}
                             onSVM={this.props.onSelectVerticalMode} onSIM={this.props.onSelectInlineMode}
                             onSDT={this.props.onSelectDarkTheme} onSLT={this.props.onSelectLightTheme} onTAS={this.props.onToggleAvatarShape}
                         />} 
                         trigger={['click']}>
                         <Button shape="circle" icon="tool"/>
-                    </Dropdown>
+                    </Dropdown> */}
                 </div>
                 <div className="float-right">
                     {/* <div className="user-profile">

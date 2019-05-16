@@ -16,6 +16,7 @@ const inlineStyle = {
     left: "50%",
     transform: "translate(-50%,-50%)",
     textAlign: 'center',
+    width: '80%',
 };
 
 class AdminStudentsManager extends Component {
@@ -191,11 +192,11 @@ class AdminStudentsManager extends Component {
                             <Table columns={columns} dataSource={data} pagination={{ pageSize: 6 }}
                             title={() => <span>{'Student Accounts'}</span>} bordered size="middle"/>
                         </Fade>
-                        <Modal className="my-modal" centered visible={this.state.modalVisible} footer={null} onCancel={(e) => {this.setState({ modalVisible: false });}}>
+                        <Modal className="my-modal" width={640} centered visible={this.state.modalVisible} footer={null} onCancel={(e) => {this.setState({ modalVisible: false });}}>
                             <Row>
-                                <Col span={24}>
+                                <Col span={12}>
                                     <Parallax style={{width: "100%"}} strength={1000} bgClassName="background-profile" bgImage={bgImagePath} blur={0}>
-                                        <div style={{height: 280}}>
+                                        <div style={{height: 320}}>
                                             <div style={inlineStyle}>
                                                 <Avatar size={80} src={this.state.studentAvatar} style={{cursor: 'pointer', border: '2px solid #ddd'}}/>
                                                 <div className="name-profile">
@@ -211,19 +212,18 @@ class AdminStudentsManager extends Component {
                                         </div>
                                     </Parallax>
                                 </Col>
-                            </Row>
-                            <Row style={{padding: '35px 10px 15px 10px'}}>
-                                <Col span={10}>
-                                    <div><Icon type="profile" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentName}</div>
-                                    <div><Icon type="heart" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentSex}</div>
-                                    <div><Icon type="schedule" theme="filled" style={{marginRight: '8px'}}/>{' '}{getStandardFormatDate(this.state.studentBirthday)}</div>
-                                    <div><Icon type="phone" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentPhone}</div>
-                                </Col>
-                                <Col span={14}>
-                                    <div><Icon type="bulb" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentSchool}</div>
-                                    <div><Icon type="home" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentAddress}</div>
-                                    
-                                    <div><Icon type="mail" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentEmail}</div>
+                                <Col span={12} >
+                                    <div style={{height: 320}}>
+                                        <div style={{...inlineStyle, textAlign: 'left', padding: 0, lineHeight: 2}}>
+                                            <div><Icon type="profile" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentName}</div>
+                                            <div><Icon type="heart" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentSex}</div>
+                                            <div><Icon type="schedule" theme="filled" style={{marginRight: '8px'}}/>{' '}{getStandardFormatDate(this.state.studentBirthday)}</div>
+                                            <div><Icon type="phone" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentPhone}</div>
+                                            <div><Icon type="bulb" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentSchool}</div>
+                                            <div><Icon type="home" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentAddress}</div>
+                                            <div><Icon type="mail" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.studentEmail}</div>
+                                        </div>
+                                    </div>
                                 </Col>
                             </Row>
                         </Modal>

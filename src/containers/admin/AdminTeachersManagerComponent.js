@@ -16,6 +16,7 @@ const inlineStyle = {
     left: "50%",
     transform: "translate(-50%,-50%)",
     textAlign: 'center',
+    width: '80%',
 };
 
 class AdminTeachersManager extends Component {
@@ -191,11 +192,11 @@ class AdminTeachersManager extends Component {
                             <Table columns={columns} dataSource={data} pagination={{ pageSize: 6 }}
                             title={() => <span>{'Teacher Accounts'}</span>} bordered size="middle"/>
                         </Fade>
-                        <Modal className="my-modal" centered visible={this.state.modalVisible} footer={null} onCancel={(e) => {this.setState({ modalVisible: false });}}>
+                        <Modal className="my-modal" width={640} centered visible={this.state.modalVisible} footer={null} onCancel={(e) => {this.setState({ modalVisible: false });}}>
                             <Row>
-                                <Col span={24}>
+                                <Col span={12}>
                                     <Parallax style={{width: "100%"}} strength={1000} bgClassName="background-profile" bgImage={bgImagePath} blur={0}>
-                                        <div style={{height: 280}}>
+                                        <div style={{height: 320}}>
                                             <div style={inlineStyle}>
                                                 <Avatar size={80} src={this.state.teacherAvatar} style={{cursor: 'pointer', border: '2px solid #ddd'}}/>
                                                 <div className="name-profile">
@@ -211,19 +212,18 @@ class AdminTeachersManager extends Component {
                                         </div>
                                     </Parallax>
                                 </Col>
-                            </Row>
-                            <Row style={{padding: '35px 10px 15px 10px'}}>
-                                <Col span={10}>
-                                    <div><Icon type="profile" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherName}</div>
-                                    <div><Icon type="heart" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherSex}</div>
-                                    <div><Icon type="schedule" theme="filled" style={{marginRight: '8px'}}/>{' '}{getStandardFormatDate(this.state.teacherBirthday)}</div>
-                                    <div><Icon type="phone" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherPhone}</div>
-                                </Col>
-                                <Col span={14}>
-                                    <div><Icon type="bulb" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherSchool}</div>
-                                    <div><Icon type="home" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherAddress}</div>
-                                    
-                                    <div><Icon type="mail" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherEmail}</div>
+                                <Col span={12} >
+                                    <div style={{height: 320}}>
+                                        <div style={{...inlineStyle, textAlign: 'left', padding: 0, lineHeight: 2}}>
+                                            <div><Icon type="profile" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherName}</div>
+                                            <div><Icon type="heart" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherSex}</div>
+                                            <div><Icon type="schedule" theme="filled" style={{marginRight: '8px'}}/>{' '}{getStandardFormatDate(this.state.teacherBirthday)}</div>
+                                            <div><Icon type="phone" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherPhone}</div>
+                                            <div><Icon type="bulb" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherSchool}</div>
+                                            <div><Icon type="home" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherAddress}</div>
+                                            <div><Icon type="mail" theme="filled" style={{marginRight: '8px'}}/>{' '}{this.state.teacherEmail}</div>
+                                        </div>
+                                    </div>
                                 </Col>
                             </Row>
                         </Modal>

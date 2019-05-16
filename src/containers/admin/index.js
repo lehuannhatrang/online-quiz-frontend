@@ -19,11 +19,9 @@ class Admin extends Component {
         this.state = {
             siderCollapsed: false,
             siderTheme: 'dark',
-            siderMode: 'inline',
-            avatarShape: 'circle',
         };
 
-        this.onToggleAvatarShape = this.onToggleAvatarShape.bind(this);
+        this.onToggleSiderTheme = this.onToggleSiderTheme.bind(this);
     }
 
     onToggleSiderCollapsed = () => {
@@ -32,45 +30,11 @@ class Admin extends Component {
         });
     }
 
-    onSelectVerticalMode = () => {
+    onToggleSiderTheme = () => {
         //Save in database
         this.setState({
-            siderMode: 'vertical',
+            siderTheme: this.state.siderTheme === 'light' ? 'dark' : 'light',
         });
-    }
-
-    onSelectInlineMode = () => {
-        //Save in database
-        this.setState({
-            siderMode: 'inline',
-        });
-    }
-
-    onSelectLightTheme = () => {
-        //Save in database
-        this.setState({
-            siderTheme: 'light',
-        });
-    }
-
-    onSelectDarkTheme = () => {
-        //Save in database
-        this.setState({
-            siderTheme: 'dark',
-        });
-    }
-
-    onToggleAvatarShape() {
-        if (this.state.avatarShape === 'circle') {
-            this.setState({
-                avatarShape: 'square',
-            });
-        }
-        else {
-            this.setState({
-                avatarShape: 'circle',
-            });
-        }
     }
 
     render() {
@@ -78,12 +42,10 @@ class Admin extends Component {
         return (
             <Layout style={{height: '100vh'}}>
                 <AdminMenu collapsed={this.state.siderCollapsed}
-                    mode={this.state.siderMode} theme={this.state.siderTheme} avatarShape={this.state.avatarShape}/>
+                    mode={'inline'} theme={this.state.siderTheme} avatarShape={'circle'}/>
                 <Layout className="right-layout" >
                     <AdminHeader onToggle={this.onToggleSiderCollapsed} collapsing={this.state.siderCollapsed}
-                        notifications={NOTIFICATIONS} onSelectVerticalMode={this.onSelectVerticalMode}
-                        onSelectInlineMode={this.onSelectInlineMode} onSelectDarkTheme={this.onSelectDarkTheme}
-                        onSelectLightTheme={this.onSelectLightTheme} onToggleAvatarShape={this.onToggleAvatarShape}
+                        notifications={NOTIFICATIONS} onToggleSiderTheme={this.onToggleSiderTheme}
                     />
                     <Scrollbars style={{height: '96vh'}}>
                         <Switch>
