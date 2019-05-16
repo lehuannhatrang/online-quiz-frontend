@@ -34,7 +34,7 @@ class RoomTable extends Component {
                     {room.name}
                   </a>
                   <div className="float-right">
-                    <a href="#" onClick={() => {
+                    <a href="#" title={room.id} className="text text-mute" onClick={() => {
                       let dummy = document.createElement("textarea");
                       document.body.appendChild(dummy);
                       dummy.value = room.id;

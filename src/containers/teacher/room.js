@@ -75,7 +75,7 @@ class Room extends Component {
     }
 
     render() {
-      const rooms = this.props.rooms ? this.props.rooms : this.roomInfoHardCode ;
+      const rooms = this.props.rooms ? this.props.rooms : [];
         return(
           <div>
             <Header></Header>
