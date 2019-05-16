@@ -14,6 +14,7 @@ class NewQuiz extends Component {
         this.state = {
           quizName: "",
           questions: [],
+          isPublic: false,
         }
     }
 
@@ -60,6 +61,7 @@ class NewQuiz extends Component {
       const data = {
         name: this.state.quizName,
         questions: this.state.questions,
+        isPublic: this.state.isPublic,
       };
       HttpUtil.postJsonAuthorization('/quiz', data);
     }
@@ -69,8 +71,17 @@ class NewQuiz extends Component {
           <div>
             <Header></Header>
             <div id="quizz-container">
-              <div>
-                <span id="quizz-header-text">Create Quiz</span>
+              <div className="mb-2">
+                <span id="quizz-header-text">Create Quiz - <span className={`d-inline ${this.state.isPublic? "text-success" : "text-muted"} pt-2`}>Public</span></span>
+
+                <div className="d-inline ml-4">
+                
+                  <label class="switch mr-2">
+                    <input type="checkbox" value="ok" onClick={() => this.setState({isPublic : !this.state.isPublic})}/>
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+
                 <div className="button-container">
                   <button className="button-primary" onClick={() => this.handleSubmit()}>
                     <i className="ion-plus-round"></i>
@@ -79,6 +90,8 @@ class NewQuiz extends Component {
                   
                 </div>
               </div>
+
+              
 
               <div className="quizzes-search-bar">
                 <div className="quizzes-search-container">

@@ -16,6 +16,8 @@ import {
     FETCH_QUIZ_SUCCESS,
     FETCH_ROOMS,
     FETCH_ROOMS_SUCCESS,
+    FETCH_PUBLIC_QUIZZES,
+    FETCH_PUBLIC_QUIZZES_SUCCESS,
     FETCH_USERS_ACTIONS_SUCCESS
 } from "./constants";
 
@@ -31,6 +33,7 @@ const initialState = fromJS({
     questions: [],
     quiz: {},
     rooms: [],
+    publicQuizzes: [],
 });
 
 function appReducer(state = initialState, action) {
@@ -75,6 +78,11 @@ function appReducer(state = initialState, action) {
             return state.set('loading', true).set('error', false);
         case FETCH_ROOMS_SUCCESS:
             return state.set('rooms', action.rooms).set('error', false);
+
+        case FETCH_PUBLIC_QUIZZES:
+            return state.set('loading', true).set('error', false);
+        case FETCH_PUBLIC_QUIZZES_SUCCESS:
+            return state.set('publicQuizzes', action.quizzes).set('error', false);
 
         case REQUEST_FAILED:
             return state.set('error', true).set('errorInfo', action.error).set('loading', false)

@@ -8,6 +8,7 @@ import {
     FETCH_QUESTIONS,
     FETCH_QUIZ,
     FETCH_ROOMS,
+    FETCH_PUBLIC_QUIZZES
 } from "./constants";
 import {
     error, 
@@ -19,6 +20,7 @@ import {
     fetchQuestionsSuccess,
     fetchQuizSuccess,
     fetchRoomsSuccess,
+    fetchPublicQuizzesSuccess,
 } from "./actions";
 
 import HttpUtils from '../../utils/http.util';
@@ -110,8 +112,8 @@ function* fetchUserActionsWatcher() {
     yield takeLatest(FETCH_USERS_ACTIONS, fetchUserActions)
 }
 
-function* doFetchQuizzes() {
-    yield fork(fetchUserActionsWatcher)
+function* doFetchUserActions() {
+    yield fork(fetchQuizzesWatcher)
 }
 
 
@@ -132,9 +134,10 @@ function* fetchQuizzesWatcher() {
     yield takeLatest(FETCH_QUIZZES, fetchQuizzes)
 }
 
-function* doFetchUserActions() {
-    yield fork(fetchQuizzesWatcher)
+function* doFetchQuizzes() {
+    yield fork(fetchUserActionsWatcher)
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -200,6 +203,28 @@ function* doFetchRooms() {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchPublicQuizzes() {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization('/quiz/public');
+        if (data) {
+            yield put(fetchPublicQuizzesSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchPublicQuizzesWatcher() {
+    yield takeLatest(FETCH_PUBLIC_QUIZZES, fetchPublicQuizzes)
+}
+
+function* doFetchPublicQuizzes() {
+    yield fork(fetchPublicQuizzesWatcher)
+}
+
+
 export default function* root() {
     
     try {
@@ -212,6 +237,7 @@ export default function* root() {
             doFetchQuestions(),
             doFetchQuiz(),
             doFetchRooms(),
+            doFetchPublicQuizzes(),
         ])
     } catch (e) {
         console.log(e)

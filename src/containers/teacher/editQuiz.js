@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import './teacher.css';
 import Header from "../../components/control/header";
 import Question from "../../components/control/question";
-import {selectQuiz} from '../app/selectors';
-import {fetchQuiz} from '../app/actions';
+import {selectQuizzes} from '../app/selectors';
+import {fetchQuizzes} from '../app/actions';
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import HttpUtil from "../../utils/http.util";
@@ -12,7 +12,7 @@ class EditQuiz extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          questions : (this.props.quiz.questions && (this.props.quiz.questions.length > 0) ) ? this.props.quiz.questions : this.questionsHardCodeData,
+          questions : {},
           quizName: this.props.quiz? this.props.quiz.quizName : 'Sample Quiz Name'
         }
     }
@@ -56,7 +56,7 @@ class EditQuiz extends Component {
     };
 
     componentDidMount() {
-        this.props.fetchQuiz(location.pathname.replace(this.editQuizPath, ''))
+        this.props.fetchQuizzes();
     }
 
     async handleAddNewQuestion() {
@@ -91,6 +91,7 @@ class EditQuiz extends Component {
     }
 
     render() {
+      const quiz = this.props.quizzes ? this.props.quizzes.find(q => q.id === location.pathname.replace(this.editQuizPath, '')) : {};
       return(
           <div>
             <Header></Header>
@@ -110,7 +111,7 @@ class EditQuiz extends Component {
                   <span className="input-search-container">
                     <div className="input-block">
                       <i className="ion-university"></i>
-                      <input className="search-input" id="quizname-input" placeholder="Name your Quiz ..." type="text"></input>
+                      <input className="search-input" id="quizname-input" placeholder="Name your Quiz ..." type="text" defaultValue={quiz? quiz.name: ''}></input>
                     </div>
                   </span>
                 </div>
@@ -122,7 +123,7 @@ class EditQuiz extends Component {
               </button>
 
               <div id="questions">
-                { this.state.questions.map((question, index) => {
+                { quiz && quiz.questions.map((question, index) => {
                     return(
                         <Question data={question} number={index + 1} delete={() => this.deleteQuestion(index)}
                         onChange={value => this.handleChangeQuestion(value, index)}/>
@@ -138,12 +139,12 @@ class EditQuiz extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-      fetchQuiz: (id) => dispatch(fetchQuiz(id)), 
+      fetchQuizzes: (id) => dispatch(fetchQuizzes()), 
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  quiz: selectQuiz(),
+  quizzes: selectQuizzes(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditQuiz);
