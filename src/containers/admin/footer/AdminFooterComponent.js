@@ -1,17 +1,26 @@
 import React from 'react';
-import './style.css';
+import './footer-style.css';
 import { Link } from 'react-router-dom';
+import { Layout, Row, Col } from 'antd';
+
+const { Footer } = Layout;
 
 const AdminFooter = () => {
     return (
-        <div className="footer row col-12 mb-0">
-            <div className="col-6 text-left">
-                <Link to="/dashboard">Online Quiz</Link>{' © 2019. All right reserved.' }
-            </div>
-            <div className="col-6 text-right">
-                {'Make with '}<i class="fa fa-heart text-pulse"></i>{' by '}<Link to ="#">luantnguyen</Link>
-            </div>
-        </div>
+        <Footer className="footer mb-0">
+            <Row type="flex" justify="space-around" align="middle">
+                <Col span={23}>
+                    <Row>
+                        <Col span={12} className="text-left">
+                            <Link to="/dashboard">OnlineQuiz</Link>{' © 2019. All right reserved.' }
+                        </Col>
+                        <Col span={12} className="text-right">
+                            {'Make with '}<i className="fa fa-heart text-pulse"></i>{' by '}<Link to ="#">luantnguyen</Link>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+        </Footer>
     );
 };
 

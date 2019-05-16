@@ -29,7 +29,7 @@ class StudentHeader extends Component {
                 </div>
                 <div id="header-nav">
                   <ul>
-                    <li className={location.pathname === "/student" ? "nav-li selected" : this.liSelected("/student/test")}><a href="/student/test">TEST</a></li>
+                    <li className={location.pathname === "/student" ? "nav-li selected" : this.liSelected("/student/test")}><a href="/student">TEST</a></li>
                     <li className={this.liSelected("/student/result")} ><a href="/student/result">RESULT</a></li>
                   </ul>
                 </div>
