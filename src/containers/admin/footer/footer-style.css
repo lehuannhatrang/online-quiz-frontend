@@ -1,0 +1,28 @@
+.footer div {
+    margin: 0 !important;
+}
+
+.footer {
+    background-color: transparent;
+    font-weight: 400;
+}
+
+.footer .text-pulse {
+    color: tomato;
+}
+
+.footer {
+    color: #888;
+    padding: 24px 0px !important;
+    /* padding-right: 20px !important; */
+}
+
+.footer a:link, a:visited {
+    color: #1890ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover, a:active {
+    color: blue;
+}
