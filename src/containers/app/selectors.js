@@ -29,6 +29,18 @@ const selectUserToken = () =>
 const selectUserActions = () =>
     createSelector(selectGlobal, global => global.get('userActions'));
 
+const selectQuizzes = () =>
+    createSelector(selectGlobal, global => global.get('quizzes'));
+
+const selectQuestions = () =>
+    createSelector(selectGlobal, global => global.get('questions'));
+
+const selectQuiz = () =>
+createSelector(selectGlobal, global => global.get('quiz'));
+
+const selectRooms = () =>
+createSelector(selectGlobal, global => global.get('rooms'));
+
 
 export {
     selectGlobal,
@@ -41,4 +53,8 @@ export {
     selectErrorInfo,
     selectForm,
     selectUserActions,
+    selectQuizzes,
+    selectQuestions,
+    selectQuiz,
+    selectRooms,
 }

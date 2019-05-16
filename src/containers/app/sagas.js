@@ -3,14 +3,22 @@ import {
     AUTHENTICATE, 
     FETCH_USER, 
     FETCH_USERS, 
-    FETCH_USERS_ACTIONS
+    FETCH_USERS_ACTIONS,
+    FETCH_QUIZZES,
+    FETCH_QUESTIONS,
+    FETCH_QUIZ,
+    FETCH_ROOMS,
 } from "./constants";
 import {
     error, 
     fetchUserActionsSuccess, 
     fetchUsersSuccess,
     fetchUserSuccess,
-    loginSuccess
+    loginSuccess,
+    fetchQuizzesSuccess,
+    fetchQuestionsSuccess,
+    fetchQuizSuccess,
+    fetchRoomsSuccess,
 } from "./actions";
 
 import HttpUtils from '../../utils/http.util';
@@ -102,9 +110,95 @@ function* fetchUserActionsWatcher() {
     yield takeLatest(FETCH_USERS_ACTIONS, fetchUserActions)
 }
 
-function* doFetchUserActions() {
+function* doFetchQuizzes() {
     yield fork(fetchUserActionsWatcher)
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchQuizzes() {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization('/quiz');
+        if (data) {
+            yield put(fetchQuizzesSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchQuizzesWatcher() {
+    yield takeLatest(FETCH_QUIZZES, fetchQuizzes)
+}
+
+function* doFetchUserActions() {
+    yield fork(fetchQuizzesWatcher)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchQuestions(target) {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization(`/quiz/questions/${target.id}`);
+        if (data) {
+            yield put(fetchQuestionsSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchQuestionsWatcher() {
+    yield takeLatest(FETCH_QUESTIONS, fetchQuestions)
+}
+
+function* doFetchQuestions() {
+    yield fork(fetchQuestionsWatcher)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchQuiz(target) {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization(`/quiz?id=${target.id}`);
+        if (data) {
+            yield put(fetchQuizSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchQuizWatcher() {
+    yield takeLatest(FETCH_QUIZ, fetchQuiz)
+}
+
+function* doFetchQuiz() {
+    yield fork(fetchQuizWatcher)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchRooms() {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization('/room/list');
+        if (data) {
+            yield put(fetchRoomsSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchRoomsWatcher() {
+    yield takeLatest(FETCH_ROOMS, fetchRooms)
+}
+
+function* doFetchRooms() {
+    yield fork(fetchRoomsWatcher)
+}
+
 
 export default function* root() {
     
@@ -114,6 +208,10 @@ export default function* root() {
             doFetchUser(),
             doFetchUserActions(),
             doFetchUsers(),
+            doFetchQuizzes(),
+            doFetchQuestions(),
+            doFetchQuiz(),
+            doFetchRooms(),
         ])
     } catch (e) {
         console.log(e)

@@ -18,7 +18,8 @@ class SignUp extends Component {
         const data = await fields.toJS();
         await delete data.retypePassword;
         data.role = await data.role.value;
-        return HttpUtil.postJson("/signup", data);
+        HttpUtil.postJson("/signup", data);
+        window.location = '/';
     }
 
     render() {

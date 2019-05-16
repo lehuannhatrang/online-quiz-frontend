@@ -3,7 +3,8 @@ import {Redirect} from "react-router-dom";
 import {login} from "../app/actions";
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
-import {selectUserToken} from "../app/selectors";
+import { fetchUser } from '../app/actions';
+import {selectUserToken, selectCurrentUser} from "../app/selectors";
 import Config from "../../../configs";
 import LoginForm from "./Form";
 
@@ -19,11 +20,9 @@ class Login extends Component {
 
     }
 
-    componentWillMount() {
-        const redirect = this.props.location.state ? this.props.location.state.redirect ? this.props.location.state.redirect : '/' : '/';
-        // if (!localStorage.getItem('userToken') && !localStorage.getItem('user')) {
-        //     window.location = `${Config.BACKEND_API_URL}/auth/login/local?redirect=${Config.FRONT_END_HOST}${redirect}&checkUser=true`
-        // }
+    componentDidUpdate(){
+        if(localStorage.getItem('userToken'))  
+            this.props.fetchUser();
     }
 
     onSubmitForm(fields) {
@@ -31,9 +30,30 @@ class Login extends Component {
     }
 
     render() {
-        const redirect = this.props.location.state ? this.props.location.state.redirect ? this.props.location.state.redirect : '/' : '/';
         if (localStorage.getItem('userToken')) {
-            return <Redirect to={redirect}/>
+            if(!this.props.user) return(
+                <div>
+                    Navigating ...
+                    Please wait ...
+                </div>
+            )
+            if(this.props.user && (!this.props.user.userInfo || !this.props.user.userInfo.role))
+            return(
+                <div>
+                    Navigating ...
+                    Please wait ...
+                </div>
+            )
+
+            if(this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'teacher')    
+                return <Redirect to='/teacher'/>
+
+            if(this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'student')    
+                return <Redirect to='/student'/>
+            
+            if(this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'admin')    
+                return <Redirect to='/admin'/>
+
         }
         return (
             <div className="center-screen">
@@ -58,12 +78,14 @@ class Login extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        login: (username, password) => dispatch(login(username, password))
+        login: (username, password) => dispatch(login(username, password)),
+        fetchUser: () => dispatch(fetchUser())
     }
 }
 
 const mapStateToProps = createStructuredSelector({
     token: selectUserToken(),
+    user: selectCurrentUser(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

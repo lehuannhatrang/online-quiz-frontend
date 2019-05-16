@@ -1,24 +1,47 @@
 import React, {Component} from 'react';
 import './teacher.css';
-import Header from "../../components/control/header"
-import QuizTable from "../../components/control/quizTable"
+import Header from "../../components/control/header";
+import QuizTable from "../../components/control/quizTable";
+import {selectQuizzes} from '../app/selectors';
+import {fetchQuizzes} from '../app/actions';
+import {connect} from "react-redux";
+import {createStructuredSelector} from 'reselect';
+import HttpUtil from "../../utils/http.util";
 
 class Quizz extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+          search: "",
+        };
+        this.deleteQuiz = this.deleteQuiz.bind(this);
     }
+
+    componentDidMount() {
+      this.props.fetchQuizzes();
+    }
+    
     quizInfoHardCode = [
       {
         id: "123",
         name: "sample quiz 1",
-        date: "1/1/2019"
+        createdAt: "2019-05-01T20:00:00Z"
       },
       {
         id: "456",
         name: "sample quiz 2",
-        date: "2/1/2019"
+        createdAt: "2019-05-12T22:00:00Z"
       },
     ]
+
+    deleteQuiz(id) {
+      const param = {
+        id: id,
+      };
+      HttpUtil.deleteJsonAuthorization(`/quiz`, param).then(res=> {
+        this.props.fetchQuizzes();
+      });
+    }
 
     render() {
         return(
@@ -44,14 +67,15 @@ class Quizz extends Component {
                   <span className="input-search-container">
                     <div className="input-block">
                       <i className="ion-ios-search-strong"></i>
-                      <input className="search-input" placeholder="Search Quizzes" type="text"></input>
+                      <input className="search-input" placeholder="Search Quizzes" type="text" onChange={(e) => this.setState({search: e.target.value})}></input>
                     </div>
                   </span>
                 </div>
               </div>
 
               <div className="quizzes-content-container">
-                <QuizTable data= {this.quizInfoHardCode} />
+                <QuizTable searchingText={this.state.search} data= {this.props.quizzes.length > 0 ? this.props.quizzes : this.quizInfoHardCode} 
+                            deleteQuiz={this.deleteQuiz}/>
               </div>
             </div>
             
@@ -61,5 +85,14 @@ class Quizz extends Component {
 
 }
 
-export default Quizz;
-// alert("Hello world");
+function mapDispatchToProps(dispatch) {
+  return {
+      fetchQuizzes: () => dispatch(fetchQuizzes()), 
+  }
+}
+
+const mapStateToProps = createStructuredSelector({
+  quizzes: selectQuizzes(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quizz);

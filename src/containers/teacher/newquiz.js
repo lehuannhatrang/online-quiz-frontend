@@ -1,25 +1,69 @@
 import React, {Component} from 'react';
 import './teacher.css';
-import Header from "../../components/control/header"
-import Question from "../../components/control/question"
+import Header from "../../components/control/header";
+import Question from "../../components/control/question";
+import {selectQuestions} from '../app/selectors';
+import {fetchQuestions} from '../app/actions';
+import {connect} from "react-redux";
+import {createStructuredSelector} from 'reselect';
+import HttpUtil from "../../utils/http.util";
 
 class NewQuiz extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+          quizName: "",
+          questions: [],
+        }
     }
-    quizInfoHardCode = [
-      {
-        id: "123",
-        name: "sample quiz 1",
-        date: "1/1/2019"
-      },
-      {
-        id: "456",
-        name: "sample quiz 2",
-        date: "2/1/2019"
-      },
-    ]
 
+    componentDidMount() {
+      this.handleAddNewQuestion();
+    }
+
+    createQuizPath = '/teacher/quizz/new';
+
+    emptyQuestion = {
+      question: "",
+      options: [
+          "",
+          "",
+          "",
+          "",
+      ],
+      answer: "A",
+    };
+
+    async handleAddNewQuestion() {
+      const newQuestions = await this.state.questions.slice();
+      await newQuestions.push(this.emptyQuestion);
+      this.setState({
+        questions: newQuestions,
+      })
+    }
+
+    async deleteQuestion(index) {
+      const questions = await this.state.questions.slice();
+      await questions.splice(index, 1);
+      this.setState({
+        questions
+      })
+    }
+
+    handleChangeQuestion(value, index){
+      let questions = this.state.questions.slice();
+      questions[index] = value;
+      this.setState({questions});
+    }
+    
+    handleSubmit() {
+      const data = {
+        name: this.state.quizName,
+        questions: this.state.questions,
+      };
+      HttpUtil.postJsonAuthorization('/quiz', data);
+    }
+    
     render() {
         return(
           <div>
@@ -28,7 +72,7 @@ class NewQuiz extends Component {
               <div>
                 <span id="quizz-header-text">Create Quiz</span>
                 <div className="button-container">
-                  <button className="button-primary">
+                  <button className="button-primary" onClick={() => this.handleSubmit()}>
                     <i className="ion-plus-round"></i>
                     SAVE & QUIT
                   </button>
@@ -41,20 +85,27 @@ class NewQuiz extends Component {
                   <span className="input-search-container">
                     <div className="input-block">
                       <i className="ion-university"></i>
-                      <input className="search-input" id="quizname-input" placeholder="Name your Quiz ..." type="text"></input>
+                      <input className="search-input" id="quizname-input" 
+                      placeholder="Name your Quiz ..." type="text"
+                      onChange={e => this.setState({quizName: e.target.value})}></input>
                     </div>
                   </span>
                 </div>
               </div>
 
-              <button className="button-primary new-btn">
+              <button className="button-primary new-btn" onClick={() => this.handleAddNewQuestion()}>
                 <i className="ion-plus-round"></i>
                 NEW
               </button>
 
               <div id="questions">
-                <Question/>
-                <Question/>
+              {this.state.questions.map((question, index) => {
+                return(
+                  <Question data={question} number={index +1} delete={() => this.deleteQuestion(index)}
+                  onChange={value => this.handleChangeQuestion(value, index)}
+                  />
+                )
+              })}
               </div>
               
             </div>
@@ -64,5 +115,14 @@ class NewQuiz extends Component {
 
 }
 
-export default NewQuiz;
-// alert("Hello world");
+function mapDispatchToProps(dispatch) {
+  return {
+      fetchQuestions: (id) => dispatch(fetchQuestions(id)), 
+  }
+}
+
+const mapStateToProps = createStructuredSelector({
+  quizzes: selectQuestions(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewQuiz);
