@@ -69,6 +69,7 @@ class Quizz extends Component {
     }
 
     handleSubmit() {
+      debugger;
       HttpUtil.postJsonAuthorization('/quiz', this.state.data);
     }
 

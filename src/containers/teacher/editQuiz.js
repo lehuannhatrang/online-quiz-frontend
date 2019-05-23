@@ -7,12 +7,13 @@ import {fetchQuizzes} from '../app/actions';
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import HttpUtil from "../../utils/http.util";
+import { defaultCipherList } from 'constants';
 
 class EditQuiz extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          questions : {},
+          questions : [],
           quizName: this.props.quiz? this.props.quiz.quizName : 'Sample Quiz Name'
         }
     }
@@ -59,6 +60,23 @@ class EditQuiz extends Component {
         this.props.fetchQuizzes();
     }
 
+    componentWillReceiveProps(newProps) {
+      if(newProps.quizzes.length > 0) {
+        const thisQuiz = newProps.quizzes.find(quiz => quiz.id === location.pathname.replace(this.editQuizPath, ''))
+        const newQuestion = thisQuiz.questions.map(question => {
+          return {
+            question: question.question,
+            options: question.options,
+            answer: question.answer,
+          }
+        })
+        this.setState({
+          questions : newQuestion,
+          quizName: thisQuiz.name,
+        });
+      }
+    }
+
     async handleAddNewQuestion() {
         const newQuestions = await this.state.questions.slice();
         await newQuestions.push(this.emptyQuestion);
@@ -70,10 +88,12 @@ class EditQuiz extends Component {
     async handleSubmit() {
       const data = await {
         id: location.pathname.replace(this.editQuizPath, ''),
-        quizName: this.state.quizName,
+        name: this.state.quizName,
         questions: this.state.questions,
       }
-      HttpUtil.putJsonAuthorization(`/quiz/${data.id}`,data);
+      debugger;
+      HttpUtil.putJsonAuthorization(`/quiz`,data)
+        .then(res => this.props.fetchQuizzes())
     }
 
     async deleteQuestion(index) {
@@ -111,7 +131,7 @@ class EditQuiz extends Component {
                   <span className="input-search-container">
                     <div className="input-block">
                       <i className="ion-university"></i>
-                      <input className="search-input" id="quizname-input" placeholder="Name your Quiz ..." type="text" defaultValue={quiz? quiz.name: ''}></input>
+                      <input className="search-input" id="quizname-input" placeholder="Name your Quiz ..." type="text" defaultValue={quiz? quiz.name : ''} onChange={e => this.setState({quizName: e.target.value})}></input>
                     </div>
                   </span>
                 </div>
@@ -123,7 +143,7 @@ class EditQuiz extends Component {
               </button>
 
               <div id="questions">
-                { quiz && quiz.questions.map((question, index) => {
+                { this.state.questions.map((question, index) => {
                     return(
                         <Question data={question} number={index + 1} delete={() => this.deleteQuestion(index)}
                         onChange={value => this.handleChangeQuestion(value, index)}/>
