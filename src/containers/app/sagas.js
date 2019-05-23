@@ -183,9 +183,9 @@ function* doFetchQuiz() {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-function* fetchRooms() {
+function* fetchRooms(params) {
     try {
-        const data = yield HttpUtils.getJsonAuthorization('/room/list');
+        const data = yield HttpUtils.getJsonAuthorization('/room/list', {roomId: params.roomId});
         if (data) {
             yield put(fetchRoomsSuccess(data));
         }

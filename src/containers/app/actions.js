@@ -117,9 +117,10 @@ export function fetchQuizSuccess(quiz){
     }
 }
 
-export function fetchRooms(){
+export function fetchRooms(roomId=''){
     return {
-        type: FETCH_ROOMS
+        type: FETCH_ROOMS,
+        roomId
     }
 }
 
