@@ -4,6 +4,7 @@ import { Layout, Menu } from 'antd';
 import { LStudentHeader, LTeacherHeader }from './header';
 import { LStudentFooter, LTeacherFooter } from './footer';
 import { LStudentDashboard, LTeacherDashboard } from './dashboard';
+import StudentTest from './studentTest';
 import './index.css';
 
 class Luantnguyen extends Component {
@@ -59,6 +60,7 @@ class Luantnguyen extends Component {
                         <LStudentHeader backgroundCol={this.state.student.headerBackgroundColor} user={this.props.user}/>
                         <Switch>
                             <Route exact path="/luantnguyen/dashboard" component={() => (<LStudentDashboard user={this.props.user} headerBackgroundCol={this.state.student.headerBackgroundColor} setHeaderBackgroundCol={this.setStudentBackgroundColor} />)} />
+                            <Route exact path="/luantnguyen/student/test/:roomId" component={() => (<StudentTest student={this.props.user} />)} />
                             <Redirect to="/luantnguyen/dashboard" />
                         </Switch>
                         <LStudentFooter />

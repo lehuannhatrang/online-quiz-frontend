@@ -6,7 +6,7 @@ import Header from "../../components/control/header"
 import { Loading } from '../share/LoadingComponent';
 import CountDown from '../share/CountDownComponent';
 import { Link, withRouter } from 'react-router-dom';
-import {selectRooms, selectQuizzes, selectLoading, selectErrorInfo, selectError} from '../app/selectors';
+import {selectRooms, selectQuizzes, selectLoading} from '../app/selectors';
 import {fetchRooms, fetchQuizzes} from '../app/actions';
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
@@ -22,17 +22,17 @@ class StudentTest extends Component {
         super(props);
 
         this.state = {
-          questionList: [],
+          questionList: null,
           duration: null,
           startTime: null,
-          quizId: null,
           ready: ReadyModes.UNDECIDED,
           finish: false,
           errorMessage: null,
+          loadingText: 'Checking Room',
         };
 
         this.handleSetReady = this.handleSetReady.bind(this);
-        this.handleSetReady = this.handleFinish.bind(this);
+        this.handleFinish = this.handleFinish.bind(this);
     }
 
     componentDidMount() {
@@ -47,7 +47,7 @@ class StudentTest extends Component {
 
     handleSetReady() {
       this.setState({
-        ready: true,
+        ready: ReadyModes.READY,
       });
     }
 
@@ -85,88 +85,71 @@ class StudentTest extends Component {
           <div>
             <Header />
             <div className="col-12 container">
-              <CountDown to={this.state.startTime} handleFinish={this.handleSetReady}/>
+              <CountDown to={this.state.startTime} handleEndTimeout={this.handleSetReady}/>
             </div>
           </div>
         );
       }
-      else if (this.state.ready === ReadyModes.READY) {
-        this.setState({
-          ready: ReadyModes.HAD_READY
-        });
-        this.props.fetchQuizzes();
-      }
       else if (this.props.loading) {
-        let loadingText = '';
-        if (this.props.quizId && this.state.startTime && this.state.duration) {
-          loadingText = 'Loading Quiz...';
-        }
-        else {
-          loadingText = 'Loading Room...';
-        }
         return (
           <div>
             <Header />
             <div className="col-12 container">
-                <Loading text={loadingText} />
+                <Loading text={this.state.loadingText} />
               </div>
           </div>
         );
       }
-      else if (this.props.error) {
-        return (
-          <div>
-            <Header />
-            <div className="col-12 container">
-              <h4>{this.props.errorInfo}</h4>
-            </div>
-          </div>
-        );
-      }
       else {
-        if (this.props.quizzes.length > 0 && this.state.startTime && this.state.duration && this.state.ready === ReadyModes.HAD_READY) {
-          const quiz = this.props.quizzes.filter(quiz => quiz.id === this.state.quizId)[0];
-          this.setState({
-            questionList: quiz.question,
-          });
+        if (this.state.questionList && this.state.startTime && this.state.duration && this.state.ready === ReadyModes.READY) {
           const endTime = new Date(this.state.startTime.getTime() + this.state.duration * 60 * 1000);
           return (
             <div>
               <Header/>
               <div id="time-left-container">
                 <div id="time-left">
-                  <CountDown to={endTime} handleFinish={this.handleFinish} />
+                  <CountDown to={endTime} handleEndTimeout={this.handleFinish} />
                 </div>
               </div>
-              <QuestionList data={this.questionList}/>
+              <QuestionList data={this.state.questionList}/>
               <div className="submit-button-container">
                 <button className="button-primary submit-button" onClick={this.handleSubmit}>SUBMIT ANSWER</button>
               </div>
             </div>
-          )
+          );
         }
-        else if (this.props.rooms.length > 0) {
-          const room = this.props.rooms.filter(room => room.id === this.props.match.params.roomId)[0];
-          if (room === undefined) {
+        else if (this.props.rooms) {
+          if (this.props.rooms.id !== undefined) {
+            const room = this.props.rooms;
+            //const startTime = parseISOString(room.startTime);
+            const startTime = new Date(2019, 4, 26, 18, 47, 29);
+            const duration = room.Duration;
+            const questionList = room.quiz.questions;
             this.setState({
-              errorMessage: 'Room Id is incorrect!'
+              questionList, startTime, duration
             });
-            return (<div></div>);
+            var now = new Date();
+            var ready = startTime.getTime() <= now.getTime() ? ReadyModes.READY : ReadyModes.NON_READY;
+            var finish = now.getTime() >= (startTime.getTime() + duration * 60 * 1000);
+            this.setState({
+              ready, finish
+            });
           }
-          //const startTime = parseISOString(room.startTime);
-          const startTime = new Date(2019, 4, 23, 21, 50, 10);
-          const duration = room.Duration;
-          const quizId = room.QuizId;
-          alert(this.props.quizzes);
-          this.setState({
-            quizId, startTime, duration
-          });
-          var now = new Date();
-          var ready = startTime.getTime() <= now.getTime() ? ReadyModes.READY : ReadyModes.NON_READY;
-          var finish = now.getTime() >= (startTime.getTime() + duration * 60 * 1000);
-          this.setState({
-            ready, finish
-          });
+          else if (this.props.rooms.length > 0) {
+            const roomId = this.props.match.params.roomId;
+            const theRoom = this.props.rooms.filter(room => room.id === roomId)[0];
+            if (theRoom === undefined) {
+              this.setState({
+                errorMessage: 'Room Id non exists',
+              });
+            }
+            else {
+              this.setState({
+                loadingText: 'Loading Room...',
+              });
+              this.props.fetchRooms(roomId);
+            }
+          } 
         }
         else {
           return (
@@ -186,7 +169,7 @@ class StudentTest extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-      fetchRooms: () => dispatch(fetchRooms()), 
+      fetchRooms: (roomId) => dispatch(fetchRooms(roomId)), 
       fetchQuizzes: () => dispatch(fetchQuizzes()),
   }
 }
@@ -195,8 +178,6 @@ const mapStateToProps = createStructuredSelector({
   rooms: selectRooms(),
   quizzes: selectQuizzes(),
   loading: selectLoading(),
-  error: selectError(),
-  errorInfo: selectErrorInfo(),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StudentTest));

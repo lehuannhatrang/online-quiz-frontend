@@ -21,6 +21,7 @@ export const FETCH_QUIZ_SUCCESS = 'online-quiz/App/FETCH_QUIZ_SUCCESS';
 
 export const FETCH_ROOMS = 'online-quiz/App/FETCH_ROOMS';
 export const FETCH_ROOMS_SUCCESS = 'online-quiz/App/FETCH_ROOMS_SUCCESS';
+//export const FETCH_ROOMS_FAILED = 'online-quiz/App/FETCH_ROOMS_FAILED';
 
 export const FETCH_PUBLIC_QUIZZES = 'online-quiz/App/FETCH_PUBLIC_QUIZZES';
 export const FETCH_PUBLIC_QUIZZES_SUCCESS = 'online-quiz/App/FETCH_PUBLIC_QUIZZES_SUCCESS';

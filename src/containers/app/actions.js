@@ -15,6 +15,7 @@ import {
     FETCH_QUIZ_SUCCESS,
     FETCH_ROOMS,
     FETCH_ROOMS_SUCCESS,
+    //FETCH_ROOMS_FAILED,
     FETCH_PUBLIC_QUIZZES,
     FETCH_PUBLIC_QUIZZES_SUCCESS,
     REQUEST_FAILED
@@ -117,9 +118,10 @@ export function fetchQuizSuccess(quiz){
     }
 }
 
-export function fetchRooms(){
+export function fetchRooms(roomId=''){
     return {
-        type: FETCH_ROOMS
+        type: FETCH_ROOMS,
+        roomId,
     }
 }
 
@@ -130,6 +132,12 @@ export function fetchRoomsSuccess(rooms){
     }
 }
 
+// export function fetchRoomsFailed(errorMessage) {
+//     return {
+//         type: FETCH_ROOMS_FAILED,
+//         errorMessage,
+//     }
+// }
 
 export function fetchPublicQuizzes(){
     return {

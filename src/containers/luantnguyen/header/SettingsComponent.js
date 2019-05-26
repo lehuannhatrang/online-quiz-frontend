@@ -374,11 +374,15 @@ class Settings extends Component {
             >
                 <Drawer visible={this.props.childrenVisible} placement="right" closable={true} onClose={() => { this.props.onChildrenClose(); }} 
                     title={'Your Results'} bodyStyle={{padding: 0, paddingTop: '15px'}} width={680} className="profile-drawer"
-                > 
+                >
+                    <div style={{padding: '8px 14px', background: '#e6f7ff', width: '100%'}}>
+                        <Input.Search placeholder="Search Results ..." style={{width: '60%'}} onSearch={(val) => {message.info('You searched ' + val);}} enterButton/>
+                    </div>
                     <Scrollbars autoHeight autoHeightMax={'80.5vh'} autoHeightMin={0}>
                         <ListResults listResults={this.props.listResults} />
                     </Scrollbars>
                 </Drawer>
+                
                 <Scrollbars autoHeight autoHeightMax={'80.5vh'} autoHeightMin={0}>
                     <Collapse bordered={false} defaultActiveKey={['1']}>
                         <Panel header="View Result" extra={<Icon type="trophy" />} key="5">

@@ -16,6 +16,7 @@ import {
     FETCH_QUIZ_SUCCESS,
     FETCH_ROOMS,
     FETCH_ROOMS_SUCCESS,
+    //FETCH_ROOMS_FAILED,
     FETCH_PUBLIC_QUIZZES,
     FETCH_PUBLIC_QUIZZES_SUCCESS,
     FETCH_USERS_ACTIONS_SUCCESS
@@ -78,6 +79,8 @@ function appReducer(state = initialState, action) {
             return state.set('loading', true).set('error', false);
         case FETCH_ROOMS_SUCCESS:
             return state.set('rooms', action.rooms).set('error', false).set('loading', false);
+        // case FETCH_ROOMS_FAILED:
+        //     return start.set('rooms', null).set('error', true).set('errorInfo', action.errorMessage).set('loading', false);
 
         case FETCH_PUBLIC_QUIZZES:
             return state.set('loading', true).set('error', false);
