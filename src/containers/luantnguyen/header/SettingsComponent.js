@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Avatar, Drawer, Upload, Input, Button, Form, Icon, Collapse, Select, DatePicker, message, List, Statistic } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import moment from 'moment';
 import dateForMoment from '../shared/dateForMoment';
 import If from '../../../components/control/If';
-
+import parseISOString from '../shared/parseISOString';
+import { connect } from "react-redux";
+import { createStructuredSelector } from 'reselect';
+import { Loading } from '../shared/LoadingComponent';
 const { Panel } = Collapse;
 
 const RenderTitle = (props) => {
@@ -306,12 +309,12 @@ const ListResultsInOneDay = ({ results }) => {
             itemLayout="horizontal"
             dataSource={results}
             renderItem={item => (
-                <List.Item actions={[<button style={{
+                <List.Item actions={[<a style={{
                     background: 'transparent',
                     border: 'none',
                     outline: 'none',
                     color: '#1890ff',
-                }} onClick={() => {message.success('Unie');}}>View more</button>]}>
+                }} href={"/luantnguyen/student/result/" + item.id}>View more</a>]}>
                     <List.Item.Meta
                         avatar={
                             (item.score === item.maxScore) ?
@@ -344,6 +347,7 @@ class Settings extends Component {
             address: '171 Quoc Lo 13 St., Binh Thanh',
             sex: 'male',
             curAvatarFile: null,
+            loadingText: 'Loading Results ...',
         }
 
         this.beforeUploadHandle = this.beforeUploadHandle.bind(this);
@@ -363,6 +367,96 @@ class Settings extends Component {
         });
     }
 
+    getListResults(rooms, results) {
+        const listResults = [
+            {
+                id: "1",
+                name: "Phung's Room",
+                start: new Date(2019, 4, 21, 8, 0, 0),
+                end: new Date(2019, 4, 25, 9, 0, 0),
+                score: 9,
+                maxScore: 10,
+            },
+            {
+                id: "2",
+                name: "Room for books",
+                start: new Date(2019, 4, 22, 15, 30, 0),
+                end: new Date(2019, 4, 22, 16, 30, 0),
+                score: 15,
+                maxScore: 15,
+            },
+            {
+                id: "3",
+                name: "BKU Bedroom",
+                start: new Date(2019, 4, 18, 6, 20, 0),
+                end: new Date(2019, 4, 18, 9, 0, 0),
+                score: 7.5,
+                maxScore: 20
+            },
+            {
+                id: "4",
+                name: "AI Room",
+                start: new Date(2019, 4, 18, 14, 40, 0),
+                end: new Date(2019, 4, 18, 15, 25, 0),
+                score: 6.5,
+                maxScore: 10
+            },
+            {
+                id: "5",
+                name: "BKU Bedroom",
+                start: new Date(2019, 4, 20, 7, 0, 0),
+                end: new Date(2019, 4, 20, 8, 10, 0),
+                score: 9.5,
+                maxScore: 10
+            },
+            {
+                id: "6",
+                name: "AI Room",
+                start: new Date(2019, 3, 14, 12, 0, 0),
+                end: new Date(2019, 3, 14, 13, 25, 0),
+                score: 2,
+                maxScore: 10
+            },
+        ];
+        for (let i = 0; i < results.length; ++i) {
+            const result = results[i];
+            const myResult = { 
+                score: result.score,
+                maxScore: 10,
+                id: result.id,
+            };
+            const roomId = result.room;
+            const room = rooms.filter(room => room.id === roomId)[0];
+            myResult.start = parseISOString(room.startTime);
+            myResult.end = new Date(myResult.start.getTime() + room.Duration * 60000);
+            myResult.name = room.name;
+            listResults.push(myResult);
+        }
+        return listResults;
+    }
+
+    renderListResults = () => {
+        if (this.props.results === undefined) {
+            return (<Loading text={this.state.loadingText} />);
+        }
+        else if (this.props.results === null) {
+            return (<h4>You don't have any result.</h4>);
+        }
+        else {
+            const listResults = this.getListResults(this.props.rooms, this.props.results);
+            return (
+                <React.Fragment>
+                    <div style={{padding: '8px 14px', background: '#e6f7ff', width: '100%'}}>
+                        <Input.Search placeholder="Search Results ..." style={{width: '60%'}} onSearch={(val) => {message.info('You searched ' + val);}} enterButton/>
+                    </div>
+                    <Scrollbars autoHeight autoHeightMax={'80.5vh'} autoHeightMin={0}>
+                        <ListResults listResults={listResults} />
+                    </Scrollbars>
+                </React.Fragment>
+            );
+        }
+    }
+
     render() {
         const avatarSrc = 'https://scontent.fsgn8-1.fna.fbcdn.net/v/t1.0-9/37543101_987787444760103_4820973328015556608_n.jpg?_nc_cat=108&_nc_eui2=AeFb3bQ8uwKSE1V9m81aEh9pJrx3iC9nV4uRWyAMYrLkMK9F6cKi6j7I-zi5hRDbx5gOwEiB1W7ohkpdeyvaYmWK_8SfVT7i7OhrkyylHIpWRA&_nc_oc=AQnb97Ve1hTc7Abt19NH_K5wZmovInjpb2x7p19alEeQFtrSaeY1yKpYNKQHJmShDU8&_nc_ht=scontent.fsgn8-1.fna&oh=02543fe2718b549b83bc0e62ed5bc7b0&oe=5D531AC5';
         
@@ -375,12 +469,7 @@ class Settings extends Component {
                 <Drawer visible={this.props.childrenVisible} placement="right" closable={true} onClose={() => { this.props.onChildrenClose(); }} 
                     title={'Your Results'} bodyStyle={{padding: 0, paddingTop: '15px'}} width={680} className="profile-drawer"
                 >
-                    <div style={{padding: '8px 14px', background: '#e6f7ff', width: '100%'}}>
-                        <Input.Search placeholder="Search Results ..." style={{width: '60%'}} onSearch={(val) => {message.info('You searched ' + val);}} enterButton/>
-                    </div>
-                    <Scrollbars autoHeight autoHeightMax={'80.5vh'} autoHeightMin={0}>
-                        <ListResults listResults={this.props.listResults} />
-                    </Scrollbars>
+                    {this.renderListResults()}
                 </Drawer>
                 
                 <Scrollbars autoHeight autoHeightMax={'80.5vh'} autoHeightMin={0}>

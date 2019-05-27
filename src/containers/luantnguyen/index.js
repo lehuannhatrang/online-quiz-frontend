@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import { LStudentFooter, LTeacherFooter } from './footer';
-import { LStudentDashboard, LTeacherDashboard } from './dashboard';
+import LStudentDashboard from './dashboard';
 import StudentTest from './studentTest';
+import StudentResult from './studentResult';
 import './index.css';
 
 class Luantnguyen extends Component {
@@ -15,7 +16,7 @@ class Luantnguyen extends Component {
 
         return (
             <Layout className="luantnguyen">
-                {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'teacher' && (
+                {/* {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'teacher' && (
                     <React.Fragment>
                         <Switch>
                             <Route exact path="/luantnguyen/dashboard" component={() => (<LTeacherDashboard user={this.props.user} />)} />
@@ -23,12 +24,13 @@ class Luantnguyen extends Component {
                         </Switch>
                         <LTeacherFooter />
                     </React.Fragment>
-                )}
+                )} */}
                 {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'student' && (
                     <React.Fragment>
                         <Switch>
                             <Route exact path="/luantnguyen/dashboard" component={() => (<LStudentDashboard user={this.props.user} />)} />
                             <Route exact path="/luantnguyen/student/test/:roomId" component={() => (<StudentTest student={this.props.user} />)} />
+                            <Route exact path="/luantnguyen/student/result/:resultId" component={StudentResult} />
                             <Redirect to="/luantnguyen/dashboard" />
                         </Switch>
                         <LStudentFooter />

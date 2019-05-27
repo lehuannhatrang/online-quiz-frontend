@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import './lstudentTest.css';
-import QuestionsList from "./QuestionsListComponent";
+import '../studentTest/lstudentTest.css';
+import QuestionsList from "../studentTest/QuestionsListComponent";
 import { Loading } from '../shared/LoadingComponent';
 import CountDown from '../shared/CountDownComponent';
 import { Link, withRouter } from 'react-router-dom';
@@ -13,7 +13,7 @@ import * as ReadyModes from '../shared/ReadyModes';
 import parseISOString from '../shared/parseISOString';
 import { Layout, message, notification, Button, Statistic, Row, Col, Divider, List, Icon } from 'antd';
 import { Scrollbars } from 'react-custom-scrollbars';
-import RoomIdFailed from './RoomIdFailedComponent';
+import RoomIdFailed from '../studentTest/RoomIdFailedComponent';
 import Fade from 'react-reveal/Fade';
 
 const { Content } = Layout;
@@ -24,7 +24,7 @@ const colStyles = {
 	padding: '15px 20px',
 };
 
-class StudentTest extends Component {
+class StudentResult extends Component {
     constructor(props) {
         super(props);
 
@@ -38,7 +38,6 @@ class StudentTest extends Component {
 			loadingText: 'Checking History ...',
 			answers: null,
 			score: null,
-			flag: true,
 		};
 
         this.handleSetReady = this.handleSetReady.bind(this);
@@ -112,7 +111,7 @@ class StudentTest extends Component {
 		if ( this.state.roomIdFailed ) {
 			return (
 				<React.Fragment>
-					<LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={this.props.rooms} results={this.props.results}/>
+					<LStudentHeader user={this.props.student} backgroundCol={'white'}/>
 					<Content style={{
 						padding: '80px 0',
 						backgroundColor: 'white',
@@ -125,7 +124,7 @@ class StudentTest extends Component {
 		else if (this.state.finish) {
 			return (
 				<React.Fragment>
-					<LStudentHeader user={this.props.student} backgroundCol={'white'} results={this.props.results} rooms={this.props.rooms}/>
+					<LStudentHeader user={this.props.student} backgroundCol={'white'}/>
 					<Content style={{
 						padding: '80px 0',
 						backgroundColor: 'white',
@@ -150,7 +149,7 @@ class StudentTest extends Component {
 		else if (this.state.ready === ReadyModes.NON_READY) {
 			return (
 				<React.Fragment>
-					<LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={this.props.rooms} results={this.props.results}/>
+					<LStudentHeader user={this.props.student} backgroundCol={'white'}/>
 					<Content style={{
 						padding: '80px 0',
 						backgroundColor: 'white',
@@ -180,7 +179,7 @@ class StudentTest extends Component {
 		else if (this.props.loading) {
 			return (
 				<React.Fragment>
-					<LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={null} results={undefined}/>
+					<LStudentHeader user={this.props.student} backgroundCol={'white'}/>
 					<Content style={{
 						padding: '80px 0',
 						backgroundColor: 'white',
@@ -197,7 +196,7 @@ class StudentTest extends Component {
 				var t = new Array(20);
 				return (
 					<React.Fragment>
-						<LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={this.props.rooms} results={this.props.results} />
+						<LStudentHeader user={this.props.student} backgroundCol={'white'}/>
 						<Content style={{
 							padding: '80px 0',
 							fontFamily: 'Muli',
@@ -271,7 +270,7 @@ class StudentTest extends Component {
 						ready, finish
 					});
 				}
-				else if (this.props.rooms.length > 0 && this.state.flag) {
+				else if (this.props.rooms.length > 0) {
 					const roomId = this.props.match.params.roomId;
 					const theRoom = this.props.rooms.filter(room => room.id === roomId)[0];
 					if (theRoom === undefined) {
@@ -303,25 +302,17 @@ class StudentTest extends Component {
 							this.props.fetchRooms();
 						}
 						else {
-							if (this.state.score === null) {
-								this.setState({
-									score: check.score,
-									flag: false,
-								});
-								this.props.fetchRooms();
-							}
-							else if (this.props.rooms.length > 0) {
-								this.setState({
-									finish: true,
-								});
-							}
+							this.setState({
+								score: check.score,
+								finish: true,
+							});
 						}
 					}
 				}
 			}
 			else {
 				return (
-					<LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={null} results={undefined}/> 
+					<LStudentHeader user={this.props.student} backgroundCol={'white'} /> 
 				)
 			}
 		}
@@ -346,4 +337,4 @@ const mapStateToProps = createStructuredSelector({
 	results: selectResults(),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StudentTest));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StudentResult));

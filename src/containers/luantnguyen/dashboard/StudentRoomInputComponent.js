@@ -59,7 +59,7 @@ class RoomInputForm extends Component {
                     {getFieldDecorator('room_input')(
                         <Input.Search placeholder="Type room ID ..." enterButton={
                             <Button style={{backgroundColor: 'black', color: 'white', fontFamily: 'Playfair Display'}} disabled={this.state.validateStatus === 'error' || this.state.validateStatus === 'validating'}>
-                                <Link to={"/luantnguyen/student/test/" + this.state.roomId}>{'Start Now'}</Link>
+                                <a href={"/luantnguyen/student/test/" + this.state.roomId}>{'Start Now'}</a>
                             </Button>
                         }
                             size="large" onSearch={this.handleStartToDoQuiz} onChange={this.handleChangeRoomInput}
@@ -80,6 +80,7 @@ class StudentRoomInput extends Component {
     }
 
     render() {
+    
         return(
             <Row style={{backgroundColor: 'white', padding: '80px 0'}} id="luantnguyen-student-room-input">
                 <Col span={14} offset={5}>
