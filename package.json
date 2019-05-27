@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && npm install --unsafe-perm node-sass && npm install && NODE_ENV=production webpack --env prodution --config ./webpack/webpack.config.js",
+    "build": "npm run clean && npm install --unsafe-perm node-sass && npm install && NODE_ENV=production webpack --env production --config ./webpack/webpack.config.js",
     "dev-docker": "NODE_ENV=dev-docker webpack --env dev-docker --config ./webpack/webpack.config.js",
     "start": "serve -s dist",
     "start:dev": "webpack-dev-server --port 5000 --config ./webpack/webpack.config.js",
