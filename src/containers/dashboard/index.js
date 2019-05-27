@@ -16,7 +16,7 @@ class DashBoard extends Component {
           <header id="main-header">
             <div className="wrapper clearfix">
               <a href="#" id= "logo">
-                <img src="../public/assets/img/brand1.jpg"></img>
+                <img src="/img/brand1.jpg"></img>
               </a>
               <nav className="clearfix" id="main-nav">
                 <ul>
@@ -61,7 +61,7 @@ class DashBoard extends Component {
               </nav>
             </div>
           </header>
-          <section className="heading-section" style={{backgroundImage: "url(" + "../public/assets/img/bgsection1.png" + ")"}}>
+          <section className="heading-section" style={{backgroundImage: "url(" + "/img/bgsection1.png" + ")"}}>
             <div className="clearfix sec1-container">
             <div id="cta">
               <h1><strong>Welcome to Online Quiz !</strong></h1>
