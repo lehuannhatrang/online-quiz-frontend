@@ -103,7 +103,7 @@ class LFooter extends Component {
                     </Row>
                     <Row className="copyright">
                         <Col offset={2} span={16} className="text-uppercase text-left font-weight-bold" style={{paddingTop: '8.5px'}}>
-                            © Copyright @2019 UnieCafe.com. All Rights Reserved.
+                            © Copyright @2019 SuperOnlineQuiz-BKU.com. All Rights Reserved.
                         </Col>
                         <Col span={6}>
                             <SocialIcon style={{height: 20, width: 20, margin: 4}} url="https://www.google.com" bgColor="#000000"/>

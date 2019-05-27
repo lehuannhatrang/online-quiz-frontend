@@ -8,7 +8,8 @@ import {
     FETCH_QUESTIONS,
     FETCH_QUIZ,
     FETCH_ROOMS,
-    FETCH_PUBLIC_QUIZZES
+    FETCH_PUBLIC_QUIZZES,
+    POST_RESULT,
 } from "./constants";
 import {
     error, 
@@ -21,7 +22,7 @@ import {
     fetchQuizSuccess,
     fetchRoomsSuccess,
     fetchPublicQuizzesSuccess,
-    fetchRoomsFailed,
+    postResultSuccess,
 } from "./actions";
 
 import HttpUtils from '../../utils/http.util';
@@ -94,6 +95,26 @@ function* getLoginUserWatcher() {
 
 function* doLogin() {
     yield fork(getLoginUserWatcher)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function* postUserResult(action) {
+    try {
+        const data = yield HttpUtils.postJsonAuthorization('/result', {room: action.room, userAnswer: action.userAnswer});
+        yield put(postResultSuccess(data.score));
+    } catch (err) {
+        console.log('Error');
+    }
+}
+
+function* postUserResultWatcher() {
+    yield takeLatest(POST_RESULT, postUserResult)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* doPostUserResult() {
+    yield fork(postUserResultWatcher)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -239,6 +260,7 @@ export default function* root() {
             doFetchQuiz(),
             doFetchRooms(),
             doFetchPublicQuizzes(),
+            doPostUserResult(),
         ])
     } catch (e) {
         console.log(e)

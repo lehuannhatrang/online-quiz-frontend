@@ -58,11 +58,12 @@ class RoomInputForm extends Component {
                 <Form.Item validateStatus={this.state.validateStatus} help={this.state.help}>
                     {getFieldDecorator('room_input')(
                         <Input.Search placeholder="Type room ID ..." enterButton={
-                            <Button style={{backgroundColor: 'black', color: 'white'}} disabled={this.state.validateStatus === 'error' || this.state.validateStatus === 'validating'}>
+                            <Button style={{backgroundColor: 'black', color: 'white', fontFamily: 'Playfair Display'}} disabled={this.state.validateStatus === 'error' || this.state.validateStatus === 'validating'}>
                                 <Link to={"/luantnguyen/student/test/" + this.state.roomId}>{'Start Now'}</Link>
                             </Button>
                         }
-                            size="large" onSearch={this.handleStartToDoQuiz} onChange={this.handleChangeRoomInput}/>
+                            size="large" onSearch={this.handleStartToDoQuiz} onChange={this.handleChangeRoomInput}
+                            style={{fontFamily: 'Muli'}}/>
                     )}
                 </Form.Item>
             </Form>

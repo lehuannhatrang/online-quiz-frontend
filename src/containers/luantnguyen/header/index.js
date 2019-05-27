@@ -15,6 +15,7 @@ class LHeader extends Component {
             background: this.props.backgroundCol,
             drawerVisible: false,
             drawerChildrenVisible: false,
+            boxShadow: 'none',
         };
         this.handleClose = this.handleClose.bind(this);
         this.handleChildrenClose = this.handleChildrenClose.bind(this);
@@ -64,18 +65,26 @@ class LHeader extends Component {
         if (window.scrollY >= h) {
             this.setState({
                 background: 'white',
+                boxShadow: '0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12)'
             });
         } else {
             var percent = window.scrollY / h;
             this.setState({
                 background: `rgba(255, 255, 255, ${percent})`,
+                boxShadow: 'none',
             });
         }
     }
 
     componentDidMount() {
+
         if (this.props.backgroundCol === 'transparent')
             window.addEventListener('scroll', this.listenScrollEvent);
+        else {
+            this.setState({
+                boxShadow: '0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12)',
+            });
+        }
     }
         
     render() {
@@ -129,9 +138,10 @@ class LHeader extends Component {
                 maxScore: 10
             },
         ];
-
+        
         return (
-            <Header style={{position: 'fixed', width: '100%', zIndex: 1, backgroundColor: this.state.background, height: '64px'}}>
+            <Header style={{position: 'fixed', width: '100%', zIndex: 1, backgroundColor: this.state.background, height: '64px',
+                boxShadow: this.state.boxShadow}}>
                 <Row style={{height: '100%'}}>
                     <Col span={6}>
                         <Button shape="circle" icon="twitter" target="https://www.twitter.com" style={{marginRight: '5px', backgroundColor: 'transparent'}}/>

@@ -1,6 +1,8 @@
 import {
     AUTHENTICATE,
     AUTHENTICATE_SUCCESS,
+    POST_RESULT,
+    POST_RESULT_SUCCESS,
     FETCH_USER,
     FETCH_USER_SUCCESS, 
     FETCH_USERS, 
@@ -152,6 +154,20 @@ export function fetchPublicQuizzesSuccess(quizzes){
     }
 }
 
+export function postResult(room, userAnswer) {
+    return {
+        type: POST_RESULT,
+        room,
+        userAnswer,
+    }
+}
+
+export function postResultSuccess(score) {
+    return {
+        type: POST_RESULT_SUCCESS,
+        score,
+    }
+}
 
 //-------------------------------------------------------
 

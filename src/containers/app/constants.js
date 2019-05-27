@@ -10,6 +10,9 @@ export const FETCH_USERS_ACTIONS_SUCCESS = 'online-quiz/App/FETCH_USERS_ACTIONS_
 export const AUTHENTICATE = 'online-quiz/Login/AUTHENTICATE';
 export const AUTHENTICATE_SUCCESS = 'online-quiz/Login/AUTHENTICATE_SUCCESS';
 
+export const POST_RESULT = 'online-quiz/Login/POST_RESULT';
+export const POST_RESULT_SUCCESS = 'online-quiz/Login/POST_RESULT_SUCCESS';
+
 export const FETCH_QUIZZES = 'online-quiz/App/FETCH_QUIZZES';
 export const FETCH_QUIZZES_SUCCESS = 'online-quiz/App/FETCH_QUIZZES_SUCCESS';
 
