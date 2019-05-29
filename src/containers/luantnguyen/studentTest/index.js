@@ -4,7 +4,7 @@ import QuestionsList from "./QuestionsListComponent";
 import { Loading } from '../shared/LoadingComponent';
 import CountDown from '../shared/CountDownComponent';
 import { Link, withRouter } from 'react-router-dom';
-import { LStudentHeader } from '../header';
+import LStudentHeader from '../header';
 import { selectRooms, selectScore, selectLoading, selectResults } from '../../app/selectors';
 import { fetchRooms, postResult, fetchMyResults } from '../../app/actions';
 import { connect } from "react-redux";

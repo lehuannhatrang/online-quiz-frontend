@@ -69,7 +69,6 @@ class Router extends Component {
                     <Route exact path="/teacher/quizz/new" component={NewQuiz}/>
                     <Route path='/teacher/quizz/edit' component={EditQuiz}/>
                     <Route exact path="/student/result" component={StudentResult}/>
-                    <Route path="/luantnguyen" component={() => (<Luantnguyen user={this.props.user} />)} />
                     <Route path="/teacher/room/" component={Room}/>
                     <Route path="/teacher/report/:roomid" component={RoomReport}/>
                     <Route path="/teacher/report/" component={ReportTeacher}/>

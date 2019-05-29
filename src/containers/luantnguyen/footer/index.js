@@ -42,7 +42,7 @@ const inlineStyles = {
 
 const logoUrl = 'https://cdn.pixabay.com/photo/2016/12/17/15/50/logo-1913689_960_720.png';
 
-class LFooter extends Component {
+class LStudentFooter extends Component {
     constructor(props) {
         super(props);
     }
@@ -119,16 +119,4 @@ class LFooter extends Component {
     }
 }
 
-class LTeacherFooter extends LFooter {
-    constructor(props) {
-        super(props);
-    }
-}
-
-class LStudentFooter extends LFooter {
-    constructor(props) {
-        super(props);
-    }
-}
-
-export { LTeacherFooter, LStudentFooter };
+export default LStudentFooter;

@@ -141,16 +141,4 @@ class LHeader extends Component {
     }
 }
 
-class LTeacherHeader extends LHeader {
-    constructor(props) {
-        super(props);
-    }
-}
-
-class LStudentHeader extends LHeader {
-    constructor(props) {
-        super(props);
-    }
-}
-
-export { LTeacherHeader, LStudentHeader };
+export default LStudentHeader;

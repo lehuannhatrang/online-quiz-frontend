@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Parallax } from 'react-parallax';
 import { Layout, Button } from 'antd';
-import { LStudentHeader, LTeacherHeader } from '../header';
+import LStudentHeader from '../header';
 import StudentRoomInput from './StudentRoomInputComponent';
 import { selectRooms, selectLoading, selectResults } from '../../app/selectors';
 import { fetchRooms, fetchMyResults } from '../../app/actions';

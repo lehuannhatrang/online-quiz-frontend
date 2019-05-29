@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-import { LStudentFooter, LTeacherFooter } from './footer';
+import LStudentFooter from './footer';
 import LStudentDashboard from './dashboard';
 import StudentTest from './studentTest';
 import StudentResult from './studentResult';
@@ -16,15 +16,6 @@ class Luantnguyen extends Component {
 
         return (
             <Layout className="luantnguyen">
-                {/* {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'teacher' && (
-                    <React.Fragment>
-                        <Switch>
-                            <Route exact path="/luantnguyen/dashboard" component={() => (<LTeacherDashboard user={this.props.user} />)} />
-                            <Redirect to="/luantnguyen/dashboard" />
-                        </Switch>
-                        <LTeacherFooter />
-                    </React.Fragment>
-                )} */}
                 {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'student' && (
                     <React.Fragment>
                         <Switch>
