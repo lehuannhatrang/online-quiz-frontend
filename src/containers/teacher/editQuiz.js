@@ -95,6 +95,26 @@ class EditQuiz extends Component {
         });
       }
     }
+    
+    handleAddition(tag){
+      let newTags = this.state.tags;
+      if(!this.state.tags.find(ele => ele.id === tag.id)){
+        newTags.push(tag);
+      }
+      else{
+        newTags = this.state.tags.filter(ele => ele.id !== tag.id);
+      }
+      this.setState({
+        tags: newTags
+      })
+    }
+
+    handleDelete(tag){
+      const newTags = this.state.tags.filter((ele, index) => index !== tag);
+      this.setState({
+        tags: newTags,
+      })
+    }
 
     async handleAddNewQuestion() {
         const newQuestions = await this.state.questions.slice();
