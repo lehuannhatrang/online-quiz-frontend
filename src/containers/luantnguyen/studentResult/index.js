@@ -153,7 +153,7 @@ class StudentResult extends Component {
                                             border: 'none',
                                             outline: 'none'
                                         }} htmlType="button" className="ltn-btn">
-                                            <Link to="/student/dashboard">Back</Link>
+                                            <Link to="/student/dashboard">Rank</Link>
                                         </Button>
                                     </Col>
                                 </Row>
