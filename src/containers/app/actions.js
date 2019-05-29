@@ -17,6 +17,8 @@ import {
     FETCH_ROOMS_SUCCESS,
     FETCH_PUBLIC_QUIZZES,
     FETCH_PUBLIC_QUIZZES_SUCCESS,
+    FETCH_REPORTS,
+    FETCH_REPORTS_SUCCESS,
     REQUEST_FAILED
 } from "./constants";
 
@@ -145,6 +147,18 @@ export function fetchPublicQuizzesSuccess(quizzes){
     }
 }
 
+export function fetchReports(){
+    return {
+        type: FETCH_REPORTS
+    }
+}
+
+export function fetchReportsSuccess(reports){
+    return {
+        type: FETCH_REPORTS_SUCCESS,
+        reports
+    }
+}
 
 //-------------------------------------------------------
 

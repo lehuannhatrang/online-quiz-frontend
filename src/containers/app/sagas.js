@@ -8,7 +8,8 @@ import {
     FETCH_QUESTIONS,
     FETCH_QUIZ,
     FETCH_ROOMS,
-    FETCH_PUBLIC_QUIZZES
+    FETCH_PUBLIC_QUIZZES,
+    FETCH_REPORTS,
 } from "./constants";
 import {
     error, 
@@ -21,6 +22,7 @@ import {
     fetchQuizSuccess,
     fetchRoomsSuccess,
     fetchPublicQuizzesSuccess,
+    fetchReportsSuccess,
 } from "./actions";
 
 import HttpUtils from '../../utils/http.util';
@@ -225,6 +227,28 @@ function* doFetchPublicQuizzes() {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchReports() {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization('/report/list');
+        if (data) {
+            yield put(fetchReportsSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchReportsWatcher() {
+    yield takeLatest(FETCH_REPORTS, fetchReports)
+}
+
+function* doFetchReports() {
+    yield fork(fetchReportsWatcher)
+}
+
+
 export default function* root() {
     
     try {
@@ -238,6 +262,7 @@ export default function* root() {
             doFetchQuiz(),
             doFetchRooms(),
             doFetchPublicQuizzes(),
+            doFetchReports(),
         ])
     } catch (e) {
         console.log(e)
