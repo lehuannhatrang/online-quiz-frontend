@@ -3,11 +3,12 @@ import { fromJS } from 'immutable';
 import { routerMiddleware } from 'connected-react-router/immutable';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './config.reducers';
+import logger from 'redux-logger';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState = {}, history) {
-    const middlewares = [sagaMiddleware, routerMiddleware(history)];
+    const middlewares = [logger, sagaMiddleware, routerMiddleware(history)];
     const enhancers = [applyMiddleware(...middlewares)];
 
     /* eslint-disable no-underscore-dangle, indent */

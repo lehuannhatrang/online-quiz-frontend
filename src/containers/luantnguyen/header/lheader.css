@@ -1,0 +1,16 @@
+.luantnguyen-menu .navbar, .luantnguyen-menu .navbar-nav, .luantnguyen-menu .nav-item{
+    height: 100%;
+}
+
+.luantnguyen-menu .nav-item {
+    line-height: 45px;
+    padding: 0 15px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    
+}
+
+/* .luantnguyen-menu .nav-link:hover {
+    color: #1890ff !important;
+} */

@@ -16,11 +16,17 @@ import {
     FETCH_QUIZ_SUCCESS,
     FETCH_ROOMS,
     FETCH_ROOMS_SUCCESS,
+    //FETCH_ROOMS_FAILED,
     FETCH_PUBLIC_QUIZZES,
     FETCH_PUBLIC_QUIZZES_SUCCESS,
     FETCH_REPORTS,
     FETCH_REPORTS_SUCCESS,
     FETCH_USERS_ACTIONS_SUCCESS
+    FETCH_USERS_ACTIONS_SUCCESS,
+    POST_RESULT,
+    POST_RESULT_SUCCESS,
+    FETCH_RESULTS,
+    FETCH_RESULTS_SUCCESS,
 } from "./constants";
 
 const initialState = fromJS({
@@ -37,6 +43,8 @@ const initialState = fromJS({
     rooms: [],
     publicQuizzes: [],
     reports: []
+    results: undefined,
+    score: null,
 });
 
 function appReducer(state = initialState, action) {
@@ -45,17 +53,22 @@ function appReducer(state = initialState, action) {
         case FETCH_USER:
             return state.set('loading', true).set('error', false);
         case FETCH_USER_SUCCESS:
-            return state.set('currentUser', action.user).set('error', false);
+            return state.set('currentUser', action.user).set('error', false).set('loading', false);
 
         case FETCH_USERS:
             return state.set('loading', true).set('error', false);
         case FETCH_USERS_SUCCESS:
-            return state.set('users', action.users).set('error', false);
+            return state.set('users', action.users).set('error', false).set('loading', false);
 
         case AUTHENTICATE:
             return state.set('loading', true).set('error', false);
         case AUTHENTICATE_SUCCESS:
             return state.set('userId', action.userId).set('userToken', action.token).set('loading', false).set('currentUser', action.user);
+
+        case POST_RESULT:
+            return state.set('loading', true).set('error', false);
+        case POST_RESULT_SUCCESS:
+            return state.set('loading', false).set('error', false).set('score', action.score);
 
         case FETCH_USERS_ACTIONS:
             return state.set('loading', true).set('error', false);
@@ -65,27 +78,34 @@ function appReducer(state = initialState, action) {
         case FETCH_QUIZZES:
             return state.set('loading', true).set('error', false);
         case FETCH_QUIZZES_SUCCESS:
-            return state.set('quizzes', action.quizzes).set('error', false);
+            return state.set('quizzes', action.quizzes).set('error', false).set('loading', false);
 
         case FETCH_QUESTIONS:
             return state.set('loading', true).set('error', false);
         case FETCH_QUESTIONS_SUCCESS:
-            return state.set('questions', action.questions).set('error', false);
+            return state.set('questions', action.questions).set('error', false).set('loading', false);
 
         case FETCH_QUIZ:
             return state.set('loading', true).set('error', false);
         case FETCH_QUIZ_SUCCESS:
-            return state.set('quiz', action.quiz).set('error', false);
+            return state.set('quiz', action.quiz).set('error', false).set('loading', false);
 
         case FETCH_ROOMS:
             return state.set('loading', true).set('error', false);
         case FETCH_ROOMS_SUCCESS:
-            return state.set('rooms', action.rooms).set('error', false);
+            return state.set('rooms', action.rooms).set('error', false).set('loading', false);
+        // case FETCH_ROOMS_FAILED:
+        //     return start.set('rooms', null).set('error', true).set('errorInfo', action.errorMessage).set('loading', false);
 
         case FETCH_PUBLIC_QUIZZES:
             return state.set('loading', true).set('error', false);
         case FETCH_PUBLIC_QUIZZES_SUCCESS:
-            return state.set('publicQuizzes', action.quizzes).set('error', false);
+            return state.set('publicQuizzes', action.quizzes).set('error', false).set('loading', false);
+
+        case FETCH_RESULTS:
+            return state.set('loading', true).set('error', false);
+        case FETCH_RESULTS_SUCCESS:
+            return state.set('loading', false).set('error', false).set('results', action.results);
 
         case FETCH_REPORTS:
             return state.set('loading', true).set('error', false);

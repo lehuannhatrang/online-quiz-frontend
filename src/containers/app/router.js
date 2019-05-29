@@ -16,6 +16,7 @@ import ReportTeacher from "../teacher/reportTeacher"
 import RoomReport from "../teacher/roomReport"
 import StudentResult from "../student/studentResult"
 import Admin from "../admin";
+import Luantnguyen from '../luantnguyen';
 import WrongPermission from "../errors/WrongPermission";
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
@@ -68,7 +69,6 @@ class Router extends Component {
                     <Route exact path="/teacher/quizz/new" component={NewQuiz}/>
                     <Route path='/teacher/quizz/edit' component={EditQuiz}/>
                     <Route exact path="/student/result" component={StudentResult}/>
-
                     <Route path="/teacher/room/" component={Room}/>
                     <Route path="/teacher/report/:roomid" component={RoomReport}/>
                     <Route path="/teacher/report/" component={ReportTeacher}/>
@@ -83,6 +83,7 @@ class Router extends Component {
                 {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'student' && (
                 <Switch>
                     <Route exact path="/" component={DashBoard}/>
+                    <Route path="/luantnguyen" component={() => (<Luantnguyen user={this.props.user} />)} />
                     <Route exact path="/student" component={Student}/>
                     <Route exact path="/student/test/:roomId" component={StudentTest}/>
                     <Route exact path="/student/result" component={StudentResult}/>

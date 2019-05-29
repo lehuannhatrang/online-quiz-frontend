@@ -10,6 +10,9 @@ import {
     FETCH_ROOMS,
     FETCH_PUBLIC_QUIZZES,
     FETCH_REPORTS,
+    FETCH_PUBLIC_QUIZZES,
+    FETCH_RESULTS,
+    POST_RESULT,
 } from "./constants";
 import {
     error, 
@@ -23,6 +26,8 @@ import {
     fetchRoomsSuccess,
     fetchPublicQuizzesSuccess,
     fetchReportsSuccess,
+    postResultSuccess,
+    fetchMyResultsSuccess,
 } from "./actions";
 
 import HttpUtils from '../../utils/http.util';
@@ -98,6 +103,26 @@ function* doLogin() {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function* postUserResult(action) {
+    try {
+        const data = yield HttpUtils.postJsonAuthorization('/result', {room: action.room, userAnswer: action.userAnswer});
+        yield put(postResultSuccess(data.score));
+    } catch (err) {
+        console.log('Error');
+    }
+}
+
+function* postUserResultWatcher() {
+    yield takeLatest(POST_RESULT, postUserResult)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* doPostUserResult() {
+    yield fork(postUserResultWatcher)
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function* fetchUserActions() {
     try {
@@ -140,6 +165,26 @@ function* doFetchQuizzes() {
     yield fork(fetchUserActionsWatcher)
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function* fetchMyResults() {
+    try {
+        const data = yield HttpUtils.getJsonAuthorization('/result/my');
+        if (data) {
+            yield put(fetchMyResultsSuccess(data));
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+function* fetchMyResultsWatcher() {
+    yield takeLatest(FETCH_RESULTS, fetchMyResults)
+}
+
+function* doFetchMyResults() {
+    yield fork(fetchMyResultsWatcher)
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -192,7 +237,7 @@ function* fetchRooms(params) {
             yield put(fetchRoomsSuccess(data));
         }
     } catch (e) {
-        console.log(e)
+        console.log(e);
     }
 }
 

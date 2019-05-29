@@ -1,0 +1,32 @@
+.luantnguyen-footer {
+    padding: 0;
+}
+
+.luantnguyen-footer .copyright {
+    padding: 10px;
+    background-color: #fff;
+    font-size: 15.5px;
+    border-top: 3px solid black;
+    margin: 0;
+    font-family: 'Muli', sans-serif;
+}
+
+.luantnguyen-footer .infor {
+    padding: 50px 20px 20px 20px;
+    font-family: 'Lato', 'sans-serif';
+    font-size: 14px;
+    background-color: #fff;
+    margin: 0;
+}
+
+.luantnguyen-footer .infor h5 {
+    font-size: 17px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid black;
+}
+
+.luantnguyen-footer-ul li {
+    margin-bottom: 10px;
+    font-family: 'Muli', sans-serif;
+}

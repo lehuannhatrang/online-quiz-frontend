@@ -1,6 +1,8 @@
 import {
     AUTHENTICATE,
     AUTHENTICATE_SUCCESS,
+    POST_RESULT,
+    POST_RESULT_SUCCESS,
     FETCH_USER,
     FETCH_USER_SUCCESS, 
     FETCH_USERS, 
@@ -15,8 +17,11 @@ import {
     FETCH_QUIZ_SUCCESS,
     FETCH_ROOMS,
     FETCH_ROOMS_SUCCESS,
+    //FETCH_ROOMS_FAILED,
     FETCH_PUBLIC_QUIZZES,
     FETCH_PUBLIC_QUIZZES_SUCCESS,
+    FETCH_RESULTS,
+    FETCH_RESULTS_SUCCESS,
     FETCH_REPORTS,
     FETCH_REPORTS_SUCCESS,
     REQUEST_FAILED
@@ -133,6 +138,12 @@ export function fetchRoomsSuccess(rooms){
     }
 }
 
+// export function fetchRoomsFailed(errorMessage) {
+//     return {
+//         type: FETCH_ROOMS_FAILED,
+//         errorMessage,
+//     }
+// }
 
 export function fetchPublicQuizzes(){
     return {
@@ -147,9 +158,36 @@ export function fetchPublicQuizzesSuccess(quizzes){
     }
 }
 
+export function postResult(room, userAnswer) {
+    return {
+        type: POST_RESULT,
+        room,
+        userAnswer,
+    }
+}
 export function fetchReports(){
     return {
         type: FETCH_REPORTS
+    }
+}
+
+export function postResultSuccess(score) {
+    return {
+        type: POST_RESULT_SUCCESS,
+        score,
+    }
+}
+
+export function fetchMyResults() {
+    return {
+        type: FETCH_RESULTS,
+    }
+} 
+
+export function fetchMyResultsSuccess(results) {
+    return {
+        type: FETCH_RESULTS_SUCCESS,
+        results,
     }
 }
 
