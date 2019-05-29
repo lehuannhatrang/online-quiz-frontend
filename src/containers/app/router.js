@@ -22,6 +22,7 @@ import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import {selectCurrentUser} from "../app/selectors";
 import Teacher from "../../containers/teacher";
+import Forum from "../../containers/forum";
 
 
 class Router extends Component {
@@ -41,6 +42,11 @@ class Router extends Component {
                 <If condition={!(this.unAuthorizedUrl.indexOf(this.props.location.pathname) > -1) && !localStorage.getItem('userToken')}>
                     <Redirect to={{pathname: '/login', state: {redirect: this.props.location.pathname}}} />
                 </If>
+
+                <Switch>
+
+                <Route exact path="/forum" component={Forum}/>
+                </Switch>
 
                 {(!this.props.user || !this.props.user.userInfo) && this.unAuthorizedUrl.indexOf(location.pathname) > -1 && (
                     <Switch>

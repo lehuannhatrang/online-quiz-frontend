@@ -109,7 +109,7 @@ class LStudentHeader extends Component {
                                         <AnchorLink className="nav-link" href="#luantnguyen-student-room-input">Contest</AnchorLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink href="/student/forum">Forum</NavLink>
+                                        <NavLink href="/forum">Forum</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink href="#" onClick={() => { this.handleResultOpen(); }}>Result</NavLink>
