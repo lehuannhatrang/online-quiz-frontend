@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
 import Header from "../../components/control/header";
 import StudentList from "../teacher/studentList";
+import {selectRooms, selectQuizzes, selectReports} from '../app/selectors';
+import {fetchRooms, fetchQuizzes, fetchReports} from '../app/actions';
+import {connect} from "react-redux";
+import {createStructuredSelector} from 'reselect';
 
 class RoomReport extends Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+      this.props.fetchReports()
     }
 
     roomResultInforHardCode = [
@@ -57,4 +65,18 @@ class RoomReport extends Component {
     }
 }
 
-export default RoomReport;
+function mapDispatchToProps(dispatch) {
+  return {
+      fetchRooms: () => dispatch(fetchRooms()), 
+      fetchQuizzes: () => dispatch(fetchQuizzes()),
+      fetchReports: () => dispatch(fetchReports())
+  }
+}
+
+const mapStateToProps = createStructuredSelector({
+  rooms: selectRooms(),
+  quizzes: selectQuizzes(),
+  reports: selectReports(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomReport);
