@@ -7,6 +7,8 @@ import {fetchRooms, fetchQuizzes} from '../app/actions';
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import HttpUtil from "../../utils/http.util";
+import {toast} from "react-toastify";
+
 
 class Room extends Component {
     constructor(props) {
@@ -19,9 +21,12 @@ class Room extends Component {
           date: "",
           startTime: "",
           endTime: "",
+          isEdit: false,
+          editRoom: {},
         }
         this.deleteRoom = this.deleteRoom.bind(this);
         this.handleSubmitRoom = this.handleSubmitRoom.bind(this);
+        this.editRoom = this.editRoom.bind(this);
     }
 
     componentDidMount() {
@@ -68,10 +73,120 @@ class Room extends Component {
       
     }
 
+    handleEditRoom() {
+      const duration = this.calculateTime(this.state.startTime, this.state.endTime);
+      if(duration < 0) {
+        alert("Set End time again");
+      }
+      else{
+        const data={
+          name: this.state.editRoomName,
+          QuizId: this.state.editQuizId,
+          startTime: `${this.state.editDate}T${this.state.editStartTime}:00Z`,
+          editDuration: duration,
+        };
+        HttpUtil.postJsonAuthorization('/room', data);        
+      }
+      
+    }
+
+
+
     deleteRoom(id) {
       HttpUtil.deleteJsonAuthorization(`/room`, {id: id})
         .then(res => this.props.fetchRooms())
       
+    }
+
+    editRoom(id) {
+      const editRoom = this.props.rooms.find(room => room.id === id);
+      this.setState({
+        editRoom,
+        editDate: editRoom.startTime.substring(0,10),
+        editDuration: editRoom.Duration,
+        editStartTime: editRoom.startTime.substring(11,16),
+        editRoomName: editRoom.name,
+        editQuizId: editRoom.QuizId,
+        editPassword: editRoom.password||'',
+      })
+      if(!(this.props.quizzes.length > 0)) toast.warn("Waiting for loading data ...");
+    }
+
+    renderForm(room) {
+      return(
+        <div id="editRoom" className="modal fade" role="dialog">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <form onSubmit={this.handleEdiitRoom}>
+
+                      <div className="modal-header">
+                        <h4 className="modal-title">Edit room</h4>
+                      </div>
+
+                      <div className="modal-body">
+                          <div className="form-group row">
+                            <label for="room-name" className="col-sm-2 col-form-label">Name:</label>
+                            <div className="col-sm-10">
+                              <input type="text" className="form-control" name="room-name" id="room-name" defaultValue={room.name||''}
+                                      onChange={e => this.setState({editRoomName: e.target.value})} placeholder="Enter room name"/>
+                            </div>
+                          </div>
+
+                          <div className="form-group row">
+                            <label for="room-password" className="col-sm-2 col-form-label">Password:</label>
+                            <div className="col-sm-10">
+                              <input type="password" className="form-control" id="room-password" defaultValue={room.password||''}
+                                      onChange={e => this.setState({editPassword: e.target.value})} placeholder="optional ..."/>
+                            </div>
+                          </div>
+
+                          <div className="form-group row">
+                            <label for="quiz-name" className="col-sm-2 col-form-label">Quiz:</label>
+                            <div className="col-sm-10">
+                              <select className="custom-select" id="quiz-name" defaultValue={room.QuizId||''} onChange={e => this.setState({editQuizId: e.target.value})}>
+                                <option disabled value=''>Select the quiz ...</option>
+                                {this.props.quizzes.length>0 && this.props.quizzes.map(quiz => (
+                                  <option value={quiz.id}>{quiz.name? quiz.name: quiz.id}</option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+
+                          <div className="form-group row">
+                            <label for="room-date" className="col-sm-2 col-form-label">Date:</label>
+                            <div className="col-sm-10">
+                              <input type="date" className="form-control" id="room-date" defaultValue={room.startTime ? room.startTime.substring(0,10): ''}
+                                      onChange={e => this.setState({editDate: e.target.value})} placeholder="Date ..."/>
+                            </div>
+                          </div>
+
+                          <div className="form-group row">
+                            <div className="start-time-container">
+                              <label for="start-time" className="col-sm-1 col-form-label">Start:</label>
+                              <div className="col-sm-10">
+                                <input type="text" className="form-control" id="start-time" defaultValue={room.startTime ? room.startTime.substring(11,16): ''} onChange={e => this.setState({editStartTime: e.target.value})} required/>
+                              </div>
+                            </div>
+
+                            <div className="end-time-container">
+                              <label for="end-time" className="col-sm-1 col-form-label">Duration (Minute)</label>
+                              <div className="col-sm-10">
+                                <input type="number" className="form-control" defaultValue={this.state.editDuration} id="duration" onChange={e => this.setState({editDuration: e.target.value})} required/>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" className="btn btn-default btn-newroom">Edit</button>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+      )
     }
 
     render() {
@@ -81,7 +196,7 @@ class Room extends Component {
             <Header></Header>
             <div id="quizz-container">
 
-              <div id="myModal" className="modal fade" role="dialog">
+              <div id="newRoom" className="modal fade" role="dialog">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <form onSubmit={this.handleSubmitRoom}>
@@ -153,11 +268,13 @@ class Room extends Component {
                   </div>
                 </div>
               </div>
+              
+              {this.props.quizzes.length > 0 && this.renderForm(this.state.editRoom)}
 
               <div>
                 <span id="quizz-header-text">Rooms</span>
                 <div className="button-container">
-                  <button className="button-primary" data-toggle="modal" data-target="#myModal">
+                  <button className="button-primary" data-toggle="modal" data-target="#newRoom">
                     <i className="ion-plus-round"></i>
                     ADD ROOM
                   </button>
@@ -177,7 +294,7 @@ class Room extends Component {
 
               <div className="quizzes-content-container">
                 <RoomTable searchingText={this.state.search} data= {rooms} 
-                            deleteRoom={this.deleteRoom}/>
+                            deleteRoom={this.deleteRoom} editRoom={this.editRoom}/>
               </div>
             </div>
             

@@ -57,7 +57,7 @@ class RoomTable extends Component {
                   </a>
                 </td>
                 <td className="edit-column quizz-column">
-                  <a href={`/teacher/room/${room.id}`}>
+                  <a href={`#`} data-toggle="modal" data-target="#editRoom" onClick={() => this.props.editRoom(room.id)}>
                     <i className="ion-edit"></i>
                   </a>
                 </td>
