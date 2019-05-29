@@ -314,7 +314,7 @@ const ListResultsInOneDay = ({ results }) => {
                     border: 'none',
                     outline: 'none',
                     color: '#1890ff',
-                }} href={"/luantnguyen/student/result/" + item.id}>View more</a>]}>
+                }} href={"/student/student/result/" + item.id}>View more</a>]}>
                     <List.Item.Meta
                         avatar={
                             (item.score === item.maxScore) ?

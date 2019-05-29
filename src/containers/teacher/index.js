@@ -21,6 +21,7 @@ class Teacher extends Component {
           <div>
             <React.Fragment>
             <Switch>
+                    <Route exact path="/teacher" component={Quizz}/>
                     <Route exact path="/teacher/quizz" component={Quizz}/>
                     <Route exact path="/teacher/quizz/new" component={NewQuiz}/>
                     <Route path='/teacher/quizz/edit' component={EditQuiz}/>

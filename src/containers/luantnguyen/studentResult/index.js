@@ -85,7 +85,7 @@ class StudentResult extends Component {
                                         <Col span={14} offset={5}>
                                             <Fade>
                                                 <h1 style={{fontSize: '40px', textAlign: 'center'}} className="font-weight-bold">{'Your result doesn\'t exists. Please try again!'}</h1>
-                                                <h4 style={{fontSize: '18px', marginTop: '50px', fontFamily: 'Muli', textAlign: 'center'}}><Link style={{ color: 'blue' }} to="/luantnguyen/dashboard/">{'Click here to comback to home page.'}</Link></h4>
+                                                <h4 style={{fontSize: '18px', marginTop: '50px', fontFamily: 'Muli', textAlign: 'center'}}><Link style={{ color: 'blue' }} to="/student/dashboard/">{'Click here to comback to home page.'}</Link></h4>
                                             </Fade>
                                         </Col>
                                     </Row>
@@ -153,7 +153,7 @@ class StudentResult extends Component {
                                             border: 'none',
                                             outline: 'none'
                                         }} htmlType="button" className="ltn-btn">
-                                            <Link to="/luantnguyen/dashboard">Back</Link>
+                                            <Link to="/student/dashboard">Back</Link>
                                         </Button>
                                     </Col>
                                 </Row>
@@ -184,7 +184,7 @@ class StudentResult extends Component {
                                 <Col span={14} offset={5}>
                                     <Fade>
                                         <h1 style={{fontSize: '40px', textAlign: 'center'}} className="font-weight-bold">{'You don\'t have any result yet. Please try again!'}</h1>
-                                        <h4 style={{fontSize: '18px', marginTop: '50px', fontFamily: 'Muli', textAlign: 'center'}}><Link style={{ color: 'blue' }} to="/luantnguyen/dashboard/">{'Click here to comback to home page.'}</Link></h4>
+                                        <h4 style={{fontSize: '18px', marginTop: '50px', fontFamily: 'Muli', textAlign: 'center'}}><Link style={{ color: 'blue' }} to="/student/dashboard/">{'Click here to comback to home page.'}</Link></h4>
                                     </Fade>
                                 </Col>
                             </Row>

@@ -21,7 +21,7 @@ class DashBoard extends Component {
               <nav className="clearfix" id="main-nav">
                 <ul>
                   <li><a href={this.props.user.userInfo? `/${this.props.user.userInfo.role}` : "/login"}>Home</a></li>
-                  <li><a href="#">Helps</a></li>
+                  <li><a href="/forum">Forum</a></li>
                   <li><a href="#">About Us</a></li>
                   
                   {!localStorage.getItem('userToken') && (
