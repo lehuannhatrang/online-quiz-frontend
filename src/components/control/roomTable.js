@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {toast} from "react-toastify";
+
 
 class RoomTable extends Component {
   constructor(props) {
@@ -41,6 +43,7 @@ class RoomTable extends Component {
                       dummy.select();
                       document.execCommand("copy");
                       document.body.removeChild(dummy);
+                      toast.success("Copied Room Id")
                     }}>
                       Copy id
                     </a>

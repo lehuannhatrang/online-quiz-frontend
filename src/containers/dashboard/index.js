@@ -20,10 +20,9 @@ class DashBoard extends Component {
               </a>
               <nav className="clearfix" id="main-nav">
                 <ul>
-                  <li><a href="#">Plans</a></li>
+                  <li><a href={this.props.user.userInfo? `/${this.props.user.userInfo.role}` : "/login"}>Home</a></li>
                   <li><a href="#">Helps</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Price</a></li>
+                  <li><a href="#">About Us</a></li>
                   
                   {!localStorage.getItem('userToken') && (
                       <li>
@@ -63,7 +62,7 @@ class DashBoard extends Component {
           </header>
           <section className="heading-section" style={{backgroundImage: "url(" + "/img/bgsection1.png" + ")"}}>
             <div className="clearfix sec1-container">
-            <div id="cta">
+            <div id="cta" style={{cursor: "default"}}>
               <h1><strong>Welcome to Online Quiz !</strong></h1>
               <p>Simple classroom application for fun, effective, engagement and fast assessments.</p>
             </div>

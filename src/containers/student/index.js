@@ -36,13 +36,14 @@ class Student extends Component {
                     </div>
                   </span>
                   {this.state.roomId.length === 0 && (<div className="row">
-                    <div className="col-5 offset-1">
+                    <div className="col-5 offset-1 mt-2">
                       <p className="text-danger">This field cannot be empty!</p>
                     </div>
                   </div>)}
                 </div>
               </div>
               <img src="https://static1.squarespace.com/static/5734ea3904426234cfb274bd/t/5b48039ff950b79b268cea76/1531446176681/Einstein.png"></img>
+            
             </div>
           </div>
         )

@@ -38,7 +38,7 @@ class Router extends Component {
                     <Redirect to={{pathname: '/login', state: {redirect: this.props.location.pathname}}} />
                 </If>
 
-                {this.unAuthorizedUrl.indexOf(location.pathname) > -1 && (
+                {!this.props.user && this.unAuthorizedUrl.indexOf(location.pathname) > -1 && (
                     <Switch>
                         <Route exact path="/" component={DashBoard}/>
                         <Route exact path="/signup" component={SignUp}/>
