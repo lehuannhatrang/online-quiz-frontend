@@ -13,7 +13,6 @@ class Luantnguyen extends Component {
     }
 
     render() {
-
         return (
             <Layout className="luantnguyen">
                 {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'student' && (

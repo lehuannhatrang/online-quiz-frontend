@@ -63,30 +63,19 @@ class StudentTest extends Component {
     }
 
     handleFinish() {
-		// let score = 0;
-		// for (let i = 0; i < this.state.questionList.length; ++i) {
-		// 	let rightAnswer = this.state.questionList[i].answer;
-		// 	const idAnswer = this.state.answers[i].charCodeAt(0) - 65;
-		// 	if (this.state.questionList[i].options[idAnswer] === rightAnswer)
-		// 		score += 1;
-		// }
-      	// this.setState({
-		// 	finish: true,
-		// 	//score: score > 0 ? score : 'zero',
-		// });
-		this.setState({
-			loadingText: 'Submitting ...'
-		});
-		const studentAnswers = new Array(this.state.questionList.length);
-		for (let i = 0; i < this.state.questionList.length; ++i) {
-			const charAns = this.state.answers[i];
-			if (charAns === undefined) {
-				continue;
+			this.setState({
+				loadingText: 'Submitting ...'
+			});
+			const studentAnswers = new Array(this.state.questionList.length);
+			for (let i = 0; i < this.state.questionList.length; ++i) {
+				const charAns = this.state.answers[i];
+				if (charAns === undefined) {
+					continue;
+				}
+				const idAnswer = charAns.charCodeAt(0) - 65;
+				studentAnswers[i] = this.state.questionList[i].options[idAnswer];
 			}
-			const idAnswer = charAns.charCodeAt(0) - 65;
-			studentAnswers[i] = this.state.questionList[i].options[idAnswer];
-		}
-		this.props.postResult(this.props.match.params.roomId, studentAnswers);
+			this.props.postResult(this.props.match.params.roomId, studentAnswers);
     }
 
 	handleChangeAnswer(id, val) {
@@ -257,7 +246,7 @@ class StudentTest extends Component {
 				if (this.props.rooms.id !== undefined) {
 					const room = this.props.rooms;
 					//const startTime = parseISOString(room.startTime);
-					const startTime = new Date(2019, 4, 28, 9, 53, 19);
+					const startTime = new Date(2019, 4, 29, 21, 6, 19);
 					const duration = room.Duration;
 					const questionList = room.quiz.questions;
 					this.setState({
