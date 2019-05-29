@@ -8,7 +8,7 @@ import './lheader.css';
 
 const { Header } = Layout;
 
-class LHeader extends Component {
+class LStudentHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
