@@ -12,6 +12,8 @@ import SignUp from "../signup";
 import Student from "../student"
 import StudentTest from "../student/studentTest"
 import QuizResult from "../student/quizResult"
+import ReportTeacher from "../teacher/reportTeacher"
+import RoomReport from "../teacher/roomReport"
 import StudentResult from "../student/studentResult"
 import Admin from "../admin";
 import WrongPermission from "../errors/WrongPermission";
@@ -68,6 +70,9 @@ class Router extends Component {
                     <Route exact path="/student/result" component={StudentResult}/>
 
                     <Route path="/teacher/room/" component={Room}/>
+                    <Route path="/teacher/report/:roomid" component={RoomReport}/>
+                    <Route path="/teacher/report/" component={ReportTeacher}/>
+
                     <Route path="/student" component={WrongPermission}/>
                     <Route path="/admin" component={WrongPermission}/>
                     <Route path="" component={NotFound} />

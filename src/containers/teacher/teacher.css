@@ -8,7 +8,7 @@ body {
 #quizz-container {
   width: 82%;
   margin: 0 auto;
-  padding: 40px 0 84px;
+  padding: 40px 0 50px;
 }
 
 #quizz-header-text {
@@ -432,4 +432,28 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/* =================== Student Result ======================== */
+
+.student-result{
+  width: 82%;
+  margin: 0 auto;
+  color: #212529;
+  display: table;
+  border-spacing: 2px;
+  border-color: grey;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.student-result td,
+.student-result th{
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+.report-header{
+  font-size: 30px;
+  font-weight: 400;
 }
