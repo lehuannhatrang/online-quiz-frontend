@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import Header from "../../components/control/header";
 import ReportTable from "../../components/control/ReportTable";
+import {selectRooms, selectQuizzes, selectReports} from '../app/selectors';
+import {fetchRooms, fetchQuizzes, fetchReports} from '../app/actions';
+import {connect} from "react-redux";
+import {createStructuredSelector} from 'reselect';
 
 class ReportTeacher extends Component {
     constructor(props) {
@@ -13,7 +17,28 @@ class ReportTeacher extends Component {
           date: "",
           startTime: "",
           endTime: "",
+          reports: [],
         }
+    }
+
+    componentDidMount() {
+      this.props.fetchReports();
+      this.props.fetchRooms();
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if(nextProps.reports.length > 0 && nextProps.rooms.length > 0) {
+        const newReport = nextProps.reports.map(report => {
+          const room = nextProps.rooms.find(room => room.id === report.roomID)
+          return{
+            id: report.id,
+            name: room.name,
+            start: room.startTime,
+            numberOfStudent: 10,
+          }
+        }, nextProps)
+        this.setState({reports: newReport})
+      }
     }
 
     reportInforHardCode = [
@@ -50,7 +75,7 @@ class ReportTeacher extends Component {
               </div>
 
               <div className="quizzes-content-container">
-                <ReportTable searchingText={this.state.search} data= {rooms}/>
+                <ReportTable searchingText={this.state.search} data= {this.state.reports}/>
               </div>
             </div>
             
@@ -59,4 +84,18 @@ class ReportTeacher extends Component {
     }
 }
 
-export default ReportTeacher;
+function mapDispatchToProps(dispatch) {
+  return {
+      fetchRooms: () => dispatch(fetchRooms()), 
+      fetchQuizzes: () => dispatch(fetchQuizzes()),
+      fetchReports: () => dispatch(fetchReports())
+  }
+}
+
+const mapStateToProps = createStructuredSelector({
+  rooms: selectRooms(),
+  quizzes: selectQuizzes(),
+  reports: selectReports(),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReportTeacher);

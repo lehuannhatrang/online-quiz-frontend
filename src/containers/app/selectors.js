@@ -44,6 +44,8 @@ createSelector(selectGlobal, global => global.get('rooms'));
 const selectPublicQuizzes = () =>
     createSelector(selectGlobal, global => global.get('publicQuizzes'));
 
+const selectReports = () =>
+    createSelector(selectGlobal, global => global.get('reports'));
 const selectScore = () => 
     createSelector(selectGlobal, global => global.get('score'));
 
@@ -66,6 +68,7 @@ export {
     selectQuiz,
     selectRooms,
     selectPublicQuizzes,
+    selectReports,
     selectScore,
     selectResults,
 }

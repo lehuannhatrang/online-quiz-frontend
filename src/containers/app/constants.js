@@ -29,6 +29,9 @@ export const FETCH_ROOMS_SUCCESS = 'online-quiz/App/FETCH_ROOMS_SUCCESS';
 export const FETCH_PUBLIC_QUIZZES = 'online-quiz/App/FETCH_PUBLIC_QUIZZES';
 export const FETCH_PUBLIC_QUIZZES_SUCCESS = 'online-quiz/App/FETCH_PUBLIC_QUIZZES_SUCCESS';
 
+export const FETCH_REPORTS = 'online-quiz/App/FETCH_REPORT';
+export const FETCH_REPORTS_SUCCESS = 'online-quiz/App/FETCH_REPORT_SUCCESS';
+
 export const FETCH_RESULTS = 'online-quiz/App/FETCH_RESULTS';
 export const FETCH_RESULTS_SUCCESS = 'online-quiz/App/FETCH_RESULTS_SUCCESS';
 //-----------------------------------------------------------------------------------------

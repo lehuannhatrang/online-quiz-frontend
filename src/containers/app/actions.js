@@ -22,6 +22,8 @@ import {
     FETCH_PUBLIC_QUIZZES_SUCCESS,
     FETCH_RESULTS,
     FETCH_RESULTS_SUCCESS,
+    FETCH_REPORTS,
+    FETCH_REPORTS_SUCCESS,
     REQUEST_FAILED
 } from "./constants";
 
@@ -163,6 +165,11 @@ export function postResult(room, userAnswer) {
         userAnswer,
     }
 }
+export function fetchReports(){
+    return {
+        type: FETCH_REPORTS
+    }
+}
 
 export function postResultSuccess(score) {
     return {
@@ -181,6 +188,13 @@ export function fetchMyResultsSuccess(results) {
     return {
         type: FETCH_RESULTS_SUCCESS,
         results,
+    }
+}
+
+export function fetchReportsSuccess(reports){
+    return {
+        type: FETCH_REPORTS_SUCCESS,
+        reports
     }
 }
 
