@@ -1,0 +1,6 @@
+.ltn-btn:hover {
+    border-color: black;
+    outline-color: black;
+    color: white;
+    opacity: 0.8;
+}

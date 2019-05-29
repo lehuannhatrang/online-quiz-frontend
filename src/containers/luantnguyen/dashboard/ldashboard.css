@@ -1,0 +1,86 @@
+.do-quiz-btn:hover {
+    background-color: black !important;
+    color: white !important;
+}
+
+.super-contact-form {
+    padding-top: 90px;
+    background-color: white;
+    margin-right: 0px;
+    padding-right: 0px;
+    width: 100%;
+}
+
+
+.contact-form {
+    padding: 60px 0;
+    margin: 0;
+}
+
+.title {
+    margin-bottom: 40px;
+    font-weight: bold;
+    margin-right: 0;
+}
+
+.contact-form {
+    padding: 50px 45px;
+    box-shadow: 0 0 0 2px rgba(20, 20, 20, 0.2);
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+
+.contact-form label {
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+
+.contact-form h3{
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: bold;
+}
+.contact-form .ant-select-selection:focus, .contact-form .ant-select-selection:active {
+    border-color: black;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.contact-form .ant-select-selection:hover {
+    border-color: black;
+}
+
+.contact-form .ant-input:hover {
+    border: 1px solid black !important;
+}
+
+.contact-form .ant-input:focus {
+    border: 1px solid black !important;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.contact-form-dropdown .ant-select-dropdown-menu-item:hover {
+    background: black !important;
+    color: white !important;
+}
+
+.contact-form-dropdown .ant-select-dropdown-menu-item-active {
+    background: black !important;
+    color: white !important;
+}
+
+.contact-form-button {
+    background: black !important;
+    color: white !important;
+    width: 100%;
+    padding: 8px;
+    height: 40px;
+}
+
+.contact-form-button:focus, .contact-form-button:active, .contact-form-button:hover {
+    background: black !important;
+    color: white !important;
+    outline: none;
+    border: none;  
+}

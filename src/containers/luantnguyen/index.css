@@ -1,0 +1,8 @@
+.luantnguyen {
+    font-family: 'Playfair Display', serif;
+}
+
+.luantnguyen .ant-btn:hover {
+    color: black;
+    border-color: black;
+}
