@@ -45,6 +45,9 @@ class Login extends Component {
                 </div>
             )
 
+            if(this.props.user && !this.props.user.userInfo)    
+                return <Redirect to='/'/>
+
             if(this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'teacher')    
                 return <Redirect to='/teacher'/>
 
