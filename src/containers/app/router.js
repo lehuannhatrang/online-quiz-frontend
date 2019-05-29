@@ -21,6 +21,7 @@ import WrongPermission from "../errors/WrongPermission";
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import {selectCurrentUser} from "../app/selectors";
+import Teacher from "../../containers/teacher";
 
 
 class Router extends Component {
@@ -64,14 +65,8 @@ class Router extends Component {
                 {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'teacher' && (
                 <Switch>
                     <Route exact path="/" component={DashBoard}/>
-                    <Route exact path="/teacher" component={Quizz}/>
-                    <Route exact path="/teacher/quizz" component={Quizz}/>
-                    <Route exact path="/teacher/quizz/new" component={NewQuiz}/>
-                    <Route path='/teacher/quizz/edit' component={EditQuiz}/>
-                    <Route exact path="/student/result" component={StudentResult}/>
-                    <Route path="/teacher/room/" component={Room}/>
-                    <Route path="/teacher/report/:roomid" component={RoomReport}/>
-                    <Route path="/teacher/report/" component={ReportTeacher}/>
+                    <Route path="/teacher" component={Teacher}/>
+                    
 
                     <Route path="/student" component={WrongPermission}/>
                     <Route path="/admin" component={WrongPermission}/>
@@ -83,8 +78,7 @@ class Router extends Component {
                 {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'student' && (
                 <Switch>
                     <Route exact path="/" component={DashBoard}/>
-                    <Route path="/luantnguyen" component={() => (<Luantnguyen user={this.props.user} />)} />
-                    <Route exact path="/student" component={Student}/>
+                    <Route path="/student" component={() => (<Luantnguyen user={this.props.user} />)}/>
                     <Route exact path="/student/test/:roomId" component={StudentTest}/>
                     <Route exact path="/student/result" component={StudentResult}/>
                     <Route exact path="/student/result/:quizid" component={QuizResult}/>
