@@ -75,7 +75,7 @@ class LStudentFooter extends Component {
                                 <div>
                                     <h5 style={{width: '30%'}}>Explore</h5>
                                     <ul className="list-unstyled luantnguyen-footer-ul" style={{fontSize: '14px'}}>
-                                        <li><Link to="/luantnguyen/dashboard" style={{color: 'black'}}>Home</Link></li>
+                                        <li><Link to="/student/dashboard" style={{color: 'black'}}>Home</Link></li>
                                         <li><Link to="/signup" style={{color: 'black'}}>Sign Up</Link></li>
                                         <li><AnchorLink offset='100' href="#luantnguyen-intro" style={{color: 'black'}}>Introduction</AnchorLink></li>
                                         <li><AnchorLink href="#luantnguyen-contact-form" style={{color: 'black'}}>Contact</AnchorLink></li>

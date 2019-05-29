@@ -103,6 +103,7 @@ function* doLogin() {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function* postUserResult(action) {
+    debugger;
     try {
         const data = yield HttpUtils.postJsonAuthorization('/result', {room: action.room, userAnswer: action.userAnswer});
         yield put(postResultSuccess(data.score));

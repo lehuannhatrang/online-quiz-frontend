@@ -103,13 +103,13 @@ class LStudentHeader extends Component {
                             <Navbar light expand="md" className="p-0">
                                 <Nav className="m-auto" navbar>
                                     <NavItem>
-                                        <NavLink href="/luantnguyen/dashboard">Home</NavLink>
+                                        <NavLink href="/student/dashboard">Home</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <AnchorLink className="nav-link" href="#luantnguyen-student-room-input">Contest</AnchorLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink href="/luantnguyen/forum">Forum</NavLink>
+                                        <NavLink href="/student/forum">Forum</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink href="#" onClick={() => { this.handleResultOpen(); }}>Result</NavLink>

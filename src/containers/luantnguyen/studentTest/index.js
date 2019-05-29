@@ -123,7 +123,7 @@ class StudentTest extends Component {
 							<Col span={14} offset={5}>
 								<Fade>
 									<h1 style={{fontSize: '40px', textAlign: 'center'}} className="font-weight-bold">{'Your exam has finished! Your score is ' + this.getScore() + '.'}</h1>
-									<h4 style={{fontSize: '18px', marginTop: '50px', fontFamily: 'Muli', textAlign: 'center'}}><Link style={{ color: 'blue' }} to="/luantnguyen/dashboard/">{'Click here to comback to home page.'}</Link></h4>
+									<h4 style={{fontSize: '18px', marginTop: '50px', fontFamily: 'Muli', textAlign: 'center'}}><Link style={{ color: 'blue' }} to="/student/dashboard/">{'Click here to comback to home page.'}</Link></h4>
 								</Fade>
 							</Col>
 						</Row>
