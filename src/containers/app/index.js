@@ -20,6 +20,7 @@ import Error from "../errors";
 import queryString from 'query-string';
 import {toast, ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ChatBox from '../chat-box';
 
 class App extends Component {
     constructor(props) {
@@ -51,6 +52,7 @@ class App extends Component {
         }
         return (
             <div>
+                <ChatBox/>
                 <Router location={this.props.location} />
                 <ToastContainer />
             </div>

@@ -20,6 +20,7 @@ import WrongPermission from "../errors/WrongPermission";
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import {selectCurrentUser} from "../app/selectors";
+import ChatBox from "../chat-box";
 
 
 class Router extends Component {
