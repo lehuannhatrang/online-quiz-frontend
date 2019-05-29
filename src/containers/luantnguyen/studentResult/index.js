@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
 import { Link, withRouter } from 'react-router-dom';
 import { Loading } from '../shared/LoadingComponent';
-import LStudentHeade from '../header';
+import LStudentHeader from '../header';
 import parseISOString from '../shared/parseISOString';
 import { Layout, message, notification, Button, Statistic, Row, Col, Divider, List, Icon } from 'antd';
 import './lstudentResult.css';
