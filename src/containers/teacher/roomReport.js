@@ -47,7 +47,7 @@ class RoomReport extends Component {
           <div>
             <Header/>
             <div id="quizz-container">
-
+              
               <div className="quizzes-search-bar">
                 <div className="quizzes-search-container">
                   <span className="input-search-container">

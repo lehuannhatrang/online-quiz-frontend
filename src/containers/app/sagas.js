@@ -10,7 +10,6 @@ import {
     FETCH_ROOMS,
     FETCH_PUBLIC_QUIZZES,
     FETCH_REPORTS,
-    FETCH_PUBLIC_QUIZZES,
     FETCH_RESULTS,
     POST_RESULT,
 } from "./constants";
@@ -308,6 +307,8 @@ export default function* root() {
             doFetchRooms(),
             doFetchPublicQuizzes(),
             doFetchReports(),
+            doFetchMyResults(),
+            doPostUserResult(),
         ])
     } catch (e) {
         console.log(e)

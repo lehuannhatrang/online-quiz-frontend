@@ -21,7 +21,6 @@ import {
     FETCH_PUBLIC_QUIZZES_SUCCESS,
     FETCH_REPORTS,
     FETCH_REPORTS_SUCCESS,
-    FETCH_USERS_ACTIONS_SUCCESS
     FETCH_USERS_ACTIONS_SUCCESS,
     POST_RESULT,
     POST_RESULT_SUCCESS,
@@ -42,7 +41,7 @@ const initialState = fromJS({
     quiz: {},
     rooms: [],
     publicQuizzes: [],
-    reports: []
+    reports: [],
     results: undefined,
     score: null,
 });
