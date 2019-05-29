@@ -30,7 +30,7 @@ class Luantnguyen extends Component {
                         <Switch>
                             <Route exact path="/luantnguyen/dashboard" component={() => (<LStudentDashboard user={this.props.user} />)} />
                             <Route exact path="/luantnguyen/student/test/:roomId" component={() => (<StudentTest student={this.props.user} />)} />
-                            <Route exact path="/luantnguyen/student/result/:resultId" component={StudentResult} />
+                            <Route exact path="/luantnguyen/student/result/:resultId" component={() => (<StudentResult student={this.props.user} />)} />
                             <Redirect to="/luantnguyen/dashboard" />
                         </Switch>
                         <LStudentFooter />

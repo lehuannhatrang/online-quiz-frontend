@@ -15,25 +15,13 @@ const enumerate = (arr) => {
 const capitalize = (str) => {
 	return str[0].toUpperCase() + str.slice(1);
 }
-class QuestionsList extends Component {
+class QuestionsResultList extends Component {
 	constructor(props) {
 		super(props);
-		this.handleChange = this.handleChange.bind(this);
-	}
-
-	handleChange(id, e) {
-		var val = e.target.value;
-		this.props.handleChangeAnswer(id, val);
 	}
 
 	render() {
-		const radioStyles = {
-			display: 'block',
-			height: '30px',
-			lineHeight: '30px',
-		};
 		return (
-			
 			<List itemLayout="vertical" dataSource={this.props.data.entries()} 
 				renderItem={
 					item => {
@@ -54,7 +42,7 @@ class QuestionsList extends Component {
 									</RadioGroup> */}
 									<div className="float-right" style={{ marginRight: '20px'}}>
 										<span>Your Answer: </span>
-										<RadioGroup name={'question' + (item[0] + 1)} buttonStyle="solid" size="small" onChange={(e) => { this.handleChange(item[0], e)}}>
+										<RadioGroup name={'question' + (item[0] + 1)} buttonStyle="solid" size="small">
 											{enumerate(item[1].options).map(option => (
 												<Radio.Button key={option[0]} value={String.fromCharCode(65 + option[0])}><span style={{ padding: '5px 8px' }}>{String.fromCharCode(65 + option[0])}</span></Radio.Button>
 											))}
@@ -70,4 +58,4 @@ class QuestionsList extends Component {
 	}
 }
 
-export default QuestionsList
+export default QuestionsResultList

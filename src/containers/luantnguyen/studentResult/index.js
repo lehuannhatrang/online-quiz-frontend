@@ -1,19 +1,15 @@
-import React, {Component} from 'react';
-import '../studentTest/lstudentTest.css';
-import QuestionsList from "../studentTest/QuestionsListComponent";
-import { Loading } from '../shared/LoadingComponent';
-import CountDown from '../shared/CountDownComponent';
-import { Link, withRouter } from 'react-router-dom';
-import { LStudentHeader } from '../header';
-import { selectRooms, selectScore, selectLoading, selectResults } from '../../app/selectors';
-import { fetchRooms, postResult, fetchMyResults } from '../../app/actions';
+import React, { Component } from 'react';
+import QuestionsResultList from "./QuestionsResultListComponent";
+import { selectRooms, selectLoading, selectResults } from '../../app/selectors';
+import { fetchRooms, fetchMyResults } from '../../app/actions';
 import { connect } from "react-redux";
 import { createStructuredSelector } from 'reselect';
-import * as ReadyModes from '../shared/ReadyModes';
+import { Link, withRouter } from 'react-router-dom';
+import { Loading } from '../shared/LoadingComponent';
+import { LStudentHeader } from '../header';
 import parseISOString from '../shared/parseISOString';
 import { Layout, message, notification, Button, Statistic, Row, Col, Divider, List, Icon } from 'antd';
-import { Scrollbars } from 'react-custom-scrollbars';
-import RoomIdFailed from '../studentTest/RoomIdFailedComponent';
+import './lstudentResult.css';
 import Fade from 'react-reveal/Fade';
 
 const { Content } = Layout;
@@ -27,314 +23,192 @@ const colStyles = {
 class StudentResult extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-        	questionList: null,
-			duration: null,
-			startTime: null,
-			ready: ReadyModes.UNDECIDED,
-			finish: false,
-			roomIdFailed: false,
-			loadingText: 'Checking History ...',
-			answers: null,
-			score: null,
-		};
-
-        this.handleSetReady = this.handleSetReady.bind(this);
-		this.handleFinish = this.handleFinish.bind(this);
-		this.handleChangeAnswer = this.handleChangeAnswer.bind(this);
+            flag: false,
+            allRooms: null,
+        };
     }
-
+    
     componentDidMount() {
-		//Check user did quiz.
-		this.props.fetchMyResults();
-      	//this.props.fetchRooms();
+        this.props.fetchMyResults();
     }
 
-    handleSubmit(){
-      	
+    getScores(questionList, userAnswers) {
+        var n = userAnswers.length;
+        const scores = (new Array(n)).fill(false);
+        for (let i = 0; i < n; ++i) {
+            if (userAnswers[i] !== null && userAnswers[i] !== undefined) {
+                if (questionList[i].answer === userAnswers[i]) {
+                    scores[i] = true;
+                }
+            }
+        }
+        return scores;
     }
 
-    handleSetReady() {
-      	this.setState({
-        	ready: ReadyModes.READY,
-      	});
-    }
+    render() {
+        const resultId = this.props.match.params.resultId;
 
-    handleFinish() {
-		// let score = 0;
-		// for (let i = 0; i < this.state.questionList.length; ++i) {
-		// 	let rightAnswer = this.state.questionList[i].answer;
-		// 	const idAnswer = this.state.answers[i].charCodeAt(0) - 65;
-		// 	if (this.state.questionList[i].options[idAnswer] === rightAnswer)
-		// 		score += 1;
-		// }
-      	// this.setState({
-		// 	finish: true,
-		// 	//score: score > 0 ? score : 'zero',
-		// });
-		this.setState({
-			loadingText: 'Submitting ...'
-		});
-		const studentAnswers = new Array(this.state.questionList.length);
-		for (let i = 0; i < this.state.questionList.length; ++i) {
-			const charAns = this.state.answers[i];
-			if (charAns === undefined) {
-				continue;
-			}
-			const idAnswer = charAns.charCodeAt(0) - 65;
-			studentAnswers[i] = this.state.questionList[i].options[idAnswer];
-		}
-		this.props.postResult(this.props.match.params.roomId, studentAnswers);
-    }
-
-	handleChangeAnswer(id, val) {
-		this.setState({
-			answers: this.state.answers.fill(val, id, id + 1),
-		});
-	}
-
-	getScore() {
-		if ( this.props.score === null ) {
-			if (this.state.score === null) {
-				return 'zero';
-			}
-			else {
-				return this.state.score;
-			}
-		}
-		else {
-			return this.props.score;
-		}
-	}
-    render() { 
-		if ( this.state.roomIdFailed ) {
-			return (
-				<React.Fragment>
-					<LStudentHeader user={this.props.student} backgroundCol={'white'}/>
-					<Content style={{
+        if ( this.props.loading ) {
+            return (
+                <React.Fragment>
+                    <LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={null} results={undefined}/>
+                    <Content style={{
 						padding: '80px 0',
 						backgroundColor: 'white',
 					}}>
-						<RoomIdFailed />
+						<Loading text={'Loading Result ...'} />
 					</Content>
-				</React.Fragment>
-			);
-		}
-		else if (this.state.finish) {
-			return (
-				<React.Fragment>
-					<LStudentHeader user={this.props.student} backgroundCol={'white'}/>
-					<Content style={{
-						padding: '80px 0',
-						backgroundColor: 'white',
-					}}>
-						<Row style={{backgroundColor: 'white', padding: '80px 0'}}>
-							<Col span={14} offset={5}>
-								<Fade>
-									<h1 style={{fontSize: '40px', textAlign: 'center'}} className="font-weight-bold">{'Your exam has finished! Your score is ' + this.getScore() + '.'}</h1>
-									<h4 style={{fontSize: '18px', marginTop: '50px', fontFamily: 'Muli', textAlign: 'center'}}><Link style={{ color: 'blue' }} to="/luantnguyen/dashboard/">{'Click here to comback to home page.'}</Link></h4>
-								</Fade>
-							</Col>
-						</Row>
-					</Content>
-				</React.Fragment>
-			);
-		}
-		else if ( this.props.score !== null ) {
-			this.setState({
-				finish: true,
-			});
-		}  
-		else if (this.state.ready === ReadyModes.NON_READY) {
-			return (
-				<React.Fragment>
-					<LStudentHeader user={this.props.student} backgroundCol={'white'}/>
-					<Content style={{
-						padding: '80px 0',
-						backgroundColor: 'white',
-					}}>
-						<Row style={{backgroundColor: 'white', padding: '80px 0'}}>
-							<Col span={14} offset={5}>
-								<Fade>
-									<h1 style={{fontSize: '40px', textAlign: 'center'}} className="font-weight-bold">{'Your exam will start in some minutes later.'}</h1>
-									<div style={{ 
-										marginTop: '50px', marginLeft: 'auto', marginRight: 'auto', width: '25%',
-										backgroundColor: 'black', padding: '12px 15px', textAlign: 'center',
-										boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19)'}}>
-										<Statistic.Countdown value={this.state.startTime.getTime()} onFinish={this.handleSetReady} format="HH : mm : ss"
-											valueStyle={{
-												color: 'white',
-												fontSize: '30px',
-												fontFamily: 'Muli',
-											}}/>
-									</div>
-								</Fade>
-							</Col>
-						</Row>
-					</Content>
-				</React.Fragment>
-			);
-		}
-		else if (this.props.loading) {
-			return (
-				<React.Fragment>
-					<LStudentHeader user={this.props.student} backgroundCol={'white'}/>
-					<Content style={{
-						padding: '80px 0',
-						backgroundColor: 'white',
-					}}>
-						<Loading text={this.state.loadingText} />
-					</Content>
-				</React.Fragment>
-			);
-		}
-		else {
-			if (this.state.questionList && this.state.startTime && this.state.duration && this.state.ready === ReadyModes.READY) {
-				const endTime = this.state.startTime.getTime() + this.state.duration * 60 * 1000;
-				let key = 0;
-				var t = new Array(20);
-				return (
-					<React.Fragment>
-						<LStudentHeader user={this.props.student} backgroundCol={'white'}/>
-						<Content style={{
-							padding: '80px 0',
-							fontFamily: 'Muli',
-						}}>
-							<Row style={{padding: '30px 80px'}}>
-								<Col span={17} style={colStyles}>
-									<QuestionsList data={this.state.questionList} handleChangeAnswer={(id, val) => { this.handleChangeAnswer(id, val); }}/>
-								</Col>
-								<Col span={6} offset={1} style={colStyles}>
-									<h4 className="font-weight-bold">{this.props.rooms.name}</h4>
-									<Divider />
-									<Statistic.Countdown value={endTime} onFinish={this.handleFinish} format="HH:mm:ss"/>
-									<Divider style={{fontFamily: 'Muli', fontSize: '14px'}} orientation='right'>Trace board</Divider>
-									<List grid={{ column: 6 }} dataSource={this.state.answers.entries()} 
-										renderItem={
-											item => {
-												return (
-													<List.Item key={item[0]}>
-														<div style={{
-															padding: '1px',
-															textAlign: 'center',
-															fontWeight: 'bold',
-															color: 'white',
-															background: 'black',
-															fontSize: '11px',
-														}}>{item[0] + 1}</div>
-														<div style={{
-															padding: '2px 5px',
-															textAlign: 'center',
-															color: !item[1] ? 'red' : 'green',
-															fontSize: '15px',
-															borderBottom: '1px solid #eee',
-														}}>
-															{ !item[1] ? <Icon type="close"/> : <Icon type="check" /> }
-														</div>
-													</List.Item>
-												)
-											}
-										} />
-									<Divider />
-									<Button type="primary" size="large" style={{
-										width: '100%',
-										color: 'white',
-										backgroundColor: 'black',
-										border: 'none',
-										outline: 'none'
-									}} htmlType="button" className="ltn-btn" onClick={this.handleFinish}>
-										Submit Now
-									</Button>
-								</Col>
-							</Row>
-						</Content>
-					</React.Fragment>
-				);
-			}
-			else if (this.props.rooms) {
-				if (this.props.rooms.id !== undefined) {
-					const room = this.props.rooms;
-					//const startTime = parseISOString(room.startTime);
-					const startTime = new Date(2019, 4, 27, 17, 19, 19);
-					const duration = room.Duration;
-					const questionList = room.quiz.questions;
-					this.setState({
-						questionList, startTime, duration,
-						answers: new Array(questionList.length),
-					});
-					var now = new Date();
-					var ready = startTime.getTime() <= now.getTime() ? ReadyModes.READY : ReadyModes.NON_READY;
-					var finish = now.getTime() >= (startTime.getTime() + duration * 60 * 1000);
-					this.setState({
-						ready, finish
-					});
-				}
-				else if (this.props.rooms.length > 0) {
-					const roomId = this.props.match.params.roomId;
-					const theRoom = this.props.rooms.filter(room => room.id === roomId)[0];
-					if (theRoom === undefined) {
-						this.setState({
-							roomIdFailed: true,
-						});
-					}
-					else {
-						this.setState({
-							loadingText: 'Loading Room...',
-						});
-						this.props.fetchRooms(roomId);
-					}
-				}
-				else {
-					//checking
-					if ( this.props.results === null) {
-						this.setState({
-							loadingText: 'Checking Room ...',
-						});
-						this.props.fetchRooms();
-					}
-					else if (this.props.results !== undefined) {
-						const check = this.props.results.filter(result => result.room === this.props.match.params.roomId)[0];
-						if (!check) {
-							this.setState({
-								loadingText: 'Checking Room ...',
-							});
-							this.props.fetchRooms();
-						}
-						else {
-							this.setState({
-								score: check.score,
-								finish: true,
-							});
-						}
-					}
-				}
-			}
-			else {
-				return (
-					<LStudentHeader user={this.props.student} backgroundCol={'white'} /> 
-				)
-			}
-		}
-		return <div></div>;
-    }
+                </React.Fragment>
+            );
+        }
+        else if (this.props.results !== undefined) {
+            if (this.props.results) {
+                const result = this.props.results.filter(result => result.id === resultId)[0];
+                if (result === undefined) {
+                    if ( !this.state.flag ) {
+                        this.setState({
+                            flag: true,
+                        });
+                        this.props.fetchRooms();
+                        return (<div></div>);
+                    }
+                    else if (this.props.rooms.length > 0) {
+                        return (
+                            <React.Fragment>
+                                <LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={this.props.rooms} results={this.props.results}/>
+                                <Content style={{
+                                    padding: '80px 0',
+                                    backgroundColor: 'white',
+                                }}>
+                                    <Row style={{backgroundColor: 'white', padding: '80px 0'}}>
+                                        <Col span={14} offset={5}>
+                                            <Fade>
+                                                <h1 style={{fontSize: '40px', textAlign: 'center'}} className="font-weight-bold">{'Your result doesn\'t exists. Please try again!'}</h1>
+                                                <h4 style={{fontSize: '18px', marginTop: '50px', fontFamily: 'Muli', textAlign: 'center'}}><Link style={{ color: 'blue' }} to="/luantnguyen/dashboard/">{'Click here to comback to home page.'}</Link></h4>
+                                            </Fade>
+                                        </Col>
+                                    </Row>
+                                </Content>
+                            </React.Fragment>
+                        );
+                    }
+                    else {
+                        return (<div></div>);
+                    }
+                }
 
+                if (this.props.rooms.id !== undefined) {
+                    const room = this.props.rooms;
+                    const questionList = room.quiz.questions;
+                    const userAnswers = result.userAnswer;
+                    const scores = this.getScores(questionList, userAnswers);
+                    return (
+                        <React.Fragment>
+                            <LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={this.state.allRooms} results={this.props.results} />
+                            <Content style={{
+                                padding: '80px 0',
+                                fontFamily: 'Muli',
+                            }}>
+                                <Row style={{padding: '30px 80px'}}>
+                                    <Col span={17} style={colStyles}>
+                                        <QuestionsResultList data={questionList} answers={userAnswers}/>
+                                    </Col>
+                                    <Col span={6} offset={1} style={colStyles}>
+                                        <h4 className="font-weight-bold">{room.name}</h4>
+                                        <Divider />
+                                        <h5>Score: {result.score}</h5>
+                                        <Divider style={{fontFamily: 'Muli', fontSize: '14px'}} orientation='right'>Score board</Divider>
+                                        <List grid={{ column: 6 }} dataSource={scores.entries()} 
+                                            renderItem={
+                                                item => {
+                                                    return (
+                                                        <List.Item key={item[0]}>
+                                                            <div style={{
+                                                                padding: '1px',
+                                                                textAlign: 'center',
+                                                                fontWeight: 'bold',
+                                                                color: 'white',
+                                                                background: 'black',
+                                                                fontSize: '11px',
+                                                            }}>{item[0] + 1}</div>
+                                                            <div style={{
+                                                                padding: '2px 5px',
+                                                                textAlign: 'center',
+                                                                color: !item[1] ? 'red' : 'green',
+                                                                fontSize: '15px',
+                                                                borderBottom: '1px solid #eee',
+                                                            }}>
+                                                                { !item[1] ? <Icon type="close"/> : <Icon type="check" /> }
+                                                            </div>
+                                                        </List.Item>
+                                                    )
+                                                }
+                                            } />
+                                        <Divider />
+                                        <Button type="primary" size="large" style={{
+                                            width: '100%',
+                                            color: 'white',
+                                            backgroundColor: 'black',
+                                            border: 'none',
+                                            outline: 'none'
+                                        }} htmlType="button" className="ltn-btn">
+                                            <Link to="/luantnguyen/dashboard">Back</Link>
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Content>
+                        </React.Fragment>
+                    );
+                }
+                else if (this.props.rooms.length > 0) {
+                    this.setState({
+                        allRooms: this.props.rooms,
+                    });
+                    const roomId = result.room;
+                    this.props.fetchRooms(roomId);
+                }
+                else {
+                    this.props.fetchRooms();
+                }
+            }
+            else {
+                return (
+                    <React.Fragment>
+                        <LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={null} results={null}/>
+                        <Content style={{
+                            padding: '80px 0',
+                            backgroundColor: 'white',
+                        }}>
+                            <Row style={{backgroundColor: 'white', padding: '80px 0'}}>
+                                <Col span={14} offset={5}>
+                                    <Fade>
+                                        <h1 style={{fontSize: '40px', textAlign: 'center'}} className="font-weight-bold">{'You don\'t have any result yet. Please try again!'}</h1>
+                                        <h4 style={{fontSize: '18px', marginTop: '50px', fontFamily: 'Muli', textAlign: 'center'}}><Link style={{ color: 'blue' }} to="/luantnguyen/dashboard/">{'Click here to comback to home page.'}</Link></h4>
+                                    </Fade>
+                                </Col>
+                            </Row>
+                        </Content>
+                    </React.Fragment>
+                );
+            }
+        }
+        
+        return (<div></div>);
+    }
 }
-// option selected add class:  option-selected
 
 function mapDispatchToProps(dispatch) {
-  	return {
-	  	fetchRooms: (roomId) => dispatch(fetchRooms(roomId)),
-		postResult: (room, userAnswer) => dispatch(postResult(room, userAnswer)),
-		fetchMyResults: () => dispatch(fetchMyResults()),
-  	}
+    return {
+        fetchRooms: (roomId) => dispatch(fetchRooms(roomId)),
+        fetchMyResults: () => dispatch(fetchMyResults()),
+    }
 }
 
 const mapStateToProps = createStructuredSelector({
-  	rooms: selectRooms(),
-	loading: selectLoading(),
-	score: selectScore(),
-	results: selectResults(),
+    rooms: selectRooms(),
+    loading: selectLoading(),
+    results: selectResults(),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StudentResult));

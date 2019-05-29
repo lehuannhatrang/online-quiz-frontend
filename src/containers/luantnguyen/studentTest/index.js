@@ -12,7 +12,6 @@ import { createStructuredSelector } from 'reselect';
 import * as ReadyModes from '../shared/ReadyModes';
 import parseISOString from '../shared/parseISOString';
 import { Layout, message, notification, Button, Statistic, Row, Col, Divider, List, Icon } from 'antd';
-import { Scrollbars } from 'react-custom-scrollbars';
 import RoomIdFailed from './RoomIdFailedComponent';
 import Fade from 'react-reveal/Fade';
 
@@ -39,6 +38,7 @@ class StudentTest extends Component {
 			answers: null,
 			score: null,
 			flag: true,
+			allRooms: null,
 		};
 
         this.handleSetReady = this.handleSetReady.bind(this);
@@ -125,7 +125,7 @@ class StudentTest extends Component {
 		else if (this.state.finish) {
 			return (
 				<React.Fragment>
-					<LStudentHeader user={this.props.student} backgroundCol={'white'} results={this.props.results} rooms={this.props.rooms}/>
+					<LStudentHeader user={this.props.student} backgroundCol={'white'} results={this.props.results} rooms={this.state.allRooms}/>
 					<Content style={{
 						padding: '80px 0',
 						backgroundColor: 'white',
@@ -150,7 +150,7 @@ class StudentTest extends Component {
 		else if (this.state.ready === ReadyModes.NON_READY) {
 			return (
 				<React.Fragment>
-					<LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={this.props.rooms} results={this.props.results}/>
+					<LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={this.state.allRooms} results={this.props.results}/>
 					<Content style={{
 						padding: '80px 0',
 						backgroundColor: 'white',
@@ -197,7 +197,7 @@ class StudentTest extends Component {
 				var t = new Array(20);
 				return (
 					<React.Fragment>
-						<LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={this.props.rooms} results={this.props.results} />
+						<LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={this.state.allRooms} results={this.props.results} />
 						<Content style={{
 							padding: '80px 0',
 							fontFamily: 'Muli',
@@ -257,7 +257,7 @@ class StudentTest extends Component {
 				if (this.props.rooms.id !== undefined) {
 					const room = this.props.rooms;
 					//const startTime = parseISOString(room.startTime);
-					const startTime = new Date(2019, 4, 27, 17, 19, 19);
+					const startTime = new Date(2019, 4, 28, 9, 53, 19);
 					const duration = room.Duration;
 					const questionList = room.quiz.questions;
 					this.setState({
@@ -282,6 +282,7 @@ class StudentTest extends Component {
 					else {
 						this.setState({
 							loadingText: 'Loading Room...',
+							allRooms: this.props.rooms,
 						});
 						this.props.fetchRooms(roomId);
 					}
@@ -312,6 +313,7 @@ class StudentTest extends Component {
 							}
 							else if (this.props.rooms.length > 0) {
 								this.setState({
+									allRooms: this.props.rooms,
 									finish: true,
 								});
 							}

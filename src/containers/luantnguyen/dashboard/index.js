@@ -45,7 +45,12 @@ class LStudentDashboard extends Component {
             return (
                 <React.Fragment>
                     <LStudentHeader user={this.props.user} backgroundCol={'transparent'} rooms={null} results={undefined}/>
-                    <Loading text={'Loading Dashboard ...'} />
+                    <Content style={{
+						padding: '80px 0',
+						backgroundColor: 'white',
+					}}>
+						<Loading text={'Loading Dashboard ...'} />
+					</Content>
                 </React.Fragment>
             );
         }
