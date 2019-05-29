@@ -85,7 +85,7 @@ class Quizz extends Component {
                   <form onSubmit={this.handleSubmitRoom}>
 
                     <div className="modal-header">
-                      <h4 className="modal-title">Import from public Quizzes</h4>
+                      <h4 className="modal-title">Import from public Quizzes</h4> 
                     </div>
 
                     <div className="modal-body">
@@ -101,8 +101,8 @@ class Quizz extends Component {
                       <div className="form-group row">
                         <label for="quiz-name" className="col-sm-2 col-form-label">Public Quizzes</label>
                         <div className="col-sm-10">
-                          <select className="custom-select" id="quiz-name" onChange={e => this.handleImportQuizzes(e.target.value)}>
-                            <option disabled selected>Select the quiz ...</option>
+                          <select className="custom-select" id="quiz-name" defaultValue={"#"} onChange={e => this.handleImportQuizzes(e.target.value)}>
+                            <option disabled value={'#'}>Select the quiz ...</option>
                             {this.props.publicQuizzes.map(quiz => (
                               <option value={quiz.id}>{quiz.name? quiz.name : quiz.id}</option>
                             ))}

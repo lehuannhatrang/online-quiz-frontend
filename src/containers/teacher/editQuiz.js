@@ -2,19 +2,25 @@ import React, {Component} from 'react';
 import './teacher.css';
 import Header from "../../components/control/header";
 import Question from "../../components/control/question";
-import {selectQuizzes} from '../app/selectors';
-import {fetchQuizzes} from '../app/actions';
+import {selectQuizzes, selectUsers} from '../app/selectors';
+import {fetchQuizzes, fetchUsers} from '../app/actions';
 import {connect} from "react-redux";
 import {createStructuredSelector} from 'reselect';
 import HttpUtil from "../../utils/http.util";
 import { defaultCipherList } from 'constants';
+import { WithContext as ReactTags } from 'react-tag-input';
+import "./tag.css";
 
 class EditQuiz extends Component {
     constructor(props) {
         super(props);
         this.state = {
           questions : [],
-          quizName: this.props.quiz? this.props.quiz.quizName : 'Sample Quiz Name'
+          quizName: this.props.quiz? this.props.quiz.quizName : 'Sample Quiz Name',
+          isPublic: false,
+          suggestions: [],
+          tags: [],
+          initTags: false,
         }
     }
 
@@ -58,10 +64,11 @@ class EditQuiz extends Component {
 
     componentDidMount() {
         this.props.fetchQuizzes();
+        this.props.fetchUsers();
     }
 
     componentWillReceiveProps(newProps) {
-      if(newProps.quizzes.length > 0) {
+      if(newProps.quizzes.length > 0 && newProps.users.length > 0) {
         const thisQuiz = newProps.quizzes.find(quiz => quiz.id === location.pathname.replace(this.editQuizPath, ''))
         const newQuestion = thisQuiz.questions.map(question => {
           return {
@@ -73,6 +80,18 @@ class EditQuiz extends Component {
         this.setState({
           questions : newQuestion,
           quizName: thisQuiz.name,
+          tags: thisQuiz.shareWith.map(id => {
+            return{
+              id: id,
+              text: newProps.users.find(user => user.id === id).userInfo.displayName,
+            }
+          }, newProps),
+          suggestions: newProps.users.map(user => {
+            return {
+              id: user.id ,
+              text: user.userInfo.displayName,
+            }
+          }),
         });
       }
     }
@@ -90,10 +109,12 @@ class EditQuiz extends Component {
         id: location.pathname.replace(this.editQuizPath, ''),
         name: this.state.quizName,
         questions: this.state.questions,
+        isPublic: this.state.isPublic,
+        shareWith: this.state.tags.map(tag => tag.id),
       }
       debugger;
       HttpUtil.putJsonAuthorization(`/quiz`,data)
-        .then(res => this.props.fetchQuizzes())
+        .then(res => window.location="/teacher/quizz");
     }
 
     async deleteQuestion(index) {
@@ -137,6 +158,28 @@ class EditQuiz extends Component {
                 </div>
               </div>
 
+              <div className="row mt-2 ml-2 mb-2">
+                <label class="switch mr-2">
+                  <input type="checkbox" value="ok" onClick={() => this.setState({isPublic : !this.state.isPublic})}/>
+                  <span class="slider round"></span>
+                </label>
+                <span className={`d-inline ${this.state.isPublic? "text-success" : "text-muted"} pt-2 pb-2`}><h4>Public</h4></span>
+              </div>
+
+              <div className="row ml-2">
+                <h4>Share with</h4>
+              </div>
+
+              <div className="row ml-2">
+                <ReactTags tags={this.state.tags}
+                    suggestions={this.state.suggestions}
+                    handleDelete={(tag) => this.handleDelete(tag)}
+                    handleAddition={tag => this.handleAddition(tag)}
+                    handleDrag={this.handleDrag}
+                    delimiters={[188,13]} 
+                    placeholder="Add new user to share"/>
+              </div>
+
               <button className="button-primary new-btn" onClick={() => this.handleAddNewQuestion()}>
                 <i className="ion-plus-round"></i>
                 NEW
@@ -160,11 +203,13 @@ class EditQuiz extends Component {
 function mapDispatchToProps(dispatch) {
   return {
       fetchQuizzes: (id) => dispatch(fetchQuizzes()), 
+      fetchUsers: () => dispatch(fetchUsers()),
   }
 }
 
 const mapStateToProps = createStructuredSelector({
   quizzes: selectQuizzes(),
+  users: selectUsers(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditQuiz);
