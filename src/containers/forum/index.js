@@ -8,7 +8,7 @@ class Forum extends Component {
 
     render() {
         return (
-            <iframe style={{width: "100%", height:1000}} src={IndexConfig.FORUM_URL} />
+            <iframe style={{width: "100%", height: "100vh"}} src={IndexConfig.FORUM_URL} />
         );
     }
 };
