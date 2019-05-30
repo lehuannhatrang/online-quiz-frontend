@@ -246,7 +246,7 @@ class StudentTest extends Component {
 				if (this.props.rooms.id !== undefined) {
 					const room = this.props.rooms;
 					//const startTime = parseISOString(room.startTime);
-					const startTime = new Date(2019, 4, 29, 21, 6, 19);
+					const startTime = new Date(2019, 4, 30, 21, 11, 19);
 					const duration = room.Duration;
 					const questionList = room.quiz.questions;
 					this.setState({

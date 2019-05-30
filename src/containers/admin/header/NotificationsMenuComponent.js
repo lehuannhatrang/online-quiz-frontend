@@ -21,7 +21,7 @@ const NotificationItem = ({notification}) => {
 
     return (
         <Card style={{width: '90%', border: 'none'}} type="inner" key={notification.id}>
-            <Meta avatar={<Avatar src={notification.avatar} />} description={desc} />
+            <Meta avatar={<Avatar icon="user" style={{background: '#1890ff'}}/>} description={desc} />
         </Card>
     );
 };

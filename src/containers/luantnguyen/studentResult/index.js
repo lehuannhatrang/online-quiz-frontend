@@ -49,7 +49,7 @@ class StudentResult extends Component {
     render() {
         const resultId = this.props.match.params.resultId;
 
-        if ( this.props.loading ) {
+        if ( this.props.loading) {
             return (
                 <React.Fragment>
                     <LStudentHeader user={this.props.student} backgroundCol={'white'} rooms={null} results={undefined}/>
@@ -112,7 +112,8 @@ class StudentResult extends Component {
                             }}>
                                 <Row style={{padding: '30px 80px'}}>
                                     <Col span={17} style={colStyles}>
-                                        <QuestionsResultList data={questionList} answers={userAnswers}/>
+                                        {!this.state.rankVisible && <QuestionsResultList data={questionList} answers={userAnswers}/>}
+                                        {this.state.rankVisible && <Rank reports={this.props.reports} />}
                                     </Col>
                                     <Col span={6} offset={1} style={colStyles}>
                                         <h4 className="font-weight-bold">{room.name}</h4>
@@ -153,7 +154,7 @@ class StudentResult extends Component {
                                             border: 'none',
                                             outline: 'none'
                                         }} htmlType="button" className="ltn-btn">
-                                            <Link to="/student/dashboard">Rank</Link>
+                                            Rank
                                         </Button>
                                     </Col>
                                 </Row>

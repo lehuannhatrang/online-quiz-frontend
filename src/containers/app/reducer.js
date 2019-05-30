@@ -109,7 +109,7 @@ function appReducer(state = initialState, action) {
         case FETCH_REPORTS:
             return state.set('loading', true).set('error', false);
         case FETCH_REPORTS_SUCCESS:
-            return state.set('reports', action.reports).set('error', false);
+            return state.set('reports', action.reports).set('error', false).set('loading', false);
 
         case REQUEST_FAILED:
             return state.set('error', true).set('errorInfo', action.error).set('loading', false)
