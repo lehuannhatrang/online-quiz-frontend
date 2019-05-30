@@ -90,7 +90,7 @@ a {
 }
 
 .heading-section {
-  min-height: 550px;
+  min-height: 100vh;
   padding: 0;
   overflow: hidden;
   background-repeat: no-repeat;

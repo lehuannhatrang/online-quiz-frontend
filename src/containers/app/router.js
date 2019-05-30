@@ -54,7 +54,7 @@ class Router extends Component {
                 }
 
                 {/* waiting while data is fetching! */}
-                {!this.props.user && (
+                {!this.props.user && !(this.unAuthorizedUrl.indexOf(location.pathname) > -1) && (
                     <div>Loading .... </div>
                 )}
 
@@ -100,22 +100,6 @@ class Router extends Component {
                     <Route path="" component={NotFound} />
                 </Switch>
                 )}
-
-                {/* <Switch>
-                    <Route exact path="/" component={DashBoard}/>
-                    <Route exact path="/teacher" component={Quizz}/>
-                    <Route exact path="/teacher/quizz" component={Quizz}/>
-                    <Route exact path="/teacher/quizz/new" component={NewQuiz}/>
-                    <Route path='/teacher/quizz/edit' component={EditQuiz}/>
-                    <Route path="/teacher/room/" component={Room}/>
-                    <Route exact path="/student" component={Student}/>
-                    <Route exact path="/student/test/:roomId" component={StudentTest}/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/signup" component={SignUp}/>
-                    <Route path="/admin" component={Admin} />
-                    <Route path="" component={NotFound} />
-                </Switch> */}
-
             </div>
         );
     }

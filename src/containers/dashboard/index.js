@@ -69,8 +69,7 @@ class DashBoard extends Component {
             </div>
           </section>
           <section>
-            <div>
-              <h1>Under-contruction ...</h1>
+            <div style={{backgroundColor: "#8db4d0"}}>
             </div>
           </section>
           </div>
