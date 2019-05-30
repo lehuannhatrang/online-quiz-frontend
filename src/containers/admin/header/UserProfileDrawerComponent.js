@@ -252,10 +252,10 @@ class UserProfileDrawer extends Component {
         super(props);
 
         this.state = {
-            fullName: 'Luan Nguyen Trong',
+            fullName: this.props.admin.userInfo.displayName,
             birthday: new Date(1998, 10, 16),
-            email: 'luannguyentrong98@gmail.com',
-            phone: '0358684926',
+            email: this.props.admin.userInfo.mail,
+            phone: this.props.admin.userInfo.phone,
             address: '171 Quoc Lo 13 St., Binh Thanh',
             sex: 'male',
             curAvatarFile: null,
@@ -290,7 +290,7 @@ class UserProfileDrawer extends Component {
         return (
             
             <Drawer visible={this.props.visible} placement="right" closable={true} onClose={this.props.onClose} 
-                title={<RenderTitle avatar={this.props.avatar} name={this.props.name}/>}
+                title={<RenderTitle avatar={this.props.avatar} name={this.state.fullName}/>}
                 bodyStyle={{padding: 0, paddingTop: '15px'}} width={360} className="profile-drawer"
             >
                 <div style={{padding: '8px 14px', background: '#e6f7ff', width: '100%'}}>

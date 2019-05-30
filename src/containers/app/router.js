@@ -94,7 +94,7 @@ class Router extends Component {
                 {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'admin' && (
                 <Switch>
                     <Route exact path="/" component={DashBoard}/>
-                    <Route path="/admin" component={Admin} />
+                    <Route path="/admin" component={() => (<Admin admin={this.props.user} />)} />
                     <Route path="/teacher" component={WrongPermission}/>
                     <Route path="/student" component={WrongPermission}/>
                     <Route path="" component={NotFound} />

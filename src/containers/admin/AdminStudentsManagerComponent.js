@@ -89,7 +89,7 @@ class AdminStudentsManager extends Component {
         this.setState({ searchText: '' });
     }
     
-    confirmDeleteStudent = (id, name) => {
+    confirmDeleteStudent = (student) => {
         const key = `open${Date.now()}`;
         const btn = (
             <Button type="primary" size="small" onClick={() => {
@@ -101,35 +101,33 @@ class AdminStudentsManager extends Component {
         );
         notification.open({
             message: 'Do you want to delete?',
-            description: 'If you want to delete student named ' + name + ', please press confirm button below.',
+            description: 'If you want to delete student named ' + student.name + ', please press confirm button below.',
             btn,
             key,
         });
     }
 
-    visitStudentProfile = (id) => {
+    visitStudentProfile = (student) => {
         //get Teacher profile 
-        const studentProfile = {
-            avatar: imgSrc,
-            name: 'Tan Dinh Minh',
-            school: 'Nguyen Binh Khiem High School',
-            birthday: new Date(1998, 6, 21),
-            sex: 'Male',
-            phone: '0359217780',
+        student = {
+            ...student,
+            sex: (Math.random() < 0.5 ? 'Male' : 'Female'),
+            birthday: new Date(1998, 10, 16),
             address: '447 Hoa Hao St., District 10',
-            email: '1613074@hcmut.edu.vn',
+            avatar: imgSrc,
+            school: 'Nguyen Binh Khiem High School'
         };
 
         this.setState({
-            studentName: studentProfile.name,
-            studentAvatar: studentProfile.avatar,
-            studentSchool: studentProfile.school,
-            studentBirthday: studentProfile.birthday,
-            studentSex: studentProfile.sex,
-            studentPhone: studentProfile.phone,
-            studentEmail: studentProfile.email,
-            studentAddress: studentProfile.address,
-            studentId: id,
+            studentName: student.name,
+            studentAvatar: student.avatar,
+            studentSchool: student.school,
+            studentBirthday: student.birthday,
+            studentSex: student.sex,
+            studentPhone: student.phone,
+            studentEmail: student.mail,
+            studentAddress: student.address,
+            studentId: student.innerId,
         });
 
         this.setState({
@@ -138,16 +136,7 @@ class AdminStudentsManager extends Component {
     }
 
     render() {
-        let data = [];
-        for (let i = 0; i < 100; ++i) {
-            data.push({
-                key: i,
-                id: i,
-                name: 'Jim Green',
-                sex: 'Female',
-                school: 'Cam Loc II Primary School',
-            });
-        }
+        
         const columns = [
             {
                 title: 'Name',
@@ -159,15 +148,15 @@ class AdminStudentsManager extends Component {
                 ...this.getColumnSearchProps('name'),
             },
             {
-                title: 'Sex',
-                dataIndex: 'sex',
-                key: 'sex',
-                width: '15%',
+                title: 'Phone',
+                dataIndex: 'phone',
+                key: 'phone',
+                width: '18%',
             },
             {
-                title: 'School',
-                dataIndex: 'school',
-                key: 'school',
+                title: 'Mail',
+                dataIndex: 'mail',
+                key: 'mail',
                 width: '32%',
             },
             {
@@ -176,9 +165,9 @@ class AdminStudentsManager extends Component {
                 key: 'action',
                 render: (text, record) => (
                     <span>
-                        <span style={{color: '#1890ff', cursor: 'pointer'}} onClick={() => this.visitStudentProfile(record.id)}>Visit</span>
+                        <span style={{color: '#1890ff', cursor: 'pointer'}} onClick={() => this.visitStudentProfile(record)}>Visit</span>
                         <Divider type="vertical" />
-                        <span style={{color: '#1890ff', cursor: 'pointer'}} onClick={() => this.confirmDeleteStudent(record.id, record.name)}>Delete</span>
+                        <span style={{color: '#1890ff', cursor: 'pointer'}} onClick={() => this.confirmDeleteStudent(record)}>Delete</span>
                     </span>
                 )
             }
@@ -189,7 +178,7 @@ class AdminStudentsManager extends Component {
                 <Row type="flex" justify="space-around" align="middle" style={{padding: '35px 0px 55px 0px'}}>
                     <Col span={23}>
                         <Fade right>
-                            <Table columns={columns} dataSource={data} pagination={{ pageSize: 6 }}
+                            <Table columns={columns} dataSource={this.props.students} pagination={{ pageSize: 6 }}
                             title={() => <span>{'Student Accounts'}</span>} bordered size="middle"/>
                         </Fade>
                         <Modal className="my-modal" width={640} centered visible={this.state.modalVisible} footer={null} onCancel={(e) => {this.setState({ modalVisible: false });}}>

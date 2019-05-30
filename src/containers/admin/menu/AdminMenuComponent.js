@@ -85,7 +85,7 @@ class AdminMenu extends Component {
                         <br />
                         <Avatar style={{marginBottom: '14px'}} shape={this.props.avatarShape} src={imgSrc} size={75}/>
                         <div>
-                            <Link style={{color: '#1890ff', textDecoration: 'none'}} to="/admin/profile" className="text-uppercase font-weight-normal">{'Luan N.T'}<span style={x}>{'@'}{'0024'}</span></Link>
+                            <Link style={{color: '#1890ff', textDecoration: 'none'}} to="/admin/profile" className="text-uppercase font-weight-normal">{this.props.admin.userInfo.displayName}<span style={x}>{'@'}{'admin'}</span></Link>
                             {/* <Button size="small" type="primary" onClick={this.onToggleAvatarShape} style={{padding: 0}}>
                                 {
                                     (this.state.avatarShape === 'circle') ? 'sqr' : 'cir'
