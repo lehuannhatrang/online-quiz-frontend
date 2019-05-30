@@ -4,7 +4,8 @@ class Question extends Component {
   constructor(props){
     super(props);
     this.state = {
-      answer: this.props.data ? this.props.data.answer : 'A',
+      answer: this.props.data ? this.mapOptionToAnswer(this.props.data.options.findIndex(option => option === this.props.data.answer)) : '',
+      answerText: "",
       question: "",
       options: [
         "",
@@ -13,6 +14,34 @@ class Question extends Component {
         "",
       ],
     };
+  }
+
+  mapOptionToAnswer(index) {
+    switch(index){
+      case 0:
+        return "A";
+      case 1:
+        return "B";
+      case 2:
+        return "C";
+      case 3:
+        return "D";
+      defaut:
+        return "A";
+    }
+  }
+
+  mapAnswerToOption(answer) {
+    switch(answer){
+      case "A":
+        return 0;
+      case "B":
+        return 1;
+      case "C":
+        return 2;
+      case "D":
+        return 3;
+    }
   }
 
   async handleChange(type, value){
@@ -43,11 +72,14 @@ class Question extends Component {
       default:
         break;
     }
-
+    const answerText = await this.state.options[this.mapAnswerToOption(this.state.answer)];
+    await this.setState({
+      answerText
+    });
     this.props.onChange({
       question: this.state.question,
       options: this.state.options,
-      answer: this.state.answer,
+      answer: this.state.answerText,
     });
   }
 
