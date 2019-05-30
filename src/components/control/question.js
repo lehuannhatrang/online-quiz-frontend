@@ -4,7 +4,7 @@ class Question extends Component {
   constructor(props){
     super(props);
     this.state = {
-      answer: this.props.data ? this.props.data.options[this.mapAnswerToOption(this.props.data.answer)] : '',
+      answer: this.props.data ? this.mapOptionToAnswer(this.props.data.options.findIndex(option => option === this.props.data.answer)) : '',
       answerText: "",
       question: "",
       options: [
@@ -14,6 +14,21 @@ class Question extends Component {
         "",
       ],
     };
+  }
+
+  mapOptionToAnswer(index) {
+    switch(index){
+      case 0:
+        return "A";
+      case 1:
+        return "B";
+      case 2:
+        return "C";
+      case 3:
+        return "D";
+      defaut:
+        return "A";
+    }
   }
 
   mapAnswerToOption(answer) {
@@ -83,7 +98,6 @@ class Question extends Component {
   }
 
   render(){ 
-    debugger;
     return (
     <div className="question clearfix">
       <div className="question-number"><strong>{`#${this.props.number? this.props.number : 0}`}</strong></div>
