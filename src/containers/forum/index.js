@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import IndexConfig from '../../../configs'
 
 class Forum extends Component {
     constructor(props) {
@@ -7,7 +8,7 @@ class Forum extends Component {
 
     render() {
         return (
-            <iframe style={{width: "100%", height:1000}} src="http://dev-quizonline.pantheonsite.io/forum/?fbclid=IwAR2jaiAly1xnQym622Z_edxtMdZ9T_U26xAqZO4Q0lWMEUxWO6ocldayAV8" />
+            <iframe style={{width: "100%", height:1000}} src={IndexConfig.FORUM_URL} />
         );
     }
 };

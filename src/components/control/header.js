@@ -63,7 +63,7 @@ class Header extends Component {
                     <li className={location.pathname === "/teacher" ? "nav-li selected" : this.liSelected("/teacher/quizz")}><a href="/teacher/quizz">QUIZZES</a></li>
                     <li className={this.liSelected("/teacher/room")} ><a href="/teacher/room">ROOMS</a></li>
                     <li className={this.liSelected("/teacher/report")} ><a href="/teacher/report">REPORT</a></li>
-                    <li className={this.liSelected("/teacher/result")} ><a href="/teacher/result">RESULT</a></li>
+                    <li className={this.liSelected("/forum")} ><a href="/forum">FORUM</a></li>
                   </ul>
                   )}
 

@@ -43,14 +43,10 @@ class Router extends Component {
                     <Redirect to={{pathname: '/login', state: {redirect: this.props.location.pathname}}} />
                 </If>
 
-                <Switch>
-
-                <Route exact path="/forum" component={Forum}/>
-                </Switch>
-
                 {(!this.props.user || !this.props.user.userInfo) && this.unAuthorizedUrl.indexOf(location.pathname) > -1 && (
                     <Switch>
                         <Route exact path="/" component={DashBoard}/>
+                        <Route exact path="/forum" component={Forum}/>
                         <Route exact path="/signup" component={SignUp}/>
                         <Route exact path="/login" component={Login}/>
                     </Switch>
@@ -72,8 +68,7 @@ class Router extends Component {
                 <Switch>
                     <Route exact path="/" component={DashBoard}/>
                     <Route path="/teacher" component={Teacher}/>
-                    
-
+                    <Route exact path="/forum" component={Forum}/>     
                     <Route path="/student" component={WrongPermission}/>
                     <Route path="/admin" component={WrongPermission}/>
                     <Route path="" component={NotFound} />
@@ -84,6 +79,7 @@ class Router extends Component {
                 {this.props.user && this.props.user.userInfo && this.props.user.userInfo.role === 'student' && (
                 <Switch>
                     <Route exact path="/" component={DashBoard}/>
+                    <Route exact path="/forum" component={Forum}/>
                     <Route path="/student" component={() => (<Luantnguyen user={this.props.user} />)}/>
                     <Route exact path="/student/test/:roomId" component={StudentTest}/>
                     <Route exact path="/student/result" component={StudentResult}/>
