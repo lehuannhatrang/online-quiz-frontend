@@ -4,7 +4,8 @@ class Question extends Component {
   constructor(props){
     super(props);
     this.state = {
-      answer: this.props.data ? this.props.data.answer : 'A',
+      answer: this.props.data ? this.props.data.options[this.mapAnswerToOption(this.props.data.answer)] : '',
+      answerText: "",
       question: "",
       options: [
         "",
@@ -13,6 +14,19 @@ class Question extends Component {
         "",
       ],
     };
+  }
+
+  mapAnswerToOption(answer) {
+    switch(answer){
+      case "A":
+        return 0;
+      case "B":
+        return 1;
+      case "C":
+        return 2;
+      case "D":
+        return 3;
+    }
   }
 
   async handleChange(type, value){
@@ -43,11 +57,14 @@ class Question extends Component {
       default:
         break;
     }
-
+    const answerText = await this.state.options[this.mapAnswerToOption(this.state.answer)];
+    await this.setState({
+      answerText
+    });
     this.props.onChange({
       question: this.state.question,
       options: this.state.options,
-      answer: this.state.answer,
+      answer: this.state.answerText,
     });
   }
 
@@ -66,6 +83,7 @@ class Question extends Component {
   }
 
   render(){ 
+    debugger;
     return (
     <div className="question clearfix">
       <div className="question-number"><strong>{`#${this.props.number? this.props.number : 0}`}</strong></div>
