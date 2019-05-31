@@ -245,8 +245,8 @@ class StudentTest extends Component {
 			else if (this.props.rooms) {
 				if (this.props.rooms.id !== undefined) {
 					const room = this.props.rooms;
-					//const startTime = parseISOString(room.startTime);
-					const startTime = new Date(2019, 4, 30, 21, 11, 19);
+					const startTime = parseISOString(room.startTime);
+					// const startTime = new Date(2019, 5, 31, 9, 0, 0);
 					const duration = room.Duration;
 					const questionList = room.quiz.questions;
 					this.setState({
@@ -254,8 +254,8 @@ class StudentTest extends Component {
 						answers: new Array(questionList.length),
 					});
 					var now = new Date();
-					var ready = startTime.getTime() <= now.getTime() ? ReadyModes.READY : ReadyModes.NON_READY;
-					var finish = now.getTime() >= (startTime.getTime() + duration * 60 * 1000);
+					var ready = (startTime.getTime()-7*3600*1000) <= now.getTime() ? ReadyModes.READY : ReadyModes.READY;
+					var finish = now.getTime() >= ((startTime.getTime()-7*3600*1000) + duration * 60 * 1000);
 					this.setState({
 						ready, finish
 					});

@@ -32,7 +32,7 @@ class RoomTable extends Component {
             { rooms.map(room => {return(
               <tr key={room.id}>
                 <td className="room-name-column quizz-column room-name">
-                  <a id={`name-${room.id}`} title={`id: ${room.id}`} className="font-weight-bold" href={`/teacher/room/${room.id}`}>
+                  <a href={`#`} id={`name-${room.id}`} title={`id: ${room.id}`} className="font-weight-bold" onClick={() => this.props.editRoom(room.id)}>
                     {room.name}
                   </a>
                   <div className="float-right">

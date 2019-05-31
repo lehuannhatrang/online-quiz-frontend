@@ -84,7 +84,7 @@ class Room extends Component {
           startTime: `${this.state.editDate}T${this.state.editStartTime}:00Z`,
           Duration: Number(this.state.editDuration),
         };
-        HttpUtil.postJsonAuthorization('/room', data);        
+        HttpUtil.putJsonAuthorization('/room', data);        
       }
       
     }
