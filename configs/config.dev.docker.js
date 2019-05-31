@@ -1,6 +1,6 @@
 export const DEV_DOCKER_CONFIG = {
-    BACKEND_HOST: 'http://onlinequiz.com:5001',
+    BACKEND_HOST: 'https://online-quiz-ttcnpm.herokuapp.com',
     FRONT_END_HOST: 'http://onlinequiz.com',
-    BACKEND_API_URL: 'http://onlinequiz.com:5001/api',
+    BACKEND_API_URL: 'https://online-quiz-ttcnpm.herokuapp.com/api',
     FORUM_URL: 'https://dev-quizonline.pantheonsite.io/forum/',
 }

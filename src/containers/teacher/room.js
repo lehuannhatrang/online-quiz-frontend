@@ -66,24 +66,23 @@ class Room extends Component {
           name: this.state.roomName,
           QuizId: this.state.quizId,
           startTime: `${this.state.date}T${this.state.startTime}:00Z`,
-          Duration: duration,
+          Duration: Number(this.state.endTime),
         };
         HttpUtil.postJsonAuthorization('/room', data);        
       }
-      
     }
 
-    handleEditRoom() {
+    async handleEditRoom() {
       const duration = this.calculateTime(this.state.startTime, this.state.endTime);
       if(duration < 0) {
         alert("Set End time again");
       }
       else{
-        const data={
+        const data= await {
           name: this.state.editRoomName,
           QuizId: this.state.editQuizId,
           startTime: `${this.state.editDate}T${this.state.editStartTime}:00Z`,
-          editDuration: duration,
+          Duration: Number(this.state.editDuration),
         };
         HttpUtil.postJsonAuthorization('/room', data);        
       }
@@ -251,9 +250,9 @@ class Room extends Component {
                             </div>
 
                             <div className="end-time-container">
-                              <label for="end-time" className="col-sm-1 col-form-label">End:</label>
+                              <label for="end-time" className="col-sm-1 col-form-label">Duration:</label>
                               <div className="col-sm-10">
-                                <input type="time" className="form-control" id="end-time" onChange={e => this.setState({endTime: e.target.value})} required/>
+                                <input type="number" className="form-control" id="end-time" onChange={e => this.setState({endTime: e.target.value})} required/>
                               </div>
                             </div>
                           </div>
