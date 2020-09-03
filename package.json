@@ -112,7 +112,7 @@
     "rimraf": "2.6.2",
     "routes": "^2.1.0",
     "sass-loader": "6.0.6",
-    "serve": "^9.4.0",
+    "serve": "^10.1.2",
     "source-list-map": "2.0.0",
     "style-loader": "0.19.1",
     "styled": "^1.0.0",
